@@ -1,0 +1,10 @@
+﻿@{ 
+    var OrgShortName = Session["OrgShortName"] != null ? Convert.ToString(Session["OrgShortName"]) : string.Empty;
+        }
+
+<footer class="footer">
+    <div class="text-center" id="lblCopyRightp">
+        &copy;  @DateTime.Now.Year Copyright @OrgShortName. All Rights Reserved.
+    </div>
+</footer>
+

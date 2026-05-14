@@ -1,0 +1,67 @@
+﻿<style>
+    #slider label {
+        position: absolute;
+        width: 20px;
+        margin-left: -10px;
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<form id="frmRequest">
+    <div class="container-fluid" style="min-height:250px;">
+        <div class="form-horizontal">
+
+            <div class="form-group form-group-sm">
+                <div class="col-sm-4">
+                    <label>Search Employee</label>
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control ui-autocomplete" id="searchEmp" >
+                    <input type="hidden" id="hdnsearchEmp" name="ToEmployeeId" />
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <div class="col-sm-4">
+                    <label>Area</label>
+                </div>
+                <div class="col-sm-4">
+                    <select class="form-control" id="ddlArea" name="AreaID">
+                        <option value="0">Please Select</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm" style="display:none">
+                <div class="col-sm-4">
+                    <label>Attribute</label>
+                </div>
+                <div class="col-sm-4">
+                    <select class="form-control">
+                        <option value="0">Please Select</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <div class="col-sm-4">
+                    <label>Comments</label>
+                </div>
+                <div class="col-sm-8">
+                    <textarea class="form-control" rows="4" cols="50" maxlength="700" id="txtComments" name="Feedback"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <div class="col-sm-4">
+                    <label>Ratings</label>
+                </div>
+                <div class="col-sm-4">
+                    <div id="slider"></div>
+                    <input type="hidden" id="hdnRating" name="Rating" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

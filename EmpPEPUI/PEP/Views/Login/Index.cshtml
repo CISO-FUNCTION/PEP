@@ -1,0 +1,88 @@
+
+@model EmpPEP.UI.Models.Login
+@{
+    Layout = null;
+}
+<head>
+    @*<link rel="shortcut icon" href="~/images/favicon.ico"  />*@
+    <link rel="shortcut icon" href="" id="faviconLink" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width" />
+    <title>Performance Enhancement Process</title>
+    @Styles.Render("~/Content/css")
+    @* Modernizr omitted on Login to avoid CSP violations (it injects inline styles for feature detection). *@
+    <style nonce="@ViewBag.Nonce">
+        .login-alert-hidden { display: none; }
+        .login-img-logo { width: 180px; }
+    </style>
+</head>
+<body class="background">
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/PEPScripts/Login.js?v=1" nonce="@ViewBag.Nonce"></script>
+    <script src="~/Scripts/PEPScripts/Common.js?v=1" nonce="@ViewBag.Nonce"></script>
+    <script src="~/Scripts/jquery.validate-vsdoc.js" nonce="@ViewBag.Nonce"></script>
+    <script src="~/Scripts/PEPScripts/CommonConfig.js?v=1" nonce="@ViewBag.Nonce"></script>
+    <script src="~/Scripts/PEPScripts/EmployeeLoginInfo.js" nonce="@ViewBag.Nonce"></script>
+    <div class="container">
+        <div>
+            <div class="login-container">
+                <div class="section">
+                    <div class="content">
+
+                        <div class="login-details">
+                            <div class="form">
+
+                                @*<p class="iglogo"><img src="~/images/infogain-logo1.png" /></p>*@
+                                <p class="iglogo"><img src="" /></p>
+                                <h1 class="login-title">PEP</h1>
+                                <h2 class="login-caption">Performance Enhancement Process</h2>
+                                <div class="alert alert-default login-alert-hidden" id="divLoginAlerts">
+                                    <button class="close" data-dismiss="alert"></button>
+                                </div>
+                                <div class="username">
+                                    @Html.TextBoxFor(model => model.Username, new { @id = "txtUserName", @class = "m-wrap placeholder-no-fix form-control", @placeholder = "Username", @autocomplete = "off" })
+                                </div>
+                                <div class="password">
+                                    @Html.PasswordFor(model => model.Password, new { @class = "m-wrap placeholder-no-fix form-control", @placeholder = "Password", @id = "txtPassword", @autocomplete = "off" })
+
+                                </div>
+                                <div class="login-btn" id="dvLoginButton">
+                                    <button class="btn zoom btn-login-submit" id="btnLogin" type="button">
+                                        Login
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="logo">
+            <label id="lblCopyRight" class="login-copyrght"></label>
+        </div>
+    </div>
+    @*<script src="js/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                var passwordField = document.getElementById('passworddiv');
+                passwordField.type = 'text';
+                passwordField.type = 'password';
+
+                $(' .password span').click(function () {
+                    if (passwordField.type == 'password') {
+                        passwordField.type = 'text';
+                        $(this).addClass('hide');
+                    } else {
+                        passwordField.type = 'password';
+                        $(this).removeClass('hide');
+                    }
+                });
+            });
+        </script>*@
+</body>

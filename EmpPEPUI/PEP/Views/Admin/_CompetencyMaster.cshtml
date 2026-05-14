@@ -1,0 +1,83 @@
+﻿@using EmpPEP.UI.Views.Admin;
+<div class="table-responsive">
+    <form id="formAppraisalCycle">
+        <table class="table table-striped tbl-my-kra" id="tblQuestionnairAddEdit">
+            <thead>
+                <tr>
+                <th>Area</th>
+                <th>Competencies</th>
+                <th>Rating 1 ToolTip</th>
+                <th>Rating 2 ToolTip</th>
+                <th>Rating 3 ToolTip</th>
+                <th>Rating 4 ToolTip</th>
+                <th>Rating 5 ToolTip</th>
+                <th>IsActive</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <select id="ddlAreaQM" class="input-exit form-control PEPAreaMasterDDL"></select></td>
+                    <td>
+                        <textarea id="txtQuestion" class="input-exit form-control" maxLength="255" onkeyup="RemoveScript('txtQuestion');" ></textarea>
+                         <div id="txtQuestionRemaining"></div>
+                    </td>
+                    <td>
+                        <textarea id="txtRate1" class="input-exit form-control" maxlength="255"  onkeyup="RemoveScript('txtRate1');" ></textarea>
+                    </td>
+                    <td>
+                        <textarea id="txtRate2" class="input-exit form-control" maxlength="255"  onkeyup="RemoveScript('txtRate2');"></textarea>
+                    </td>
+                    <td>
+                        <textarea id="txtRate3" class="input-exit form-control" maxlength="255"  onkeyup="RemoveScript('txtRate3');"></textarea>
+                    </td>
+                    <td>
+                        <textarea id="txtRate4" class="input-exit form-control" maxlength="255"  onkeyup="RemoveScript('txtRate4');"></textarea>
+                    </td>
+                    <td>
+                        <textarea id="txtRate5" class="input-exit form-control" maxlength="255"  onkeyup="RemoveScript('txtRate5');"></textarea>
+                    </td>
+                    <td>
+                       <input type="checkbox" id="isQuesActive" class="isActive" checked="checked"/>
+                           <input type="hidden" id="hdnQuestionnaireId" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" class="text-right">
+                        <input type="button" id="btnQM_UpSert" class="btn btn-primary" value="@Master.strInsert" onclick="SaveQuestionMaster()" />
+                        <input type="button" id="btnQM_Clear" class="btn btn-primary" value="@Master.strClear" onclick="ClearForm('QM')" />
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="12">
+                        <div class="alert alert-success display-hide" style="display: none;" id="divQM_ValidationAlert">
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        </form>
+</div>
+<div class="table-responsive">
+    @*<div class="table-responsive" style="height:289px">*@
+    <table class="table table-striped tbl-my-kra" id="tblQuestionnaireMaster" style="width:100%">
+        <thead>
+            <tr>
+                <th>Area</th>
+                <th>Competencies</th>
+                <th>Rating 1 ToolTip </th>
+                <th>Rating 2 ToolTip</th>
+                <th>Rating 3 ToolTip</th>
+                <th>Rating 4 ToolTip</th>
+                <th>Rating 5 ToolTip</th>
+                <th>IsActive</th>
+
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>

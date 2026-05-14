@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "EmployeeDashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .pep-jqplot-highlighter { /*tooltip for jqplot*/
+        background-color:#595b5b;
+        color:white;
+        border: 1px solid black;
+        padding: 5px 3px 5px 8px;
+    }
+</style>
+<div id="main-wrapper">
+    <div id="main" class="PageHeight">
+        <div class="row pg-main-title">
+            <div class="col-12 pg-title-border"><h4><b>DASHBOARD</b></h4></div>
+            
+        </div>
+         <div class="col-12" id="divEmployeeRatingGraph">
+             @Html.Partial("_EmployeeRatingGraph")
+        </div>
+        <div class="col-12" id="divEmployeeStrengthWeakness">
+           @Html.Partial("_EmployeeStrengthWeakness")
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/EmployeeDashboard.js"></script>
+
+    <link href="~/Scripts/jqPlot/jquery.jqplot.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jqPlot/jquery.jqplot.min.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.barRenderer.min.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.enhancedLegendRenderer.min.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.highlighter.min.js"></script>
+    
+}

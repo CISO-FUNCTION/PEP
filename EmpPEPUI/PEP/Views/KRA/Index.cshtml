@@ -1,0 +1,1540 @@
+@using EmpPEP.UI.Views.KRA;
+@{
+    ViewBag.Title = "Performance Management System";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    var strKRAUpdateMsg = "@KRA.strKRAUpdateSuccessMsg";
+    var strKRADeleteMsg = "@KRA.strKRADeleteSuccessMsg";
+    var strKRAInsertMsg = "@KRA.strKRAInsertSuccessMsg";
+    var strKRAInsert = "@KRA.strKRAInsert";
+    var strKRAUpdate = "@KRA.strKRAUpdate";
+    var strKRAEdit = "@KRA.strKRAEdit";
+    var strKRADelete = "@KRA.strKRADelete";
+    var strKRAEmptyFieldValidation = "@KRA.strKRAEmptyFieldValidation";
+    var strKRANumberRangeValidation = "@KRA.strKRANumberRangeValidation";
+    var strKRATextAreaLengthValidation = "@KRA.strKRATextAreaLengthValidation";
+    var strKRAErrorMsg = "@KRA.strKRAErrorMsg";
+    var strGoalType = "@KRA.strGoalType";
+    var strSeqNo = "@KRA.strSeqNo";
+    var strGoalDesc = "@KRA.strGoalDesc";
+    var strWeightage = "@KRA.strWeightage";
+    var strActionStep = "@KRA.strActionStep";
+    var strMeasure = "@KRA.strMeasure";
+    var strTargetDate = "@KRA.strTargetDate";
+    var strKRAStartDate = "@KRA.strKRAStartDate";
+    var strKRAEndDate = "@KRA.strKRAEndDate";
+    var strKRAStatus = "@KRA.strKRAStatus";
+    var strKRAStatusInitialised = "@KRA.strKRAStatusInitialised";
+    var strKRAStatusRejected = "@KRA.strKRAStatusRejected";
+    var strKRAStatusSubmitted = "@KRA.strKRAStatusSubmitted";
+    var strKRAStatusApproved = "@KRA.strKRAStatusApproved";
+    var strKRAStatusCompleted = "@KRA.strKRAStatusCompleted";
+    var strKRANotSubmitted = "@KRA.strKRANotSubmitted";
+    var strKRANotFilled = "@KRA.strKRANotFilled";
+    var strPrevKRAValidation = "@KRA.strPrevKRAValidation";
+    var strKRADateValidation = "@KRA.strKRADateValidation";
+</script>
+<style type="text/css">
+    #main-wrapper #main .col-md-5.AnnualRating div#lblratingField {
+        margin-bottom: 0px !important;
+        width: 45%;
+    }
+
+    .col-md-5.AnnualRating {
+        display: flex;
+        align-items: center;
+    }
+
+    div#lblratingValue {
+        height: 35px;
+        position: relative;
+        top: -1px;
+    }
+
+    .col-md-5.AnnualRating div#lblratingField h4 {
+        margin-top: 9px;
+        margin-bottom: 9px;
+    }
+    
+    /* Custom Reference Goal Modal - Skills multi-select: allow selected tags to wrap to multiple rows */
+    #customReferenceGoalModal .select2-container--default .select2-selection--multiple {
+        height: auto !important;
+        min-height: 34px !important;
+    }
+
+    #customReferenceGoalModal .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        white-space: normal !important;
+        padding: 2px 5px !important;
+        align-items: flex-start !important;
+    }
+
+    #customReferenceGoalModal .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        float: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        margin: 2px 4px 2px 0 !important;
+        white-space: nowrap !important;
+    }
+
+    #customReferenceGoalModal .select2-container--default .select2-selection--multiple .select2-search--inline {
+        float: none !important;
+        flex: 1 1 auto !important;
+        min-width: 80px !important;
+    }
+
+    /* Grade dropdown styling with scroll */
+    #ddlReferenceGoalGrade {
+        max-height: 250px !important;
+    }
+    
+    /* Custom styling for grade dropdown options with scrollbar */
+    select#ddlReferenceGoalGrade {
+        overflow-y: auto !important;
+        height: auto !important;
+    }
+    
+    /* Select2 dropdown styling for modal */
+    .select2-container--open {
+        z-index: 99999 !important;
+    }
+
+    .select2-dropdown {
+        z-index: 99999 !important;
+    }
+
+    #addGoalModal .select2-container {
+        z-index: 9999 !important;
+        width: 100% !important;
+    }
+    
+    /* Ensure Select2 dropdown doesn't cause scroll lock */
+    #ddlTrainingRequirement.select2-hidden-accessible ~ .select2-container {
+        position: relative !important;
+    }
+    
+    /* Training container - allow natural scrolling when table appears */
+    #selectedTrainingListContainer {
+        margin-bottom: 20px;
+        overflow: visible !important;
+    }
+    
+    /* Ensure modal body has proper padding at bottom */
+    #addGoalModal .modal-body {
+        padding-bottom: 30px !important;
+        max-height: calc(100vh - 180px);
+        overflow-y: auto;
+        position: relative;
+        pointer-events: auto !important;
+    }
+    
+    /* Hide textbox and show label for approver */
+    #KRAToSubmitManager {
+        display: none !important;
+    }
+    
+    #lblKRAToSubmitManager {
+        display: inline-block;
+    }
+    
+    /* Summernote Editor Custom Styling - Override global .btn class */
+    .note-editor .note-toolbar {
+        background-color: #f5f5f5 !important;
+        border-bottom: 1px solid #ddd !important;
+    }
+    
+    /* Override global .btn styling specifically for Summernote editor buttons */
+    .note-editor .note-btn-group .note-btn {
+        background-color: #e3f2fd !important; /* Light blue background */
+        background-image: none !important; /* Remove any inherited gradient */
+        border: 1px solid #90caf9 !important; /* Light blue border */
+        border-radius: 3px !important; /* Square corners instead of rounded */
+        padding: 5px 10px !important;
+        color: #1976d2 !important; /* Blue text color */
+        transition: all 0.2s ease !important;
+        box-shadow: none !important;
+    }
+    
+    .note-editor .note-btn-group .note-btn:hover {
+        background-color: #bbdefb !important; /* Slightly darker light blue on hover */
+        background-image: none !important;
+        border-color: #64b5f6 !important;
+        transform: none !important; /* Remove any transform effect */
+        box-shadow: none !important;
+    }
+    
+    .note-editor .note-btn-group .note-btn.active,
+    .note-editor .note-btn-group .note-btn:active,
+    .note-editor .note-btn-group .note-btn:focus {
+        background-color: #2196f3 !important;
+        background-image: linear-gradient(45deg, #2196f3, #00bcd4) !important;
+        border-color: #2196f3 !important;
+        color: #fff !important;
+        transform: none !important;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.15) !important;
+    }
+    
+    /* Ensure glyphicons are visible in editor buttons */
+    .note-editor .note-btn-group .note-btn .glyphicon,
+    .note-editor .note-btn-group .note-btn i {
+        display: inline-block !important;
+        font-size: 14px !important;
+        line-height: 1 !important;
+        color: inherit !important;
+    }
+    
+    /* Active state for buttons with icons */
+    .note-editor .note-btn-group .note-btn.active .glyphicon,
+    .note-editor .note-btn-group .note-btn.active i {
+        color: #fff !important;
+    }
+    
+    /* Ensure dropdown toggles in editor also get same styling */
+    .note-editor .note-btn-group .dropdown-toggle {
+        background-image: none !important;
+        border-radius: 3px !important;
+    }
+    
+    .note-editor .note-btn-group .dropdown-toggle:hover,
+    .note-editor .note-btn-group .dropdown-toggle:active {
+        background-image: linear-gradient(45deg, #2196f314, #00bcd46e) !important;
+    }
+    
+    /* Editable area styling */
+    .note-editor.note-frame .note-editing-area .note-editable {
+        background-color: #fff !important;
+        color: #333 !important;
+        min-height: 150px !important;
+    }
+    
+    .note-editor.note-frame .note-editing-area .note-editable:focus {
+        background-color: #fff !important;
+        outline: none !important;
+    }
+    
+    /* Truncated content styling - hide overflow and limit height */
+    .truncated-content {
+        display: -webkit-box !important;
+        -webkit-line-clamp: 4 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        word-wrap: break-word !important;
+        line-height: 1.6em !important;
+        max-height: 6.4em !important;
+    /* Add Goal modal: scrollable body so Save/Cancel stay visible when content exceeds */
+    #addGoalModal .modal-body {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+    #addGoalModal #selectedTrainingListContainer {
+        max-height: 180px;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+    /* Manager Add Goal modal */
+    #addGoalModalManager .modal-body {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+    #addGoalModalManager #selectedTrainingListManager {
+        max-height: 180px;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+    @@keyframes mf-spin {
+        to { transform: rotate(360deg); }
+    }
+</style>
+
+
+<div id="main-wrapper">
+    <div id="main">
+        <div class="row pg-main-title">
+            <div class="col-12 pg-title-border" id="kraTitle"><h4><b>Goals & Objectives</b></h4></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-4">
+                <label for="AppCycle" style="font-weight: bold; margin-bottom: 5px; display: block;">Select Appraisal Cycle:</label>
+                <select id="AppCycle" class="form-control" onchange="OnAppraisalCycleChange()"></select>
+            </div>
+            <div class="col-md-4" id="AssesmentCycledropdown" style="display:none;">
+                <label for="ddlSelfAssCycle" style="font-weight: bold; margin-bottom: 5px; display: block;">Select Assessment Cycle:</label>
+                <select id="ddlSelfAssCycle" class="form-control" onchange="OnSelfAssesmentCycleChange()"></select>
+            </div>
+            <div class="col-md-4 AnnualRating">
+                <div id="lblratingField" class="pg-title-border"><b>Annual Rating :</b></div>
+                <div id="lblratingValue" class="form-control"></div>
+            </div>
+        </div>
+        <div class="row">
+            @*<div class="col-md-12 pdtop15" id="myKratabs">*@
+            <div class="col-md-12 pdtop15" id="mytabs">
+                <ul class="nav nav-tabs" id="kraTabs">
+                    <li id="KRATab_A" class="active"><a href="#tab_a" data-toggle="tab">My Goals & Objectives</a></li>
+                    <li id="KRATab_B"><a href="#tab_b" data-toggle="tab">Team Goals & Objectives</a></li>
+                    <li id="KRATab_C"><a href="#tab_c" data-toggle="tab">All Employee Goals & Objectives</a></li>
+                    <li id="KRATab_D"><a href="#tab_d" data-toggle="tab">Upload Goals & Objectives</a></li>
+                    <li id="KRATab_E"><a href="#tab_e" data-toggle="tab">Upload Goals & Objectives GradeWise</a></li>
+                    @*<li id="KRATab_F" style="display:none;"><a href="#tab_f" data-toggle="tab">Goal Modification Requests <span id="badgeModificationCount" class="badge badge-danger" style="display:none;">0</span></a></li>*@
+                </ul>
+               
+                <div class="tab-content form-group">
+                    <div class="tab-pane active" id="tab_a">
+                        @Html.Partial("_KRAList")
+                        @Html.Partial("_GoalModificationModal")
+
+                        <input type="hidden" id="hdnRoleId" />
+                        <input type="hidden" id="hdnDUId" />
+                    </div>
+                    <div class="tab-pane" id="tab_b">
+                        @Html.Partial("_TeamList")
+                        @Html.Partial("_TeamMemberKRAList")
+
+                    </div>
+                    <div class="tab-pane" id="tab_c">
+                        @Html.Partial("_SearchEmployee")
+                        @Html.Partial("_TeamMemberKRAList")
+                    </div>
+                    <div class="tab-pane" id="tab_d">
+                        @Html.Partial("_UploadKRA")
+                        @Html.Partial("_KRAListToUpload")
+                        <input type="button" id="btnApproveUploadKRA" class="btn btn-primary" value="Upload G&Os" />
+                    </div>
+                    <div class="tab-pane" id="tab_e">
+                        @Html.Partial("_UploadKRAGradeWise")
+                        @Html.Partial("_KRAListToUploadGW")
+                        <input type="button" id="btnApproveUploadKRAGW" class="btn btn-primary" value="Upload G&Os" />
+                    </div>
+                    <div class="tab-pane" id="tab_f">
+                        @Html.Partial("_GoalModificationApprovalList")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="hdnSelectedSelfAssesmentTab" />
+
+<!-- Common Modal for Add/Edit Goal - Used by all tabs -->
+<div class="modal fade" id="addGoalModal" tabindex="-1" role="dialog" aria-labelledby="addGoalModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="width: 90%; max-width: 1100px; margin: 30px auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="addGoalModalLabel">Add New Goal</h4>
+            </div>
+            <div class="modal-body" style="padding: 20px;">
+                <form id="formKRAEditModal">
+                    <input type="hidden" id="hdnKRAId" />
+                    <input type="hidden" id="lblKRASequence" value="1" />
+                    
+                    <!-- Row 1: Goal Type and Weightage -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ddlGoalTypeModal">Goal Type <span class="text-danger">*</span></label>
+                                <select id="ddlGoalTypeModal" class="form-control">
+                                    <option value="">-- Select Goal Type --</option>
+                                    <option value="S">Strategic Goal (AI-Themed)</option>
+                                    <option value="O">Operational</option>
+                                    <option value="D">Developmental</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="txtGoalWeightageModal">Weightage (%) <span class="text-danger">*</span> <small class="text-muted" style="font-weight: normal;">(Min = 10)</small></label>
+                                <input type="text" id="txtGoalWeightageModal" class="form-control" maxlength="2" placeholder="Enter weightage %" />
+                                <span id="weightageError" class="text-danger" style="display: none; font-size: 12px; margin-top: 5px;"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Key Responsibility Area (KRA) -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="txtGoalDescModal">
+                                    Key Responsibility Area (KRA)
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div id="txtGoalDescModal" style="min-height: 150px;"></div>
+                                <small id="hintGoalDescLength" class="text-muted" style="display:block; margin-top:-12px;">Maximum 2000 characters</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Key Performance Indicators (KPIs) -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="txtAreaMeasureModal">
+                                    Key Performance Indicators (KPIs)
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div id="txtAreaMeasureModal" style="min-height: 200px;"></div>
+                                <small id="hintMeasureLength" class="text-muted" style="display:block; margin-top:-12px;">Maximum 2000 characters</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 4: Action Plan -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="txtActionPlanModal">
+                                    Action Plan
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div id="txtActionPlanModal" style="min-height: 150px;"></div>
+                                <small id="hintActionPlanLength" class="text-muted" style="display:block; margin-top:-12px;">Maximum 2000 characters</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hidden Date Fields -->
+                    <div class="row" style="display: none;">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="txtKRAStartDateModal">Cycle Start Date <span class="text-danger">*</span></label>
+                                <input type="text" id="txtKRAStartDateModal" class="form-control" readonly="readonly" style="background-color: white; cursor: pointer;" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="txtKRAEndDateModal">Cycle End Date <span class="text-danger">*</span></label>
+                                <input type="text" id="txtKRAEndDateModal" class="form-control" readonly="readonly" style="background-color: #f5f5f5;" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Training Requirement (for Developmental Goals) -->
+                    <div class="row" id="trainingRequirementRow" style="display: none; margin-bottom: 20px;">
+                        <div class="col-md-12">
+                            <div class="form-group" style="margin-bottom: 20px;">
+                                <label for="ddlTrainingRequirement">Training Requirement</label>
+                                
+                                <!-- Dropdown for selecting training -->
+                                <select id="ddlTrainingRequirement" class="form-control" style="display: none;">
+                                    <option value="">-- Select Training/Certification --</option>
+                                </select>
+                                
+                                <!-- Textbox for "Others" option -->
+                                <input type="text" id="txtTrainingRequirementOther" class="form-control" placeholder="Enter training/certification name" style="display: none;" maxlength="500" />
+                                
+                                <!-- Action buttons for Others -->
+                                <div style="margin-top: 10px; margin-bottom: 10px;">
+                                    <button type="button" class="btn btn-primary btn-sm" id="btnAddTrainingOther" style="display: none;">
+                                        <i class="glyphicon glyphicon-plus"></i> Add
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm" id="btnCancelTrainingOther" style="display: none; margin-left: 5px;">
+                                        <i class="glyphicon glyphicon-remove"></i> Cancel
+                                    </button>
+                                </div>
+                                
+                                <!-- Selected Training List Table -->
+                                <div id="selectedTrainingListContainer" style="margin-top: 10px; margin-bottom: 15px; display: none;">
+                                    <table id="selectedTrainingList" class="table table-bordered table-striped" style="width: 100%; margin-bottom: 0;">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center; width: 40%;">Training Name</th>
+                                                <th style="text-align: center; width: 40%;">Training Type</th>
+                                                <th style="text-align: center; width: 20%;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                
+                                <!-- Hidden fields to store training data -->
+                                <input type="hidden" id="hdnTrainingItemId" />
+                                <input type="hidden" id="hdnTrainingRequirementName" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="modalValidationAlert" class="alert alert-danger" style="display: none;"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" style="color:white" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnSaveGoalModal">Save Goal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" role="dialog" id="AssesmentModal" data-url="@Url.Action("GetAssesmentModal")">
+    <div class="modal-dialog modal-lg" role="document" style="width: 700px; max-width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Self Assessment</h4>
+            </div>
+            <div class="modal-body" style="padding: 0;">
+                <div id="SelfAssesmentContent">
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Copy KRA Modal -->
+<div class="modal fade" id="copyKRAModal" tabindex="-1" role="dialog" aria-labelledby="copyKRAModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="copyKRAModalLabel">Copy Previous Year Goals & Objectives</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="ddlAppraisalCycleCopyKRAModal">Select Appraisal Cycle:</label>
+                    <select id="ddlAppraisalCycleCopyKRAModal" class="form-control">
+                        <option value="0">-- Select Appraisal Cycle to Copy G&Os --</option>
+                    </select>
+                </div>
+                
+                <div id="copyKRALoader" style="display: none; text-align: center; padding: 20px;">
+                    <i class="fa fa-spinner fa-spin" style="font-size: 24px; color: #337ab7;"></i>
+                    <p>Loading Goals & Objectives...</p>
+                </div>
+                
+                <div id="copyKRAContent" style="display: none;">
+                    <div class="form-group">
+                        <label>Goals & Objectives to Copy:</label>
+                        <div style="max-height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
+                            <table class="table table-bordered table-striped" id="tblCopyKRAList">
+                                <thead>
+                                    <tr>
+                                        <th>Goal Type</th>
+                                        <th>Goal Description</th>
+                                        <th>Weightage</th>
+                                        <th>Measure</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblCopyKRAListBody">
+                                    <!-- KRAs will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="copyKRANoData" style="display: none; text-align: center; padding: 20px; color: #999;">
+                    <p>No Goals & Objectives found for the selected cycle.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal" style="color:white">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnCopyKRASubmit" style="display: none;">Copy Selected G&Os</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reference Goal Repository Modal -->
+<div class="modal fade" id="referenceGoalRepositoryModal" tabindex="-1" role="dialog" aria-labelledby="referenceGoalRepositoryModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="width: 95%; max-width: 1400px; margin: 30px auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #fff; opacity: 1;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="referenceGoalRepositoryModalLabel">Reference Goal Repository</h4>
+            </div>
+            <div class="modal-body" style="padding: 0;">
+                <!-- Tab Navigation -->
+                <ul class="nav nav-tabs" id="referenceGoalTabs" role="tablist" style="margin: 0; padding-left: 15px; padding-right: 15px; padding-top: 15px; background: #f5f5f5;">
+                    <li role="presentation" class="active">
+                        <a href="#refGoalMasterTab" id="refGoalMasterTabLink" aria-controls="refGoalMasterTab" role="tab" data-toggle="tab" style="font-weight: 500;">
+                            <i class="glyphicon glyphicon-list-alt" style="margin-right: 5px;"></i>Reference Goal Master
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#previousYearGoalTab" id="previousYearGoalTabLink" aria-controls="previousYearGoalTab" role="tab" data-toggle="tab" style="font-weight: 500;">
+                            <i class="glyphicon glyphicon-copy" style="margin-right: 5px;"></i>View Previous Year's Goal
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content" style="padding: 20px;">
+                    <!-- Reference Goal Master Tab -->
+                    <div role="tabpanel" class="tab-pane active" id="refGoalMasterTab">
+                        <!-- Grade Filter -->
+                        <div class="form-group" style="margin-bottom: 15px; display: flex; align-items: center; justify-content: flex-end;">
+                            <label for="ddlReferenceGoalGrade" style="font-weight: bold; margin-right: 10px; margin-bottom: 0;">Grade:</label>
+                            <select id="ddlReferenceGoalGrade" class="form-control" style="width: 200px; display: inline-block; max-height: 250px; overflow-y: auto;" size="1">
+                                <option value="">Loading...</option>
+                            </select>
+                        </div>
+                        
+                        <div id="referenceGoalMasterLoader" style="display: none; text-align: center; padding: 40px;">
+                            <i class="fa fa-spinner fa-spin" style="font-size: 36px; color: #337ab7;"></i>
+                            <p style="margin-top: 15px; font-size: 16px;">Loading Reference Goals...</p>
+                        </div>
+                        
+                        <div id="referenceGoalMasterContent" style="display: none;">
+                            <!-- Tabs for Grade-JobFamily combinations -->
+                            <div id="referenceGoalMasterTabs" style="margin-bottom: 15px;">
+                                <!-- Tabs will be dynamically loaded here -->
+                            </div>
+                            
+                            <!-- Content area for selected tab -->
+                            <div id="referenceGoalMasterTabContent">
+                                <!-- Table will be dynamically loaded here when tab is clicked -->
+                            </div>
+                        </div>
+                        
+                        <div id="referenceGoalMasterNoData" style="display: none; text-align: center; padding: 40px; color: #999;">
+                            <i class="glyphicon glyphicon-info-sign" style="font-size: 48px; margin-bottom: 15px;"></i>
+                            <p style="font-size: 16px;">No Reference Goals found for your grade.</p>
+                        </div>
+                    </div>
+
+                    <!-- Previous Year's Goal Tab -->
+                    <div role="tabpanel" class="tab-pane" id="previousYearGoalTab">
+                        <div class="form-group">
+                            <label for="ddlAppraisalCycleCopyKRAModalInline">Select Appraisal Cycle:</label>
+                            <select id="ddlAppraisalCycleCopyKRAModalInline" class="form-control">
+                                <option value="0">-- Select Appraisal Cycle to View G&Os --</option>
+                            </select>
+                        </div>
+                        
+                        <div id="copyKRALoaderInline" style="display: none; text-align: center; padding: 40px;">
+                            <i class="fa fa-spinner fa-spin" style="font-size: 36px; color: #337ab7;"></i>
+                            <p style="margin-top: 15px; font-size: 16px;">Loading Goals & Objectives...</p>
+                        </div>
+                        
+                        <div id="copyKRAContentInline" style="display: none;">
+                            <div class="form-group">
+                                <label>Goals & Objectives:</label>
+                                <div style="max-height: 450px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; border-radius: 4px;">
+                                    <table class="table table-bordered table-striped" id="tblCopyKRAListInline" style="margin-bottom: 0;">
+                                        <thead>
+                                            <tr style="background: #f5f5f5;">
+                                                <th style="width: 15%;">Goal Type</th>
+                                                <th style="width: 35%;">Goal Description</th>
+                                                <th style="width: 10%;">Weightage</th>
+                                                <th style="width: 40%;">Measure</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tblCopyKRAListBodyInline">
+                                            <!-- KRAs will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="copyKRANoDataInline" style="display: none; text-align: center; padding: 40px; color: #999;">
+                            <i class="glyphicon glyphicon-info-sign" style="font-size: 48px; margin-bottom: 15px;"></i>
+                            <p style="font-size: 16px;">No Goals & Objectives found for the selected cycle.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn"  style="color:white;" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Reference Goal Modal: static backdrop — close only via Close / header X / successful Submit -->
+<div class="modal fade" id="customReferenceGoalModal" tabindex="-1" role="dialog" aria-labelledby="customReferenceGoalModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="btnCloseCustomReferenceGoalHeader" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="customReferenceGoalForm">
+                    <!-- Role Description -->
+                    <div class="form-group">
+                        <label for="txtCustomRoleDescription">Your Role Description <span style="color: red;">*</span></label>
+                        <textarea id="txtCustomRoleDescription" class="form-control" rows="4" 
+                                  placeholder="Describe your role and responsibilities..." 
+                                  maxlength="2000" required></textarea>
+                        <small class="help-block">Please provide a detailed description of your role (maximum 2000 characters)</small>
+                    </div>
+
+                    <!-- Skills Used -->
+                    <div class="form-group">
+                        <label for="ddlCustomSkillsUsed">Skills Used <span style="color: red;">*</span></label>
+                        <select id="ddlCustomSkillsUsed" class="form-control" multiple="multiple" required 
+                                style="width: 100%;">
+                            <!-- Options will be loaded dynamically -->
+                        </select>
+                        <small class="help-block">Select one or more skills used in your role (hold Ctrl/Cmd to select multiple)</small>
+                    </div>
+
+                    <!-- Project Details -->
+                    <div class="form-group">
+                        <label for="txtCustomProjectDetails">Account / Project <span style="color: red;">*</span></label>
+                        <input type="text" id="txtCustomProjectDetails" class="form-control" 
+                               placeholder="Enter account or project name" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btnCloseCustomReferenceGoal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnSubmitCustomReferenceGoal">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Override Existing Goals Confirmation Modal -->
+<div class="modal fade" id="overrideGoalsConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="overrideGoalsConfirmationModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document" style="width: 500px; max-width: 90%; margin: 100px auto;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #f8d7da; border-bottom: 2px solid #f5c6cb;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="overrideGoalsConfirmationModalLabel" style="color: #721c24; font-weight: bold;">
+                    <i class="glyphicon glyphicon-exclamation-sign" style="margin-right: 8px;"></i>Confirm Override
+                </h4>
+            </div>
+            <div class="modal-body" style="padding: 25px; text-align: center;">
+                <p style="font-size: 16px; margin-bottom: 20px; color: #333; line-height: 1.6;">
+                    You already have goals added for the current cycle. Selecting this template will <strong>override your existing goals</strong>.
+                </p>
+                <p style="font-size: 16px; margin-bottom: 0; color: #333; font-weight: bold;">
+                    Do you want to proceed?
+                </p>
+            </div>
+            <div class="modal-footer" style="text-align: center; padding: 15px; border-top: 1px solid #ddd;">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="min-width: 100px; margin-right: 10px;">
+                    <i class="glyphicon glyphicon-remove" style="margin-right: 5px;"></i>No
+                </button>
+                <button type="button" class="btn btn-danger" id="btnConfirmOverrideGoals" style="min-width: 100px;">
+                    <i class="glyphicon glyphicon-ok" style="margin-right: 5px;"></i>Yes, Proceed
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    
+    <!-- Font Awesome for Summernote icons -->
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/Scripts/PEPScripts/select2.min.css" rel="stylesheet" />
+    
+    <!-- Summernote Rich Text Editor (Local) -->
+    <link href="~/Content/summernote.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/PEPScripts/toastr.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/PEPScripts/select2.min.js"></script>
+    
+    <!-- Summernote Rich Text Editor -->
+   <script src="~/Scripts/summernote.min.js"></script>
+   <script src="~/Scripts/PEPScripts/summernoteBlockDragDrop.js"></script>
+       <script src="~/Scripts/PEPScripts/Common.js"></script>
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+    <script src="~/Scripts/PEPScripts/KRAOperations.js"></script>
+    <script src="~/Scripts/PEPScripts/GoalModification.js"></script>
+    <script src="~/Scripts/PEPScripts/EmployeeLoginInfo.js"></script>
+    <script src="~/Scripts/PEPScripts/MyTeam.js"></script>
+    <script src="~/Scripts/PEPScripts/UploadKRAApprove.js"></script>
+    <script src="~/Scripts/PEPScripts/UploadKRAGradeWise.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+            //function RemoveScript(id) {
+            //    debugger;
+            //    var txtValue = $('#' + id).val();
+            //    $('#' + id).val(txtValue.replace(/[\<\>'=]+/g, ''));
+            //}
+            $("#txtKRAEndDate1").datepicker({
+
+                format: 'dd-MM-yyyy',
+
+            });
+            $("#txtKRAStartDate1").datepicker({
+
+                format: 'dd-MM-yyyy',
+
+            });
+
+            $(".KRADatePicks").datepicker({
+                format: 'dd-MM-yyyy'
+            });
+            $(".TeamKRADatePicks").datepicker({
+
+                format: 'dd-MM-yyyy',
+                onSelect: function (dateText, inst) {
+                    alert(dateText);
+                    $('.TeamKRADatePicks').val(dateText);
+                }
+            });
+            var role = sessionStorage.getItem('EmployeeRoleName');
+
+            ShowMyKRA(sessionStorage.getItem('EmployeeId'), 'E', $('#AppCycle :selected').val());
+            debugger;
+            // Check Reference Goal Master access and show/hide button
+            ValidateReferenceGoalMasterAccess();
+        });
+        
+        function ValidateReferenceGoalMasterAccess() {
+            debugger;
+
+            var empId = sessionStorage.getItem('EmployeeId');
+            var svrPath = CONFIG.get('SERVERNAME');
+            var apiPath = svrPath + 'EmployeeKRA/ValidateReferenceGoalMasterAccess?EmployeeId=' + empId;
+            
+            $.ajax({
+                url: apiPath,
+                type: 'GET',
+                headers: CommonGetHeaderInfo(),
+                success: function(response) {
+                    if (response && response.Success && response.Result && response.Result.data && response.Result.data.length > 0) {
+                        var isAccessible = response.Result.data[0].IsReferenceGoalMasterAccessable;
+                        if (isAccessible === 1) {
+                            $('#btnReferenceGoalMaster').show();
+                        } else {
+                            $('#btnReferenceGoalMaster').hide();
+                        }
+                    } else {
+                        $('#btnReferenceGoalMaster').hide();
+                    }
+                },
+                error: function() {
+                    $('#btnReferenceGoalMaster').hide();
+                }
+            });
+        }
+
+        // Handle tab switching without page reload
+        $('#kraTabs a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+            // Store active tab in session storage
+            var tabId = $(this).attr('href');
+            sessionStorage.setItem('activeKRATab', tabId);
+        });
+
+        // Store the currently selected tab in the hash value (without reload)
+        $("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
+            var id = $(e.target).attr("href").substr(1);
+            // Update hash without triggering page reload
+            if (history.pushState) {
+                history.pushState(null, null, '#' + id);
+            } else {
+                window.location.hash = id;
+            }
+            
+            // If Goal Modification tab is shown, load the requests
+            if (id === 'tab_f' && typeof GoalModificationManager !== 'undefined') {
+                GoalModificationManager.loadPendingRequests();
+            }
+        });
+
+        // On load of the page: switch to the previously selected tab
+        $(document).ready(function() {
+            // First check sessionStorage for last active tab
+            var activeTab = sessionStorage.getItem('activeKRATab');
+            
+            // If no session storage, check URL hash
+            if (!activeTab) {
+                var hash = window.location.hash;
+                if (hash) {
+                    activeTab = hash;
+                }
+            }
+            
+            // Activate the tab if found
+            if (activeTab) {
+                var $tabLink = $('#kraTabs a[href="' + activeTab + '"]');
+                if ($tabLink.length) {
+                    $tabLink.tab('show');
+                    
+                    // If it's the Goal Modification tab, ensure requests are loaded
+                    if (activeTab === '#tab_f' || activeTab === 'tab_f') {
+                        setTimeout(function() {
+                            if (typeof GoalModificationManager !== 'undefined') {
+                                GoalModificationManager.loadPendingRequests();
+                            }
+                        }, 300);
+                    }
+                }
+            }
+        });
+
+        //$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        //    var target = $(e.target).attr("href") // activated tab
+        //    // alert(target);
+
+
+        //    $('#ddlUploadKRA_KRASet').val('0');
+        //    //$('#btnApproveUploadKRAGW').hide();
+        //    $("[id$=hdnUploadKRA_GradeId]").val('0');
+        //    $("#ddlUploadKRA_Grade").val('0');
+        //    $('[name="employeesgw"]').remove();
+        //    $('#UploadKRA_ChkLstEmployee').empty();
+        //    $('#tblUploadKRAListGW').hide();
+        //    $("#UploadKRA_chkAll").hide();
+        //    $("#spnUploadKRA_chkAll").hide();
+
+        //});
+        
+        // Helper: validate 2000-char limit and toggle inline hint colour
+        function checkFieldLength(editorId, hintId) {
+            var isEmpty = $(editorId).summernote('isEmpty');
+            var len = isEmpty ? 0 : $('<div>').html($(editorId).summernote('code')).text().trim().length;
+            if (len > 2000) {
+                $(hintId).text('Maximum 2000 characters (currently ' + len + ')').removeClass('text-muted').addClass('text-danger');
+            } else {
+                $(hintId).text('Maximum 2000 characters').removeClass('text-danger').addClass('text-muted');
+            }
+        }
+
+        // Common Modal Handler - Initialize once for all tabs
+        // This ensures consistent behavior across all KRA tabs
+        $(document).ready(function() {
+            // Handler reference for UL/OL fix
+            var _listClickHandler = null;
+            var _listMouseDownHandler = null;
+            var _savedRange = null;
+            $('#addGoalModal').on('shown.bs.modal', function() {
+                // CRITICAL: Remove any lingering loader overlays that block scroll
+                $('.appcycle-loader-overlay').remove();
+                $('.selfasscycle-loader-overlay').remove();
+                $('.kra-loader').remove();
+                
+                // Ensure modal body is scrollable
+                $(this).find('.modal-body').css({
+                    'overflow-y': 'auto',
+                    'pointer-events': 'auto',
+                    'position': 'relative'
+                });
+                // Initialize Goal Description (KRA) editor
+                $('#txtGoalDescModal').summernote({
+                    height: 150,
+                    placeholder: 'Enter Key Responsibility Area (KRA)...',
+                    fontNames: ['Arial', 'Arial Black', 'Courier New', 'Helvetica', 'Times New Roman', 'Verdana'],
+                    icons: {
+                        'align': 'glyphicon glyphicon-align-left',
+                        'alignCenter': 'glyphicon glyphicon-align-center',
+                        'alignJustify': 'glyphicon glyphicon-align-justify',
+                        'alignLeft': 'glyphicon glyphicon-align-left',
+                        'alignRight': 'glyphicon glyphicon-align-right',
+                        'indent': 'glyphicon glyphicon-indent-left',
+                        'outdent': 'glyphicon glyphicon-indent-right',
+                        'arrowsAlt': 'glyphicon glyphicon-fullscreen',
+                        'bold': 'glyphicon glyphicon-bold',
+                        'caret': 'glyphicon glyphicon-caret-down',
+                        'circle': 'glyphicon glyphicon-record',
+                        'close': 'glyphicon glyphicon-remove',
+                        'code': 'glyphicon glyphicon-console',
+                        'font': 'glyphicon glyphicon-font',
+                        'frame': 'glyphicon glyphicon-stop',
+                        'italic': 'glyphicon glyphicon-italic',
+                        'link': 'glyphicon glyphicon-link',
+                        'unlink': 'glyphicon glyphicon-scissors',
+                        'magic': 'glyphicon glyphicon-tint',
+                        'menuCheck': 'glyphicon glyphicon-check',
+                        'minus': 'glyphicon glyphicon-minus',
+                        'orderedlist': 'fa fa-list-ol',
+                        'pencil': 'glyphicon glyphicon-pencil',
+                        'picture': 'glyphicon glyphicon-picture',
+                        'question': 'glyphicon glyphicon-question-sign',
+                        'redo': 'fa fa-repeat',
+                        'square': 'glyphicon glyphicon-unchecked',
+                        'strikethrough': 'fa fa-strikethrough',
+                        'subscript': 'glyphicon glyphicon-subscript',
+                        'superscript': 'glyphicon glyphicon-superscript',
+                        'table': 'glyphicon glyphicon-th',
+                        'textHeight': 'glyphicon glyphicon-text-height',
+                        'trash': 'glyphicon glyphicon-trash',
+                        'underline': 'fa fa-underline',
+                        'undo': 'fa fa-undo',
+                        'unorderedlist': 'glyphicon glyphicon-list',
+                        'video': 'glyphicon glyphicon-facetime-video'
+                    },
+                    toolbar: [
+                        ['style', ['bold', 'italic', 'underline', 'strikethrough']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['view', ['undo', 'redo']]
+                    ],
+                    disableDragAndDrop: true,
+                    callbacks: {
+                        onKeyup: function() { checkFieldLength('#txtGoalDescModal', '#hintGoalDescLength'); },
+                        onChange: function() { checkFieldLength('#txtGoalDescModal', '#hintGoalDescLength'); },
+                        onPaste: function (e) {
+                            if (typeof window.pepSummernoteOnPastePlainTextOnly === 'function') {
+                                window.pepSummernoteOnPastePlainTextOnly(e);
+                            }
+                            setTimeout(function() { checkFieldLength('#txtGoalDescModal', '#hintGoalDescLength'); }, 0);
+                        }
+                    }
+                });
+                
+                // Initialize Measure (KPI) editor
+                $('#txtAreaMeasureModal').summernote({
+                    height: 200,
+                    placeholder: 'Enter Key Performance Indicators (KPIs)...',
+                    fontNames: ['Arial', 'Arial Black', 'Courier New', 'Helvetica', 'Times New Roman', 'Verdana'],
+                    icons: {
+                        'align': 'glyphicon glyphicon-align-left',
+                        'alignCenter': 'glyphicon glyphicon-align-center',
+                        'alignJustify': 'glyphicon glyphicon-align-justify',
+                        'alignLeft': 'glyphicon glyphicon-align-left',
+                        'alignRight': 'glyphicon glyphicon-align-right',
+                        'indent': 'glyphicon glyphicon-indent-left',
+                        'outdent': 'glyphicon glyphicon-indent-right',
+                        'arrowsAlt': 'glyphicon glyphicon-fullscreen',
+                        'bold': 'glyphicon glyphicon-bold',
+                        'caret': 'glyphicon glyphicon-caret-down',
+                        'circle': 'glyphicon glyphicon-record',
+                        'close': 'glyphicon glyphicon-remove',
+                        'code': 'glyphicon glyphicon-console',
+                        'font': 'glyphicon glyphicon-font',
+                        'frame': 'glyphicon glyphicon-stop',
+                        'italic': 'glyphicon glyphicon-italic',
+                        'link': 'glyphicon glyphicon-link',
+                        'unlink': 'glyphicon glyphicon-scissors',
+                        'magic': 'glyphicon glyphicon-tint',
+                        'menuCheck': 'glyphicon glyphicon-check',
+                        'minus': 'glyphicon glyphicon-minus',
+                        'orderedlist': 'fa fa-list-ol',
+                        'pencil': 'glyphicon glyphicon-pencil',
+                        'picture': 'glyphicon glyphicon-picture',
+                        'question': 'glyphicon glyphicon-question-sign',
+                        'redo': 'fa fa-repeat',
+                        'square': 'glyphicon glyphicon-unchecked',
+                        'strikethrough': 'fa fa-strikethrough',
+                        'subscript': 'glyphicon glyphicon-subscript',
+                        'superscript': 'glyphicon glyphicon-superscript',
+                        'table': 'glyphicon glyphicon-th',
+                        'textHeight': 'glyphicon glyphicon-text-height',
+                        'trash': 'glyphicon glyphicon-trash',
+                        'underline': 'fa fa-underline',
+                        'undo': 'fa fa-undo',
+                        'unorderedlist': 'glyphicon glyphicon-list',
+                        'video': 'glyphicon glyphicon-facetime-video'
+                    },
+                    toolbar: [
+                        ['style', ['bold', 'italic', 'underline', 'strikethrough']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['view', ['undo', 'redo']]
+                    ],
+                    disableDragAndDrop: true,
+                    callbacks: {
+                        onKeyup: function() { checkFieldLength('#txtAreaMeasureModal', '#hintMeasureLength'); },
+                        onChange: function() { checkFieldLength('#txtAreaMeasureModal', '#hintMeasureLength'); },
+                        onPaste: function (e) {
+                            if (typeof window.pepSummernoteOnPastePlainTextOnly === 'function') {
+                                window.pepSummernoteOnPastePlainTextOnly(e);
+                            }
+                            setTimeout(function() { checkFieldLength('#txtAreaMeasureModal', '#hintMeasureLength'); }, 0);
+                        }
+                    }
+                });
+                
+                // Initialize Action Plan editor
+                $('#txtActionPlanModal').summernote({
+                    height: 150,
+                    placeholder: 'Enter Action Plan...',
+                    fontNames: ['Arial', 'Arial Black', 'Courier New', 'Helvetica', 'Times New Roman', 'Verdana'],
+                    icons: {
+                        'align': 'glyphicon glyphicon-align-left',
+                        'alignCenter': 'glyphicon glyphicon-align-center',
+                        'alignJustify': 'glyphicon glyphicon-align-justify',
+                        'alignLeft': 'glyphicon glyphicon-align-left',
+                        'alignRight': 'glyphicon glyphicon-align-right',
+                        'indent': 'glyphicon glyphicon-indent-left',
+                        'outdent': 'glyphicon glyphicon-indent-right',
+                        'arrowsAlt': 'glyphicon glyphicon-fullscreen',
+                        'bold': 'glyphicon glyphicon-bold',
+                        'caret': 'glyphicon glyphicon-caret-down',
+                        'circle': 'glyphicon glyphicon-record',
+                        'close': 'glyphicon glyphicon-remove',
+                        'code': 'glyphicon glyphicon-console',
+                        'font': 'glyphicon glyphicon-font',
+                        'frame': 'glyphicon glyphicon-stop',
+                        'italic': 'glyphicon glyphicon-italic',
+                        'link': 'glyphicon glyphicon-link',
+                        'unlink': 'glyphicon glyphicon-scissors',
+                        'magic': 'glyphicon glyphicon-tint',
+                        'menuCheck': 'glyphicon glyphicon-check',
+                        'minus': 'glyphicon glyphicon-minus',
+                        'orderedlist': 'fa fa-list-ol',
+                        'pencil': 'glyphicon glyphicon-pencil',
+                        'picture': 'glyphicon glyphicon-picture',
+                        'question': 'glyphicon glyphicon-question-sign',
+                        'redo': 'fa fa-repeat',
+                        'square': 'glyphicon glyphicon-unchecked',
+                        'strikethrough': 'fa fa-strikethrough',
+                        'subscript': 'glyphicon glyphicon-subscript',
+                        'superscript': 'glyphicon glyphicon-superscript',
+                        'table': 'glyphicon glyphicon-th',
+                        'textHeight': 'glyphicon glyphicon-text-height',
+                        'trash': 'glyphicon glyphicon-trash',
+                        'underline': 'fa fa-underline',
+                        'undo': 'fa fa-undo',
+                        'unorderedlist': 'glyphicon glyphicon-list',
+                        'video': 'glyphicon glyphicon-facetime-video'
+                    },
+                    toolbar: [
+                        ['style', ['bold', 'italic', 'underline', 'strikethrough']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['view', ['undo', 'redo']]
+                    ],
+                    disableDragAndDrop: true,
+                    callbacks: {
+                        onKeyup: function() { checkFieldLength('#txtActionPlanModal', '#hintActionPlanLength'); },
+                        onChange: function() { checkFieldLength('#txtActionPlanModal', '#hintActionPlanLength'); },
+                        onPaste: function (e) {
+                            if (typeof window.pepSummernoteOnPastePlainTextOnly === 'function') {
+                                window.pepSummernoteOnPastePlainTextOnly(e);
+                            }
+                            setTimeout(function() { checkFieldLength('#txtActionPlanModal', '#hintActionPlanLength'); }, 0);
+                        }
+                    }
+                });
+                
+                // CRITICAL: Clear all editors first to ensure no residual content from previous operations
+                $('#txtGoalDescModal').summernote('code', '');
+                $('#txtAreaMeasureModal').summernote('code', '');
+                $('#txtActionPlanModal').summernote('code', '');
+                
+                // Set content from stored data (for edit mode only)
+                var goalDescription = $('#addGoalModal').data('goalDescription');
+                var measure = $('#addGoalModal').data('measure');
+                var actionPlan = $('#addGoalModal').data('actionPlan');
+                
+                // Only populate if data exists AND has actual content (not empty string)
+                if (goalDescription !== undefined && goalDescription !== null && goalDescription !== '') {
+                    $('#txtGoalDescModal').summernote('code', goalDescription);
+                    $('#addGoalModal').removeData('goalDescription');
+                }
+                
+                if (measure !== undefined && measure !== null && measure !== '') {
+                    $('#txtAreaMeasureModal').summernote('code', measure);
+                    $('#addGoalModal').removeData('measure');
+                }
+                
+                if (actionPlan !== undefined && actionPlan !== null && actionPlan !== '') {
+                    $('#txtActionPlanModal').summernote('code', actionPlan);
+                    $('#addGoalModal').removeData('actionPlan');
+                }
+                
+                // Reset toolbar button states - remove active class from all buttons
+                setTimeout(function() {
+                    $('.note-editor .note-btn').removeClass('active');
+                }, 50);
+                
+                // Small delay to ensure modal is fully rendered before initializing datepicker
+                setTimeout(function() {
+                    InitializeStartDatePicker();
+                }, 100);
+
+                // FIX: UL/OL buttons fail on <p>-wrapped content (loaded from DB via summernote('code',...))
+                // Capture which block elements (p, li) are selected before button click loses selection
+                _listMouseDownHandler = function (e) {
+                    var btn = e.target && e.target.closest && e.target.closest('.note-toolbar button');
+                    if (!btn) return;
+                    var icon = btn.querySelector('i');
+                    if (!icon) return;
+                    var iconClass = icon.className || '';
+                    if (iconClass.indexOf('glyphicon-list') === -1 && iconClass.indexOf('fa-list-ol') === -1) return;
+                    
+                    // Find which editor this button belongs to
+                    var $editorEl = $(btn).closest('.note-editor').prev();
+                    if (!$editorEl.data('summernote')) return;
+                    
+                    var editable = $(btn).closest('.note-editor').find('.note-editable')[0];
+                    if (!editable) return;
+                    
+                    // Get current selection
+                    var sel = window.getSelection();
+                    if (!sel || sel.rangeCount === 0) {
+                        _savedRange = null;
+                        return;
+                    }
+                    
+                    var range = sel.getRangeAt(0);
+                    
+                    // Find all block elements (P and LI) in the editable area
+                    var allBlocks = editable.querySelectorAll('p, li');
+                    var selectedIndices = [];
+                    
+                    // Check which block elements intersect with the selection
+                    for (var i = 0; i < allBlocks.length; i++) {
+                        var blockNode = allBlocks[i];
+                        var blockRange = document.createRange();
+                        blockRange.selectNode(blockNode);
+                        
+                        // Check if this block intersects with selection
+                        var selectionIntersects = 
+                            range.compareBoundaryPoints(Range.START_TO_END, blockRange) >= 0 &&
+                            range.compareBoundaryPoints(Range.END_TO_START, blockRange) <= 0;
+                        
+                        if (selectionIntersects) {
+                            selectedIndices.push(i);
+                        }
+                    }
+                    
+                    // Save the indices of selected blocks
+                    _savedRange = selectedIndices.length > 0 ? selectedIndices : null;
+                };
+                
+                _listClickHandler = function (e) {
+                    var btn = e.target && e.target.closest && e.target.closest('.note-toolbar button');
+                    if (!btn) return;
+                    var icon = btn.querySelector('i');
+                    if (!icon) return;
+                    var iconClass = icon.className || '';
+                    var isUL = iconClass.indexOf('glyphicon-list') !== -1;
+                    var isOL = iconClass.indexOf('fa-list-ol') !== -1;
+                    if (!isUL && !isOL) return;
+                    
+                    // Find which editor this button belongs to
+                    var $editorEl = $(btn).closest('.note-editor').prev();
+                    if (!$editorEl.data('summernote')) return;
+                    
+                    // Get current HTML content
+                    var html = $editorEl.summernote('code');
+                    
+                    var listTag = isUL ? 'ul' : 'ol';
+                    var newHtml = '';
+                    
+                    // Parse HTML to extract all block-level elements (P, LI)
+                    var tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = html;
+                    
+                    // Get all P and LI elements
+                    var allBlocks = tempDiv.querySelectorAll('p, li');
+                    
+                    // Safety check
+                    if (!allBlocks || allBlocks.length === 0) {
+                        _savedRange = null;
+                        return;
+                    }
+                    
+                    // If we have saved selected block indices (user selected specific lines)
+                    if (_savedRange && Array.isArray(_savedRange) && _savedRange.length > 0) {
+                        var result = [];
+                        var inList = false;
+                        var currentListType = null;
+                        
+                        for (var i = 0; i < allBlocks.length; i++) {
+                            var block = allBlocks[i];
+                            var isSelected = _savedRange.indexOf(i) !== -1;
+                            var content = block.innerHTML;
+                            
+                            if (isSelected) {
+                                // Convert to list item
+                                if (!inList) {
+                                    result.push('<' + listTag + '>');
+                                    inList = true;
+                                    currentListType = listTag;
+                                }
+                                result.push('<li>' + content + '</li>');
+                            } else {
+                                // Keep as is (paragraph or existing list item in different list)
+                                if (inList) {
+                                    result.push('</' + currentListType + '>');
+                                    inList = false;
+                                    currentListType = null;
+                                }
+                                
+                                // If it's already a list item, wrap in its parent list type
+                                if (block.tagName.toLowerCase() === 'li') {
+                                    var parentList = block.parentElement;
+                                    var parentListType = parentList ? parentList.tagName.toLowerCase() : 'ul';
+                                    
+                                    // Check if previous item was also from same parent
+                                    var prevBlock = i > 0 ? allBlocks[i - 1] : null;
+                                    var sameParent = prevBlock && prevBlock.tagName.toLowerCase() === 'li' && 
+                                                     prevBlock.parentElement === parentList;
+                                    
+                                    if (!sameParent) {
+                                        result.push('<' + parentListType + '>');
+                                    }
+                                    result.push('<li>' + content + '</li>');
+                                    
+                                    // Check if next item is from different parent
+                                    var nextBlock = i < allBlocks.length - 1 ? allBlocks[i + 1] : null;
+                                    var nextSameParent = nextBlock && nextBlock.tagName.toLowerCase() === 'li' && 
+                                                         nextBlock.parentElement === parentList;
+                                    
+                                    if (!nextSameParent) {
+                                        result.push('</' + parentListType + '>');
+                                    }
+                                } else {
+                                    // It's a paragraph
+                                    result.push('<p>' + content + '</p>');
+                                }
+                            }
+                        }
+                        
+                        if (inList) {
+                            result.push('</' + currentListType + '>');
+                        }
+                        
+                        newHtml = result.join('');
+                    } else {
+                        // No selection - convert all to list
+                        var items = [];
+                        for (var i = 0; i < allBlocks.length; i++) {
+                            items.push('<li>' + allBlocks[i].innerHTML + '</li>');
+                        }
+                        newHtml = '<' + listTag + '>' + items.join('') + '</' + listTag +'>';
+                    }
+                    
+                    // Safety check: don't set empty content
+                    if (!newHtml || newHtml.trim() === '') {
+                        _savedRange = null;
+                        return;
+                    }
+                    
+                    // Set the new HTML
+                    $editorEl.summernote('code', newHtml);
+                    
+                    // Clear saved range
+                    _savedRange = null;
+                    
+                    // Prevent Summernote's default handler
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                };
+                
+                document.getElementById('addGoalModal').addEventListener('mousedown', _listMouseDownHandler, true);
+                document.getElementById('addGoalModal').addEventListener('click', _listClickHandler, true);
+            });
+            
+            // Clear form and destroy Summernote editors when modal is hidden
+            $('#addGoalModal').on('hidden.bs.modal', function() {
+                // Remove custom UL/OL capture handlers
+                if (_listMouseDownHandler) {
+                    document.getElementById('addGoalModal').removeEventListener('mousedown', _listMouseDownHandler, true);
+                    _listMouseDownHandler = null;
+                }
+                if (_listClickHandler) {
+                    document.getElementById('addGoalModal').removeEventListener('click', _listClickHandler, true);
+                    _listClickHandler = null;
+                }
+                _savedRange = null;
+                // Destroy Summernote editors
+                if ($('#txtGoalDescModal').data('summernote')) {
+                    $('#txtGoalDescModal').summernote('destroy');
+                }
+                if ($('#txtAreaMeasureModal').data('summernote')) {
+                    $('#txtAreaMeasureModal').summernote('destroy');
+                }
+                if ($('#txtActionPlanModal').data('summernote')) {
+                    $('#txtActionPlanModal').summernote('destroy');
+                }
+                
+                // CRITICAL FIX: Close Select2 dropdown
+                var $dropdown = $('#ddlTrainingRequirement');
+                
+                // Close and destroy Select2 to reset state
+                if ($dropdown.hasClass('select2-hidden-accessible')) {
+                    try {
+                        $dropdown.select2('close');
+                        $dropdown.select2('destroy');
+                    } catch (e) {
+                        // Ignore errors
+                    }
+                }
+                
+                ClearKRAFormModal();
+                
+                // CRITICAL: Explicitly clear all stored modal data after closing
+                $('#addGoalModal').removeData('goalDescription');
+                $('#addGoalModal').removeData('measure');
+                $('#addGoalModal').removeData('actionPlan');
+                $('#addGoalModal').removeData('isEditMode');
+                $('#addGoalModal').removeData('teamMemberId');
+                $('#addGoalModal').removeData('isTeamMode');
+                
+                // Restore KRA list visibility (in case save failed or user cancelled after validation error)
+                if ($('#tblKRAList').length) {
+                    if ($('#tblKRAList_wrapper').length) $('#tblKRAList_wrapper').show();
+                    $('#tblKRAList').show();
+                    if ($('#tblKRAListFooter').length) $('#tblKRAListFooter').show();
+                    if ($('#KRAListGird').length) $('#KRAListGird').show();
+                }
+                // Ensure training requirement section is hidden
+                $('#trainingRequirementRow').hide();
+                ClearTrainingRequirement();
+            });
+            
+            // Save button click handler (using event delegation to ensure it works)
+            $(document).off('click', '#btnSaveGoalModal');
+            $(document).on('click', '#btnSaveGoalModal', function() {
+                SaveKRAFormModal();
+            });
+            
+            // Goal type change handler
+            $(document).off('change', '#ddlGoalTypeModal');
+            $(document).on('change', '#ddlGoalTypeModal', function() {
+                OnGoalTypeChangeModal();
+            });
+            
+            // Load training requirements when modal is shown (only if no training data exists)
+            $('#addGoalModal').on('shown.bs.modal', function() {
+                // CRITICAL: Hide training requirement row by default - only show if Goal Type is 'D'
+                var goalType = $('#ddlGoalTypeModal').val();
+                if (goalType && typeof goalType === 'string') {
+                    goalType = goalType.trim().toUpperCase();
+                    // Normalize GoalType to handle both 'O'/'D' and 'Operational'/'Developmental'
+                    if (goalType === 'OPERATIONAL' || goalType.startsWith('OPERATIONAL')) {
+                        goalType = 'O';
+                    } else if (goalType === 'DEVELOPMENTAL' || goalType.startsWith('DEVELOPMENTAL')) {
+                        goalType = 'D';
+                    } else if (goalType === 'STRATEGIC GOAL (AI-THEMED)' || goalType.startsWith('STRATEGIC')) {
+                        goalType = 'S';
+                    } else {
+                        goalType = goalType.charAt(0).toUpperCase(); // Take first character
+                    }
+                }
+                
+                // Only show training requirement row if Goal Type is 'D' (Developmental)
+                if (goalType === 'D') {
+                    $('#trainingRequirementRow').show();
+                } else {
+                    $('#trainingRequirementRow').hide();
+                    if (typeof ClearTrainingRequirement === 'function') {
+                        ClearTrainingRequirement();
+                    }
+                }
+                
+                // For Developmental goals, ensure training dropdown is loaded so users can add more
+                if (goalType === 'D') {
+                    var trainingData = (typeof GetTrainingDataArray === 'function') ? GetTrainingDataArray() : [];
+                    if (trainingData.length === 0) {
+                        LoadTrainingRequirements();
+                    } else {
+                        // Training already populated by OpenEditGoalModalCommon — ensure dropdown stays visible
+                        if ($('#ddlTrainingRequirement option').length <= 6) {
+                            LoadTrainingRequirements();
+                        } else if (typeof InitializeTrainingRequirementSelect2 === 'function') {
+                            InitializeTrainingRequirementSelect2();
+                        }
+                    }
+                }
+                // Note: If training exists, the dropdown is already shown by OpenEditGoalModalCommon
+                // Do not hide the dropdown here - user should be able to add more trainings during edit
+            });
+            
+            // Training requirement handlers
+            $(document).off('click', '#btnAddTrainingRequirement');
+            $(document).on('click', '#btnAddTrainingRequirement', function() {
+                var btnText = $(this).text().trim();
+                // Check if dropdown is visible
+                if ($('#ddlTrainingRequirement').is(':visible')) {
+                    // Dropdown is visible, handle selection
+                    HandleAddTrainingRequirement();
+                } else if ($('#txtTrainingRequirementOther').is(':visible')) {
+                    // Others textbox is visible, save it
+                    HandleSaveTrainingOther();
+                } else {
+                    // Neither is visible, show dropdown
+                    $('#ddlTrainingRequirement').show();
+                }
+            });
+            
+            // Handle dropdown change - auto-add when selection is made
+            // Select2 triggers 'select2:select' event, but we also handle regular 'change' for compatibility
+            $(document).off('change select2:select', '#ddlTrainingRequirement');
+            $(document).on('change select2:select', '#ddlTrainingRequirement', function() {
+                if (typeof HandleTrainingRequirementDropdownChange === 'function') {
+                    HandleTrainingRequirementDropdownChange();
+                }
+            });
+            
+            // Handle Others textbox Enter key
+            $(document).off('keypress', '#txtTrainingRequirementOther');
+            $(document).on('keypress', '#txtTrainingRequirementOther', function(e) {
+                if (e.which === 13) { // Enter key
+                    e.preventDefault();
+                    if (typeof HandleSaveTrainingOther === 'function') {
+                        HandleSaveTrainingOther();
+                    }
+                }
+            });
+            
+            // Note: Removed blur handler - user should explicitly click Add button to save
+            
+            // Handle Remove Training button
+            $(document).off('click', '#btnRemoveTraining');
+            $(document).on('click', '#btnRemoveTraining', function() {
+                HandleRemoveTraining();
+            });
+            
+            // Handle Add button for Others textbox
+            $(document).off('click', '#btnAddTrainingOther');
+            $(document).on('click', '#btnAddTrainingOther', function() {
+                if (typeof HandleSaveTrainingOther === 'function') {
+                    HandleSaveTrainingOther();
+                }
+            });
+            
+            // Handle Cancel button for Others
+            $(document).off('click', '#btnCancelTrainingOther');
+            $(document).on('click', '#btnCancelTrainingOther', function(e) {
+                e.preventDefault();
+                
+                var $dropdown = $('#ddlTrainingRequirement');
+                
+                // Hide Others textbox and buttons
+                $('#txtTrainingRequirementOther').hide().val('');
+                $('#btnAddTrainingOther').hide();
+                $('#btnCancelTrainingOther').hide();
+                
+                // Show dropdown (Select2 stays intact - never destroyed)
+                $dropdown.show();
+                
+                // Show Select2 container if hidden
+                var $select2Container = $dropdown.next('.select2');
+                if ($select2Container.length > 0) {
+                    $select2Container.show();
+                }
+                
+                // CRITICAL: Restore modal scroll immediately (same as .Net Developer flow)
+                var $modalBody = $dropdown.closest('.modal-body');
+                if ($modalBody.length > 0) {
+                    $modalBody.css({
+                        'overflow-y': 'auto',
+                        'pointer-events': 'auto'
+                    });
+                }
+                
+                // Reset dropdown value
+                if ($dropdown.hasClass('select2-hidden-accessible')) {
+                    $dropdown.val(null).trigger('change');
+                } else {
+                    $dropdown.val('');
+                }
+            });
+        });
+    </script>
+    <script src="~/Scripts/PEPScripts/GoalModificationManager.js"></script>
+}

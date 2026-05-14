@@ -1,0 +1,126 @@
+@using EmpPEP.UI.Views.Admin;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    var strCompany = "@Master.strCompany";
+    var strAppraisalType = "@Master.strAppraisalType";
+    var strAppraisalCycleName = "@Master.strAppraisalCycleName";
+    var strAppraisalCycleDesc = "@Master.strAppraisalCycleDesc";
+    var strStartDate = "@Master.strStartDate";
+    var strEndDate = "@Master.strEndDate";
+    var strStatus = "@Master.strStatus"
+    var strUpdateSuccess = "@Master.strUpdateSuccess";
+    var strInsertSuccess = "@Master.strInsertSuccess";
+    var strInsert = "@Master.strInsert";
+    var strStartDate = "@Master.strStartDate";
+    var strStatus = "@Master.strStatus";
+    var strUpdate = "@Master.strUpdate";
+    var strEmptyFieldValidation = "@Master.strEmptyFieldValidation";
+    var strErrorMsg = "@Master.strErrorMsg";
+    var strDeleteMsg = "@Master.strDeleteMsg";
+</script>
+
+<div id="main-wrapper">
+    <div id="main">
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-tabs" id="MasterTabs">
+                    <li class="active"><a href="#tab_a" data-toggle="tab">Appraisa Cycle</a></li>
+                    <li style="display:none;"><a href="#tab_b" data-toggle="tab">Competencies</a></li>
+                    <li style="display:none;"><a href="#tab_c" data-toggle="tab">Grade Competencies Mapping</a></li>
+                    <li><a href="#tab_d" data-toggle="tab">Employee Awards</a></li>
+                    <li><a href="#tab_e" data-toggle="tab">Employee Role</a></li>
+                    <li><a href="#tab_f" data-toggle="tab">Upload Goals & Objectives</a></li>
+                    <li><a href="#tab_g" data-toggle="tab">PEP General SetUp</a></li>
+                    <li><a href="#tab_h" data-toggle="tab">Upload PEP Employee rating</a></li>
+                    <li style="display:none;"><a href="#tab_i" data-toggle="tab">Self Assessment Cycle</a></li>
+                </ul>
+
+                <div class="tab-content masters-tab-content">
+                    <div class="tab-pane active" id="tab_a">
+                        <div id="AddManagersFeedbackBC">@Html.Partial("_AppraisalCycleMaster")</div>
+                    </div>
+                    <div class="tab-pane" id="tab_b" style="display:none;">
+                        @*not in used*@
+                        <div id="AddQuestionnaire">@Html.Partial("_CompetencyMaster")</div>
+                    </div>
+                    <div class="tab-pane" id="tab_c">
+                        <div id="AddGradeCompetenciesMap">@Html.Partial("_GradeCompetenciesMap")</div>
+                    </div>
+
+                    <div class="tab-pane" id="tab_d">
+                        <div id="AddEmployeeAwards">@Html.Partial("_EmployeeAwards")</div>
+                    </div>
+                    <div class="tab-pane" id="tab_e">
+                        <div id="AddEmployeeRole">@Html.Partial("_EmployeeRoleMaster")</div>
+                    </div>
+                    <div class="tab-pane" id="tab_f">
+                        <div id="AddEmployeeRole">
+                            @Html.Partial("_UploadKRAEditMaster")
+                        </div>
+                        <div id="AddEmployeeRole">
+                            @Html.Partial("_UploadKRAListMaster")
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_g">
+                        <div id="GeneralSetup">@Html.Partial("_GeneralSetup")</div>
+                    </div>
+                    <div class="tab-pane" id="tab_h">
+                        <div id="PEPEmpRating">@Html.Partial("_EmployeeRating")</div>
+                    </div>
+                    <div class="tab-pane" id="tab_i" style="display:none;">
+                        <div id="SelfAssessmentCycleMaster">@Html.Partial("_SelfAssessmentCycleMaster")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" role="dialog" id="AdminAlertModal" style="display:none">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">PEP Alert</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="alertContent">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/toastr.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    @*<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+        <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />*@
+    @*<script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>*@
+    <script src="~/Scripts/PEPScripts/Common.js"></script>
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+    <script src="~/Scripts/PEPScripts/EmployeeLoginInfo.js"></script>
+    <script src="~/Scripts/PEPScripts/AdminMain.js"></script>
+    <script src="~/Scripts/PEPScripts/MasterOperations.js"></script>
+    <script src="~/Scripts/PEPScripts/GradeAreaCompentecyMapping.js"></script>
+    <link href="~/Scripts/PEPScripts/bootstrap-multiselect.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/bootstrap-multiselect.min.js"></script>
+    <script src="~/Scripts/PEPScripts/Ratings.js"></script>
+    <script src="~/Scripts/PEPScripts/UploadKRAMaster.js"></script>
+    <script src="~/Scripts/PEPScripts/SelfAssessmentCycleMaster.js"></script>
+    <script type="text/javascript">
+        function RemoveScript(id) {
+            debugger;
+            var txtValue = $('#' + id).val();
+            $('#' + id).val(txtValue.replace(/[\<\>'=]+/g, ''));
+        }
+    </script>
+}
+

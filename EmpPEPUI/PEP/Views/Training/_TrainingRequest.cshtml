@@ -1,0 +1,63 @@
+﻿@using EmpPEP.UI.Views.Training;
+<form id="frmTrainingRequest">
+    <div class="container-fluid" style="min-height:250px;">
+        <div class="form-horizontal">
+            <div class="form-group form-group-sm">
+                <div class="col-sm-4">
+                    <label class="control-label">@Training.TrainingType</label>
+                </div>
+                <div class="col-sm-4">
+                    <select class="form-control" id="ddlTrainingType" onchange="fnGetTrainingSubType(0);">
+                        <option value="0">Please Select</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="col-sm-4">
+                    <label class="control-label">@Training.TrainingRecommended</label>
+                </div>
+                <div class="col-sm-4">
+                    <select class="form-control" id="ddlTrainingSubType">
+                        <option value="0">Please Select</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="col-sm-4">
+                    <label class="control-label">@Training.FromDate</label>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="fromDate">
+                        <div class="input-group-addon" onclick="fnShowDatePicker('fromDate')">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="col-sm-4">
+                    <label class="control-label">@Training.ToDate</label>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="toDate">
+                        <div class="input-group-addon" onclick="fnShowDatePicker('toDate')">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="col-sm-4">
+                    <label>@Training.Priority</label>
+                </div>
+                <div class="col-sm-4">
+                    <select class="form-control">
+                        <option value="0">Please Select</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

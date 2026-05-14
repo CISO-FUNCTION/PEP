@@ -1,0 +1,566 @@
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* CSS for the loading overlay */
+
+    .loader-div {
+        position: fixed;
+        margin: 0px;
+        padding: 0px;
+        right: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        z-index: 30001;
+        opacity: 0.8;
+    }
+
+    .loader-img {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    .blue-light {
+        background: #2f2b28;
+        color: #fff;
+    }
+
+    .loader-img {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    .tblalignmentset thead th, .tblalignmentset thead td {
+        border: 1px solid #ccc !important;
+    }
+
+    .tblalignmentset thead td {
+        background-image: none !important;
+    }
+
+    .tblalignmentset thead th, #tblEmpPromotion thead td {
+        border: 1px solid #ccc !important;
+        text-align: center;
+    }
+
+    .tblalignmentset thead td {
+        background-image: none !important;
+    }
+
+
+    .bluelightShade {
+        background: #5e5651;
+        color: #fff;
+    }
+
+
+    div#tblHRBPAdminView_wrapper {
+        margin-bottom: 10px;
+    }
+
+    .tblalignmentset tr td {
+        border: 1px solid #ccc;
+        text-align: center;
+        padding: 4px;
+    }
+
+        .tblalignmentset tr td:nth-child(1) {
+            text-align: left;
+        }
+
+    #tblHRBPAdminView thead tr th {
+        background-image: none;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    #tblHRBPAdminView tbody tr td {
+        vertical-align: middle;
+    }
+
+    td.totalcountbg {
+        background: #1870d554;
+    }
+
+    .data-table-main {
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 11px !important;
+        font-weight: normal;
+        line-height: 1.5;
+        color: #212529;
+        text-align: left;
+        background-color: #fff;
+    }
+
+        table.dataTable.nowrap th, table.dataTable.nowrap td, .data-table-main th, .data-table-main td {
+            padding: 5px;
+            white-space: inherit !important;
+            word-wrap: normal !important;
+        }
+
+    .drk-blue {
+        background: #643eb9;
+        color: #fff;
+    }
+
+    .blue-light {
+        background: #2f2b28;
+        color: #fff;
+    }
+
+    .lt-blue {
+        background: #3392ed;
+        color: #fff;
+    }
+
+    .md-dark-blue {
+        background: #8EA9DB;
+    }
+
+    .diffcol {
+        background: #fd5252;
+    }
+
+    .orange {
+        background: #F4B084;
+    }
+
+    .red {
+        background: #f55858;
+    }
+
+    .lightgreen {
+        background: #52c34b;
+    }
+
+    .yellow {
+        background: #FFD966;
+    }
+
+    .gr-bg {
+        background: #BFBFBF;
+    }
+
+    .green {
+        background: #7ab750;
+    }
+
+    .lt-lt-blue {
+        background: #D9E1F2;
+    }
+
+    .lt-md-dark-blue {
+        background: #8EA9DB;
+    }
+
+    .lt-orange {
+        background: #FCE4D6;
+    }
+
+    .lt-yellow {
+        background: #FFF2CC;
+    }
+
+    .lt-gr-bg {
+        background: #EDEDED;
+    }
+
+    .lt-green {
+        background: #E2EFDA;
+    }
+
+    .multiselect-container > li > a > label {
+        margin: 0;
+        height: 100%;
+        cursor: pointer;
+        font-weight: 400;
+        padding: 1px 20px 1px 40px !important;
+        font-size: 12px;
+    }
+
+        .multiselect-container > li > a > label input[type="checkbox"] {
+            height: 10px;
+            width: 10px;
+        }
+
+    .menu {
+        padding: 10px;
+        background-color: #333;
+    }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+        }
+
+    label.filterAttr button.multiselect.dropdown-toggle.btn.btn-default {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 11px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: bold;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+
+        label.filterAttr button.multiselect.dropdown-toggle.btn.btn-default.btn:hover {
+            transform: inherit !important;
+        }
+
+    label.filterAttr .form-control {
+        cursor: pointer;
+    }
+
+    label.filterAttr .btn-group {
+        width: 100%;
+    }
+
+    span.text-label {
+        display: block;
+        width: 100%;
+    }
+
+    label.filterAttr {
+        width: 100%;
+        /*display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: wrap;*/
+    }
+
+    .dataTables_info {
+        font-size: 11px;
+    }
+
+    .dataTables_paginate a.paginate_button {
+        font-size: 11px;
+    }
+
+    .norm-doc-download a.form-control {
+        font-size: 16px;
+        height: auto;
+        width: auto !important;
+        background: #4fbc48;
+        color: #fff;
+        cursor: pointer;
+        padding: 2px 2px 0px;
+    }
+
+    span.multiselect-selected-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        line-height: 16px;
+        max-height: 32px;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+
+    li.multiselect-item.multiselect-filter .input-group span.input-group-btn .multiselect-clear-filter i.glyphicon.glyphicon-remove-circle {
+        top: 2px;
+        color: #fff;
+    }
+
+    li.multiselect-item.multiselect-filter .input-group span.input-group-btn .multiselect-clear-filter {
+        padding: 7px 4px;
+    }
+
+    li.multiselect-item.multiselect-filter .input-group span.input-group-addon {
+        padding: 2px;
+    }
+
+    li.multiselect-item.multiselect-filter input.form-control.multiselect-search {
+        border: 1px solid #ccc;
+        border-right: 0px;
+        padding: 4px;
+    }
+
+    .GDLDeptHead .multiselect-container > li > a > label, .RMSpan .multiselect-container > li > a > label {
+        margin: 0;
+        height: 100%;
+        cursor: pointer;
+        font-weight: 400;
+        padding: 1px 20px 1px 30px !important;
+        font-size: 12px;
+    }
+
+    .dataTables_length label {
+        font-size: 12px;
+        color: #696a6b;
+        padding-top: 7px;
+        font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+    }
+
+    .dataTables_filter label {
+        font-size: 12px;
+        color: #696a6b;
+        font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+    }
+
+    .dataTables_filter input[type="search"] {
+        border-radius: 4px;
+        padding: 3px 5px;
+        color: rgba(0, 0, 0, 1);
+        border: 1px solid #ccc;
+        margin-left: 5px;
+    }
+</style>
+
+@{
+
+    var AccessType = "0";
+
+    if (((Session["AccessType"])) != null)
+    {
+        AccessType = ((Session["AccessType"])).ToString();
+
+        //  @ViewBag.AccessType= AccessType;
+    }
+}
+
+<script type="text/javascript">
+
+
+
+    var SelectionAccessType= @AccessType.ToString();
+
+</script>
+
+<div id="main-wrapper">
+    <div id="main">
+        <div class="row pg-main-title">
+        </div>
+        @*@{
+                <div>
+                    <select class="form-control" style="width:20%;margin-top: 15px;" id="ddlyear"></select>
+                </div>
+
+            }*@
+
+        <div class="modal" tabindex="-1" role="dialog" id="accessModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Choose Access</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <label>Select Access:</label>
+                        <select id="accessType" class="form-control">
+                            <option value="admin">Admin</option>
+                            <option value="employee">Employee</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs" id="RatingsTabs">
+
+            @if (AccessType == "1")
+                {
+                    <li id="" class="active"><a href="#Anchor_tab_ConfigurationMaster" id="tab_ConfigurationMaster" data-toggle="tab">Normalization Master</a></li>
+
+                }
+                @if (AccessType == "2")
+                {
+                    <li id="" class="active"><a href="#tab_HrAdmin" data-toggle="tab">Rating and Promotion Status</a></li>
+
+                }
+                else
+                {
+                    <li id=""><a href="#tab_HrAdmin" data-toggle="tab">Rating and Promotion Status</a></li>}
+
+
+            @*<li id="" class="active"><a href="#tab_HrAdmin" data-toggle="tab">Rating and Promotion Status</a></li>*@
+
+            <li id="" class=""><a href="#tab_HRBPAdmin_RatingTable" data-toggle="tab">Normalisation View</a></li>
+
+            <li id="" class=""><a href="#tab_HRBPAdmin_RatingGraph" data-toggle="tab">Promotion View</a></li>
+
+        </ul>
+
+
+        <div class="tab-content form-group">
+            @if (AccessType == "1")
+            {
+                <div class="tab-pane active" id="Anchor_tab_ConfigurationMaster">
+                    <div class="panel-group" id="graphaccordionself1">
+                        <div class="panel panel-default" id="panelSelf1">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    @{Html.RenderPartial("_configure");}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+            else
+            {
+
+                <div class="tab-pane" id="Anchor_tab_ConfigurationMaster">
+                    <div class="panel-group" id="graphaccordionself1">
+                        <div class="panel panel-default" id="panelSelf1">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    @{Html.RenderPartial("_configure");}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+            @if (AccessType == "2")
+            {
+                <div class="tab-pane active" id="tab_HrAdmin">
+                    <div class="panel-group" id="graphaccordionself2">
+                        <div class="panel panel-default" id="panelSelf">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    @{Html.RenderPartial("_HRBPView");}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="tab-pane" id="tab_HrAdmin">
+                    <div class="panel-group" id="graphaccordionself2">
+                        <div class="panel panel-default" id="panelSelf">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    @{Html.RenderPartial("_HRBPView");}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+            @*<div class="tab-pane active" id="tab_HrAdmin">
+        <div class="panel-group" id="graphaccordionself2">
+            <div class="panel panel-default" id="panelSelf">
+                <div class="panel">
+                    <div class="panel-body">
+                        @{Html.RenderPartial("_HRBPView");}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+            </div>*@
+            <div class="tab-pane" id="tab_HRBPAdmin_RatingTable">
+                <div class="panel-group" id="Graphaccordionself3">
+                    <div class="panel panel-default" id="panelSelf3">
+                        <div id="collapseSelf11" class="panel-collapse collapse in">
+                            <div class="panel-body" id="dvHRBPnormazlization">
+                                @{Html.RenderPartial("_RatingHRBPNormalizationSummary");}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="tab-pane" id="tab_HRBPAdmin_RatingGraph">
+                <div class="panel-group" id="graphaccordionself4">
+                    <div class="panel panel-default" id="panelSelf4">
+                        <div class="panel">
+                            <div class="panel-body">
+                                @{Html.RenderPartial("_RatingHRBPPromotionSummary");}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- tab content -->
+        </div>
+    </div>
+</div>
+<div class="loader-div">
+    <img class="loader-img" alt="Please Wait Data Loading..." src="../images/ajax-loader.gif" style="height: 120px;width: auto;" />
+</div>
+
+
+<input type="hidden" id="hdnSelectedFeedbackTab" />
+
+@section scripts{
+
+
+
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/PEPScripts/toastr.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/Common.js"></script>
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+    <script src="~/Scripts/PEPScripts/loader.js"></script>
+    <script src="~/Scripts/PEPScripts/RatingAppraisalCycleContext.js"></script>
+    <script src="~/Scripts/PEPScripts/RatingAdmin.js"></script>
+
+    <link href="~/Scripts/PEPScripts/bootstrap-multiselect.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/bootstrap-multiselect.min.js"></script>
+    <script src="~/Scripts/highcharts.min.js"></script>
+    <script src="~/Scripts/accessibility.js"></script>
+
+
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+    @*<link href="~/Scripts/DataTables/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="~/Scripts/DataTables/buttons.dataTables.min.css" rel="stylesheet" />*@
+
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/DataTables/buttons.flash.min.js"></script>
+    <script src="~/Scripts/DataTables/jszip.min.js"></script>
+    @*<script src="~/Scripts/DataTables/pdfmake.min.js"></script>*@
+    <script src="~/Scripts/DataTables/pdfmake.min.js"></script>
+    <script src="~/Scripts/DataTables/vfs_fonts.js"></script>
+    <script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
+    <script src="~/Scripts/DataTables/buttons.print.min.js"></script>
+
+}

@@ -1,0 +1,665 @@
+﻿@{ 
+    var OrgShortName = Session["OrgShortName"] != null ? Convert.ToString(Session["OrgShortName"]) : string.Empty;
+
+}
+
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+
+<style type="text/css">
+    .multiselect-container {
+        max-width: 100%;
+        word-break: break-all;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow: hidden auto;
+        position: absolute;
+        /*transform: translate3d(0px, -200px, 0px);*/
+        top: 0px;
+        left: 0px;
+        will-change: transform;
+    }
+
+    .multiselect {
+        white-space: normal !important;
+        max-width: 200px;
+    }
+
+    #tblApprovedReporteeList thead tr th {
+        font-size: 11px;
+        font-weight: normal;
+        padding: 8px;
+        width: auto !important;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        border: 1px solid #ddd !important;
+        border-collapse: collapse;
+    }
+
+
+    #tblApprovedReporteeList tbody tr td {
+        font-size: 11px;
+        font-weight: normal;
+        padding: 8px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        border: 1px solid #ddd !important;
+        border-collapse: collapse;
+    }
+
+    label#filteronclick {
+        margin-right: 75px;
+    }
+
+    label#filteronclick {
+        box-shadow: inset 0 0 0 0 #54b3d6;
+        color: #54b3d6;
+        padding: 0 .25rem;
+        transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+    }
+
+        label#filteronclick:hover {
+            box-shadow: inset 100px 0 0 0 #54b3d6;
+            color: black;
+        }
+
+    .MyReporteerating-summery label {
+        box-shadow: none !important;
+        color: #000 !important;
+        font-size: 13px;
+        font-weight: normal;
+        margin-right: 0px !important;
+    }
+
+        .MyReporteerating-summery label:hover {
+            box-shadow: none !important;
+            color: #000;
+        }
+
+    .MyReporteerating-summery .rating-summery-inn button {
+        font-size: 12px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        padding: 6px 8px 3px;
+        border: none;
+        outline: none;
+        height: auto;
+        border-radius: 4px;
+    }
+
+        .MyReporteerating-summery .rating-summery-inn button:hover {
+            transform: scale(1.03);
+        }
+
+        .MyReporteerating-summery .rating-summery-inn button:nth-child(1) {
+            background: #3392ed;
+            color: #fff;
+        }
+
+        .MyReporteerating-summery .rating-summery-inn button:nth-child(2) {
+            background: #3392ed;
+            color: #fff;
+        }
+
+        .MyReporteerating-summery .rating-summery-inn button:nth-child(3) {
+            background: #3392ed;
+            color: #fff;
+        }
+
+        .MyReporteerating-summery .rating-summery-inn button:nth-child(4) {
+            background: #3392ed;
+            color: #fff;
+        }
+
+    /*.MyReporteerating-summery .rating-summery-inn button:nth-child(1) {
+            background: #7ab750;
+        }
+
+        .MyReporteerating-summery .rating-summery-inn button:nth-child(2) {
+            background: #52c34b;
+        }
+
+        .MyReporteerating-summery .rating-summery-inn button:nth-child(3) {
+            background: #FFD966;
+        }
+
+        .MyReporteerating-summery .rating-summery-inn button:nth-child(4) {*/
+    background: #f74646;
+    }
+
+
+    div#filtersDiv {
+        width: 100%;
+    }
+
+    .MyReporteerating-summery {
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+
+    .tblEmpRating-List table thead tr th {
+        background: #8f867e;
+        color: #fff;
+        padding: 6px 4px;
+        vertical-align: middle;
+        border: 1px solid #ccc;
+    }
+
+    .MyReporteerating-summery .rating-summery-inn button:nth-child(1).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .MyReporteerating-summery .rating-summery-inn button:nth-child(2).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .MyReporteerating-summery .rating-summery-inn button:nth-child(3).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .MyReporteerating-summery.rating-summery-inn button:nth-child(4).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+    /*.MyReporteerating-summery .rating-summery-inn button:nth-child(1).abc.animation {
+        background: transparent;
+        border: 2px solid #7ab750;
+    }
+
+
+    .MyReporteerating-summery .rating-summery-inn button:nth-child(2).abc.animation {
+        background: transparent;
+        border: 2px solid #52c34b;
+    }
+
+    .MyReporteerating-summery .rating-summery-inn button:nth-child(3).abc.animation {
+        background: transparent;
+        border: 2px solid #FFD966;
+    }
+
+    .MyReporteerating-summery .rating-summery-inn button:nth-child(4).abc.animation {
+        background: transparent;
+        border: 2px solid #f74646;
+    }*/
+
+    .MyReporteerating-summery .rating-summery-inn button:nth-child(5).abc.animation {
+        background: transparent;
+        border: 2px solid #2583df;
+    }
+
+    .MyReporteerating-summery .rating-summery-inn button:nth-child(6).abc.animation {
+        background: transparent;
+        border: 2px solid #2583df;
+    }
+
+    .MyReporteerating-summery .rating-summery-inn button:nth-child(7).abc.animation {
+        background: transparent;
+        border: 2px solid #2583df;
+    }
+
+    .MyReporteerating-summery .rating-summery-inn button:nth-child(8).abc.animation {
+        background: transparent;
+        border: 2px solid #2583df;
+    }
+
+
+    .abc {
+        cursor: pointer;
+    }
+
+    select.currRating {
+        width: 90px !important;
+        border-radius: 4px !important;
+        font-size: 11px;
+    }
+
+    #filteronclick {
+        cursor: pointer;
+    }
+
+    #ViewNTHistoryDetails .modal-header {
+        padding: 5px 18px;
+    }
+
+    #ViewNTHistoryDetails .modal-footer {
+        padding: 5px 18px;
+    }
+
+    #tblApprovedReporteeList tr td textarea {
+        width: 215px;
+        margin: 0 auto;
+        height: 33px !important;
+        max-height: 33px !important;
+        min-height: 33px !important;
+        border: 0px !important;
+        border-bottom: 1px solid #4986f1 !important;
+        box-shadow: none !important;
+    }
+
+    select.rating {
+        margin: 0 auto;
+        border-radius: 4px !important;
+        font-size: 11px;
+        width: 79px !important;
+    }
+
+    #tblApprovedReporteeList tbody tr td:nth-child(1) {
+        width: 200px;
+    }
+
+    #tblApprovedReporteeList tbody tr td:nth-child(2) {
+        width: 50px;
+    }
+
+    #tblApprovedReporteeList tbody tr td:nth-child(3) {
+        width: 50px;
+    }
+
+    #tblApprovedReporteeList tbody tr td:nth-child(4) {
+        width: 50px;
+    }
+
+    #tblApprovedReporteeList tbody tr td:nth-child(5) {
+        width: 100px;
+    }
+
+    #tblApprovedReporteeList tbody tr td:nth-child(6) {
+        width: 60px;
+    }
+
+    #tblApprovedReporteeList tbody tr td:nth-child(7) {
+        width: 60px;
+    }
+
+    #tblApprovedReporteeList tbody tr td:nth-child(9) {
+        width: 80px;
+    }
+
+    #tblApprovedReporteeList tbody tr td:nth-child(10) {
+        width: 60px;
+    }
+
+    #tblApprovedReporteeList tbody tr td:nth-child(11) {
+        width: 60px;
+    }
+
+    #tblApprovedReporteeList tbody tr td:nth-child(12) {
+        width: 90px;
+    }
+
+    #tblApprovedReporteeList tbody tr td:nth-child(13) {
+        width: 90px;
+    }
+
+    #tblApprovedReporteeList tbody tr td:nth-child(8) {
+        width: 58px;
+    }
+
+    table#tblApprovedReporteeList {
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+    }
+
+    select#ddlReportee {
+        font-size: 11px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+
+    label#filteronclick {
+        font-size: 11px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+
+    #tblUnsavedData thead tr th {
+        font-size: 12px;
+        font-weight: normal;
+        padding: 6px 2px;
+        width: auto !important;
+        text-align: center;
+    }
+
+    #tblUnsavedData tbody tr td {
+        font-size: 12px;
+        font-weight: normal;
+        padding: 6px 2px;
+    }
+
+    #tblFilteredData thead tr th {
+        font-size: 12px;
+        font-weight: normal;
+        padding: 6px 2px;
+        width: auto !important;
+    }
+
+    #tblFilteredData tbody tr td {
+        font-size: 12px;
+        font-weight: normal;
+        padding: 6px 2px;
+    }
+
+    input#input {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-right: 5px;
+        margin-bottom: 7px;
+    }
+
+    label.filterAttr {
+        width: 100%;
+        /*display: flex;
+        align-items: center;
+        justify-content: space-between;*/
+    }
+
+        label.filterAttr button.multiselect.dropdown-toggle.btn.btn-default {
+            width: 100% !important;
+            max-width: 100% !important;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 11px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: bold;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        }
+
+        label.filterAttr .form-control {
+            font-size: 11.5px;
+        }
+
+        /*label.filterAttr button.multiselect.dropdown-toggle.btn.btn-default:hover {
+            transform: scale(1);
+        }*/
+
+        label.filterAttr ul.multiselect-container.dropdown-menu {
+            max-width: 100% !important;
+            width: 100% !important;
+            top: 35px !important;
+        }
+
+    .filter-img-sec #open-filterRAR {
+        background: #2e84e7;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 4px;
+        padding: 4px 4px 0px;
+        cursor: pointer;
+        height: auto !important;
+        border: none;
+        outline: none;
+        display: none;
+    }
+
+    .filter-img-sec #close-filterRAR {
+        background: #000;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 4px;
+        padding: 4px 4px 0px;
+        cursor: pointer;
+        height: auto !important;
+        border: none;
+        outline: none;
+    }
+</style>
+
+
+<div id="main-wrapper03">
+    @*<div id="loading-overlay">
+            <img src="~/images/loading.gif" alt="Loading..." id="loading-image" />
+        </div>*@
+
+    <div class="container-fluid">
+        @*class="modal fade" role="dialog"*@
+
+        <div id="ViewNTHistoryDetails" class="modal  bs-modal-lg fade modal-popup" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Action History</h4>
+                    </div>
+                    <div class="modal-body modal-scrollable">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="tblActionHistory" class="table table-bordered table-hover blue" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="min-width:35px;">S.No.</th>
+                                            <th>Approver</th>
+                                            <th>Rating</th>
+                                            <th>Given Date</th>
+                                            <th>Action</th>
+                                            <th>Comment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="row" style="position: relative" id="divFiltersRAR">
+                <div class="col-md-12">
+                    <div class="filter-img-sec">
+                        <button title="Filter" id="open-filterRAR"><span class="glyphicon glyphicon-filter"></span></button>
+                        <button id="close-filterRAR"><span class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+                </div>
+                <div class="col-md-12 filter-top-sec-item">
+                    <h5 class="reprt-heading-title" style="color: #696a6b; font-size:12px"><b>Filters</b></h5>
+                    <div id="filtersDropDiv" style="display:block;">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label id="reporteeDDL_RAR" class="ReporteeOFRM filterAttr" style="font-size:11px">
+                                    <span class="text-label">My Span</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddlReportee_RAR"></select></span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label id="gradeDDL_RAR" class="Grade filterAttr" style="font-size:11px">
+                                    <span class="text-label">Grade</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddlgrade_RAR"><option value="0">--select--</option></select></span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label id="location_RAR" class="Location filterAttr" style="font-size:11px">
+                                    <span class="text-label">Location</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddllocation_RAR"><option value="1">India</option><option value="3">US</option><option value="2">ROW</option></select></span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label id="" class="GroupAccount filterAttr" style="font-size:11px;">
+                                    <span class="text-label">Group Account</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddlgroupaccount_RAR"><option value="0">--select--</option></select></span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label id="" class="Gender filterAttr" style="font-size:11px;">
+                                    <span class="text-label">Gender</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddlgender_RAR"><option value="Male">Male</option><option value="Female">Female</option></select></span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label id="" class="GroupAccount filterAttr" style="font-size:11px;">
+                                    <span class="text-label">Employee Status</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddlEmployeeStatus_RAR"><option value="0">--select--</option></select></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="filtersApprovedReportee" style="display:none;">
+                        <div class="rating-summery">
+                            <div class="rating-summery-inn">
+
+                                <button class="abc" onclick="filterData('EE1','tblApprovedReporteeList');"><span id="filteronclick" class="MR_filterEE1">EE-Exceeds Expectations(5%) - [<span id="RM_EE1span">EE1</span>]</span></button>
+                                <button class="abc" onclick="filterData('EE', 'tblApprovedReporteeList');"><span id="filteronclick" class="MR_filterEE">EE-Exceeds Expectations(25)% - [<span id="RM_EEspan">EE</span>]</span></button>
+                                <button class="abc" onclick="filterData('ME', 'tblApprovedReporteeList');"><span id="filteronclick" class="MR_filterME">ME-Meets Expectations(60%) - [<span id="RM_MEspan">ME</span>]</span></button>
+                                <button class="abc" onclick="filterData('BE', 'tblApprovedReporteeList');"><span id="filteronclick" class="MR_filterBE"> BE-Below Expectations(10%) - [<span id="RM_BEspan">BE</span>]</span></button>
+                                <button class="abc" onclick="filterData('RM', 'tblApprovedReporteeList');"><span id="filteronclick" class="MR_RM">My Reportees- [<span id="MyReporteeCount"></span>]</span></button>
+                                <button class="abc" onclick="filterData('Total', 'tblApprovedReporteeList');"><span id="filteronclick" class="MR_Total">Reset</span></button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            @*<div class="col-md-12">
+
+                    <div id="filtersApprovedReportee" style="display:none;">
+                        <div class="MyReporteerating-summery">
+                            <div class="rating-summery-inn">
+                                <button class="abc" onclick="filterData('EE1','tblApprovedReporteeList');"><span id="filteronclick" class="MR_filterEE1">EE-Exceeds Expectations(5%) - [<span id="RM_EE1span">EE1</span>]</span></button>
+                                <button class="abc" onclick="filterData('EE', 'tblApprovedReporteeList');"><span id="filteronclick" class="MR_filterEE">EE-Exceeds Expectations(25)% - [<span id="RM_EEspan">EE</span>]</span></button>
+                                <button class="abc" onclick="filterData('ME', 'tblApprovedReporteeList');"><span id="filteronclick" class="MR_filterME">ME-Meets Expectations(60%) - [<span id="RM_MEspan">ME</span>]</span></button>
+                                <button class="abc" onclick="filterData('BE', 'tblApprovedReporteeList');"><span id="filteronclick" class="MR_filterBE"> BE-Below Expectations(10%) - [<span id="RM_BEspan">BE</span>]</span></button>
+                                <button class="abc" onclick="filterData('RM', 'tblApprovedReporteeList');"><span id="filteronclick" class="MR_RM">My Reportees- [<span id="MyReporteeCount"></span>]</span></button>
+                                <button class="abc" onclick="filterData('Total', 'tblApprovedReporteeList');"><span id="filteronclick" class="MR_Total">Reset</span></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>*@
+
+
+            <div class="col-md-12 tblEmpRating-List">
+                <table class="table tbl-my-team-kra datatable table-borderd" width="100%" id="tblApprovedReporteeList">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Grade</th>
+                            <th>Location</th>
+                            <th>Group Account</th>
+                            <th>Total <br />Exp.</th>
+                            <th>@OrgShortName <br />Exp.</th>
+                            <th>Rating<br /> FY-23</th>
+                            <th>Last Promotion Date</th>
+                            <th>FY-24<br />Approved Rating</th>
+                            <th>FY-24<br />Approved Promotion</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+
+            <div class="col-md-12">
+
+                <div id="divDisplayData" style="display:none">
+                    <label id="lblFailed" style="color:red"></label>
+                </div>
+                <table class="table tbl-my-team-kra datatable table-borderd" width="100%" id="tblFilteredData" style="display:none">
+                    <thead>
+                        <tr>
+                            <th style="width: 300px !important;">Name</th>
+                            <th>Gender</th>
+                            <th>Total Exp.</th>
+                            <th>@OrgShortName Exp.</th>
+                            <th style="width: 180px !important;">Previous year-2022<br /> rating</th>
+                            <th style="width: 180px !important;">Last Year Promotion Date</th>
+                            <th style="width:10%">Current year -2023<br /> Rating</th>
+                            <th style="width: 200px !important;">Recommendation for promotion <br />(Year-2023</th>
+                            <th>Comments</th>
+                        </tr>
+                    </thead>
+
+                </table>
+                <table class="table-borderd" width="100%" id="tblUnsavedData" style="display:none">
+                    <thead>
+                        <tr>
+                            <th>Sr no.</th>
+                            <th style="width: 300px !important;">Name</th>
+                            <th>Gender</th>
+                            <th>Total Exp.</th>
+                            <th>@OrgShortName Exp.</th>
+                            <th style="width: 180px !important;">Previous year-2022<br /> rating</th>
+                            <th style="width:10%">Current year-2023<br /> Rating</th>
+                            <th style="width: 180px !important;">Recommendation for promotion<br />(Year-2023)</th>
+                            <th style="width: 180px !important;">Comments</th>
+                            <th style="width: 400px !important;">Reason</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/toastr.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/Common.js"></script>
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+    <script src="~/Scripts/PEPScripts/loader.js"></script>
+    <script src="~/Scripts/PEPScripts/RatingCurve.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Initialize GlobalAppConfig and replace organization name in headers
+            //GlobalAppConfig.init(function () {
+            //    var orgshortName = GlobalAppConfig.getShortOrgName();
+            //    if (orgshortName) {
+            //        // Replace "Infogain" in all <th> elements (table headers)
+            //        $('th').each(function () {
+            //            var headerText = $(this).html();
+            //            // Use regex to replace all instances of "Infogain" (case-insensitive)
+            //            // This will handle "Infogain", "Infogain1", etc.
+            //            var updatedText = headerText.replace(/Infogain\d*/gi, orgshortName);
+                        
+            //            $(this).html(updatedText);
+            //        });
+
+            //        // Also replace in table headers of hidden tables
+            //        $('#tblFilteredData th, #tblUnsavedData th').each(function () {
+            //            var headerText = $(this).html();
+            //            var updatedText = headerText.replace(/Infogain\d*/gi, orgshortName);
+            //            $(this).html(updatedText);
+            //        });
+            //    }
+            //});
+
+        });
+    </script>
+}
+

@@ -1,0 +1,79 @@
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var OrgLogoBlack = Session["OrgLogoBlack"] != null ? Convert.ToString(Session["OrgLogoBlack"]) : string.Empty;
+    var OrgName = Session["OrgName"] != null ? Convert.ToString(Session["OrgName"]) : string.Empty;
+    var CopyRight = Session["CopyRight"] != null ? Convert.ToString(Session["CopyRight"]) : string.Empty;
+    var Pep_URL = Session["PepURL"] != null ? Convert.ToString(Session["PepURL"]) : string.Empty;
+
+}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>PEP - Error</title>
+    <style nonce="@ViewBag.Nonce">
+body{ background: #f2f3f8; padding: 0px; text-align: center; font-family:arial; font-size: 100%; color: #333333; overflow: hidden;}
+div{width:80%; margin: auto; height: 100vh}
+h1{ font-size: 150%}
+h2{font-size: 100%; font-weight: normal}
+a{ display: inline-block; width: auto; padding: 10px 15px; transition: transform .2s; color: #2873f0; border:1px solid #2873f0; border-radius: 50px; text-decoration: none;}
+a:hover{color: #ffffff; background: #2873f0;  transform: scale(1.2);}
+.ph-20{ padding:3% 0;}
+.err-img-logo { width: 180px; }
+.err-img-illus { width: 200px; }
+
+@media only screen and (max-width: 600px) {
+	.responsive{ width: 80%}
+    a:hover{color: #ffffff; background: #2873f0;  transform:inherit;}
+}
+    </style>
+</head>
+<body>
+
+    <div>
+        <p><img id="orgLogo_e" src="@OrgLogoBlack" alt="@OrgName" class="err-img-logo"></p>
+        <h1>Aw, Snap!</h1>
+        <h2>
+            Something went wrong while displaying this page. To continue, reload or go to <br /> <br />
+            @*<a href="https://pep.infogain.com:1213">Go to login page</a>*@
+            <a href="@(Pep_URL):1213">Go to login page</a>
+
+        </h2>
+        <p class="ph-10"><img src="~/images/error.png" alt="error" class="responsive err-img-illus"> </p>
+        <!--<p><a href="#">Go back to the previous page</a></p>-->
+        <p id="lblCopyRight_e" class="ph-10">@CopyRight</p>
+
+    </div>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+    <script type="text/javascript">
+ $(document).ready(function () {
+     // Initialize GlobalAppConfig and load dynamic content
+     //GlobalAppConfig.init(function () {
+     //    // Update logo
+     //    var logoUrl = GlobalAppConfig.getOrgLogoBlack();
+     //    if (logoUrl) {
+     //        $('#orgLogo_e').attr('src', logoUrl);
+     //    }
+
+     //    // Update organization name in logo alt text
+     //    var orgName = GlobalAppConfig.getOrgName();
+     //    if (orgName) {
+     //        $('#orgLogo_e').attr('alt', orgName);
+     //    }
+
+     //    // Update copyright text
+     //    var copyRight = GlobalAppConfig.getcopyRight();
+     //    if (copyRight) {
+     //        $('#lblCopyRight_e').html(copyRight);
+     //    }
+     //});
+ });
+    </script>
+
+</body>
+
+</html>

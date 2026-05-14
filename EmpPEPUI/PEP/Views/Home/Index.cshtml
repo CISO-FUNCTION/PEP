@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="container-fluid" style="min-height:400px;">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Feedback</h3>
+        </div>
+    </div>
+
+  @*  <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default">Sent</button>
+                    <button type="button" class="btn btn-default">Received</button>
+                    <button type="button" class="btn btn-default">Pending</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        Basic panel example
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel with-nav-tabs panel-default">
+                <div class="panel-heading" style="padding:0px;">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tabSent" data-toggle="tab">Sent</a></li>
+                        <li><a href="#tabReceived" data-toggle="tab">Received</a></li>
+                        <li><a href="#tabPending" data-toggle="tab">Pending</a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tabSent">Sent</div>
+                        <div class="tab-pane fade" id="tabReceived">Received</div>
+                        <div class="tab-pane fade" id="tabPending">Pending</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-default" aria-label="Left Align">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Request
+            </button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,116 @@
+<div id="main">
+    <div>
+        <div class="alert alert-info" style="margin-bottom:12px; font-size:13px;">
+            <strong>Where to see your reply:</strong> After you send a reply, it is saved on the conversation thread.
+            Close the popup, change the <strong>Previous RM</strong> dropdown and select again to refresh the list.
+        </div>
+        <div class="row table-responsive">
+            <div class="col-md-2 form-inline">
+                <label class="form-label">Previous RM's</label>
+            </div>
+            <div class="col-md-6 form-inline">
+                <select class="form-control" id="ddlPreviousRMs" onchange="onDdlPreviousRMsChange();">
+                    <option value="0">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <br />
+
+        <div class="tab-content form-group">
+            <div class="tab-pane active" id="tab_feedbackgiven">
+                <div class="panel-group" id="accordion1">
+                    <div class="panel panel-default" id="pnlKRAFeedbackGiven">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-target="#collapseFour" href="#collapseFour" data-parent="#accordion1">
+                                    Goals & Objectives
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse in">
+                            <div class="panel-body" id="dvMyKraContent">
+                                <table class="table table-striped tbl-my-kra" id="tblFeedbackGivenKRA" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>To Employee</th>
+                                            <th>
+                                                Key Responsibility Area (KRA)
+                                            </th>
+                                            <th>Feedback</th>
+                                            <th>Date</th>
+                                          @*  <th>View</th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Commented for hide behavioural competencies start*@
+                    <div class="panel panel-default" id="pnlCompetencyFeedbackGiven" style="display:none">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-target="#collapseFive" href="#collapseFive" class="collapsed" data-parent="#accordion1">
+                                    Competency
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseFive" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <table class="table table-striped tbl-my-kra" id="tblFeedbackGivenCompetency" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>To Employee</th>
+                                            <th>Competency</th>
+                                            <th>Feedback</th>
+                                            <th>Date</th>
+                                            <th>View</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @*Commented for hide behavioural competencies end*@
+
+                    @*<div class="panel panel-default" id="panel6">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-target="#collapseSix" href="#collapseSix" class="collapsed" data-parent="#accordion1">
+                                    Other
+                                </a>
+                            </h4>
+
+                        </div>
+                        <div id="collapseSix" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                @{Html.RenderPartial("_FeedbackGivenOther");}
+                            </div>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+        </div><!-- tab content -->
+    </div>
+</div>
+
+<input type="hidden" id="hdnSelectedFeedbackTab" />
+
+<div class="modal fade" role="dialog" id="feedbackModal" data-url="@Url.Action("GetFeedbackModal")">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Feedback</h4>
+            </div>
+            <div class="modal-body">
+                <div id="feedbackContent">
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

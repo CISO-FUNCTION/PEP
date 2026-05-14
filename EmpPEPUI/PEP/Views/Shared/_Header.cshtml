@@ -1,0 +1,213 @@
+@{ 
+    var OrgLogo = Session["OrgLogo"] != null ? Convert.ToString(Session["OrgLogo"]) : string.Empty;
+    var OrgName = Session["OrgName"] != null ? Convert.ToString(Session["OrgName"]) : string.Empty;
+}
+<header id="header" class="navbar navbar-default navbar-static-top">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+            @*<img id="hlogo" src="@(ViewBag.OrgLogoUrl ?? "~/images/infogain-logo.png")" alt="@(ViewBag.OrgName ?? "Infogain")" />*@
+            <img id="hlogo" src="https://aspire.tenarai.com/content/brand/Logo-white151x55.png" alt="@OrgName" />
+
+            @*<img id="hlogo" src="" alt="" />*@
+
+        </a>
+        <span class="visible-xs hamburger"><i class="glyphicon glyphicon-menu-hamburger"></i></span>
+        <span class="page-title hidden-xs"></span>
+    </div>
+    <div class="navbar-icons">
+
+
+        <ul class="list-unstyled list-inline" title="Template">
+            @*<li class="hidden-xs"><a href="~/Templates/Testing_KRA_G2_G4.xlsx">Temp1</a></li>
+                <li class="hidden-xs"><a href="~/Templates/StandardisedKRA_G2_G4.xlsx">Temp2</a></li>*@
+            @*<li class="dropdown profile-active">
+                    <span class="glyphicon glyphicon-question-sign help-icon"></span>
+
+                    <ul class="dropdown-menu">
+                        <li style="color:black" class="notifyList" id="HelpGuide">
+                        </li>
+                    </ul>
+                </li>*@
+            <li class="dropdown profile-active">
+                <span class="glyphicon glyphicon-tasks"></span>
+
+                <ul class="dropdown-menu">
+                    <li style="color:black" class="notifyList" id="liTemplate">
+                        @*<table class="table table-striped" style="width:100%;">
+                                <tr>
+                                    <td><a href="~/Templates/Testing_KRA_G2_G4.xlsx">Testing_G&Os_G2 to G4</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="~/Templates/StandardisedKRA_G2_G4.xlsx">StandardisedG&Os_G2 to G4</a></td>
+                                </tr>
+                            </table>*@
+                    </li>
+                    <li style="color:black" class="notifyList" id="HelpGuide">
+                    </li>
+                </ul>
+            </li>
+
+            <li class="hidden-xs">Last Feedback: &nbsp;<span id="spnFeedbackDate"></span></li>
+
+            <li class="dropdown profile-active" id="liKRA">
+                <span class="glyphicon glyphicon-tasks" id="spanKRA"><div class="notification" id="divKRANotification">0</div></span>
+                <input type="hidden" id="hdnKRA" value="0" />
+                <ul class="dropdown-menu notifyDropDown" id="dropdown_KRA">
+                    <li style="color:black" class="notifyList">
+                        <table class="table table-striped" id="tblMyKRANotifications" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>From Employee</th>
+                                    <th>Pending List</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </li>
+
+
+
+
+                </ul>
+            </li>
+
+            <li class="dropdown profile-active" id="liFeedback">
+                <span class="glyphicon glyphicon-bell"><div class="notification" id="divNotification">0</div></span>
+                <input type="hidden" id="hdnfeedback" value="0" />
+                <ul class="dropdown-menu notifyDropDown" id="dropdown_noti">
+                    <li style="color:black" class="notifyList">
+                        <table class="table table-striped" id="tblMyNotifications" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>From Employee</th>
+                                    <th>Feedback</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </li>
+
+
+
+
+                </ul>
+            </li>
+
+
+            <li class="dropdown profile-active">
+                <!-- <div class="user"></div><span class="glyphicon glyphicon-user"></span> -->
+                <span class="user"><span class="glyphicon glyphicon-user"></span></span>
+                <span id="spnUserName"></span>
+                <span class="glyphicon glyphicon-menu-down arrow-down"></span>
+                <ul class="dropdown-menu profileDropdown" id="dropdown">
+                    <li style="color:black">
+                        <table class="table table-bordered table-inverse ">
+                            <tr>
+                                <td>Employee Id</td>
+                                <td id="EmpNo"></td>
+                            </tr>
+                            @*  <tr>
+                                    <td>DOJ</td>
+                                    <td id="EmpDOJ"></td>
+                                </tr>*@
+
+                            <tr>
+                                <td>Location</td>
+                                <td id="EmpLocation"></td>
+                            </tr>
+                            <tr>
+                                <td>Designation</td>
+                                <td id="EmpDesig"></td>
+                            </tr>
+                            <tr>
+                                <td>Manager</td>
+                                <td id="EmpMgr"></td>
+                            </tr>
+                            @* <li id="EmpDesig" style="color:black"><table><tr><td>Designation:</td></tr></table></li>*@
+                            @*    <li id="EmpMgr" style="color:black">Manager:</li>*@
+                            @* <li><a href="#">Options</a></li>*@
+                        </table>
+                    </li>
+
+                    <li> <a id="btnLogout" onclick="clearsessions();">Log Out</a></li>
+
+
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+
+</header>
+
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+
+
+<style>
+    .glyphicon glyphicon-question-sign help-icon {
+        font-size: 75px;
+    }
+</style>
+<script id="text/script">
+    $(document).ready(function () {
+       // var logoUrl = GlobalAppConfig.getOrgLogo()
+       
+       //         $('#hlogo').attr('src', logoUrl);
+            
+       
+
+       // // Load organization name and set it to the alt attribute
+       //var orgName = GlobalAppConfig.getOrgName()
+       //         $('#hlogo').attr('alt', orgName);
+            
+
+        var txt = '';
+        var helpguidetxt = '';
+        if (sessionStorage.DivisionId == 5 || sessionStorage.DivisionId == 6) {
+            /*<a target="_blank" href="/Templates/Help guide for Goal Setting.pdf">Help guide for Goal Setting</a>*/
+            //txt = '<table class="table table-striped" style="width:100%;"><tr><td><a target="_blank" href="/Templates/PEP_GO_Associate.xlsx">PEP GO Associate</a></td></tr><tr><td><a target="_blank" href="/Templates/PEP_GO_Sr Associate.xlsx">PEP GO Sr Associate</a></td></tr><tr><td><a target="_blank" href="/Templates/Help guide for Self Assessment.pdf">Help guide for Self Assessment</a></td></tr><tr><td><a target="_blank" href="/Templates/Help guide for Goal Setting.pdf">Help guide for Goal Setting</a></td></tr><tr><td><a target="_blank" href="/Templates/Reference Goals _ IC track.xlsx">Reference Goal-IC Track</a></td></tr><tr><td><a target="_blank" href="/Templates/Reference Goals_ Architect_Job_Family.xlsx">Reference Goal-Architect Job Family</a></td></tr</table>';
+            txt = '<table class="table table-striped" style="width:100%;"><tr><td><a href="#" id="PEP_GO_Associate.xlsx" onclick="DownloadDocument(this.id)">PEP GO Associate</a></td></tr><tr><td><a href="#" id="PEP_GO_Sr Associate.xlsx" onclick="DownloadDocument(this.id)">PEP GO Sr Associate</a></td></tr><tr><td><a id="Help guide for Self Assessment.pdf" href="#" onclick="DownloadDocument(this.id)">Help guide for Self Assessment</a></td></tr><tr><td><a id="Help guide for Goal Setting.pdf" href="#" onclick="DownloadDocument(this.id)">Help guide for Goal Setting</a></td></tr><tr><td><a href="#" id="Reference Goals _ IC track.xlsx" onclick="DownloadDocument(this.id)">Reference Goal-IC Track</a></td></tr><tr><td><a href="#" id="Reference Goals_ Architect_Job_Family.xlsx" onclick="DownloadDocument(this.id)">Reference Goal-Architect Job Family</a></td></tr</table>';
+        } else {
+
+            // txt = '<table class="table table-striped" style="width:100%;"><tr><td><a target="_blank" href="/Templates/Testing_KRA_G2_G4.xlsx">Testing_G&Os_G2 to G4</a></td></tr><tr><td><a target="_blank" href="/Templates/StandardisedKRA_G2_G4.xlsx">StandardisedG&Os_G2 to G4</a></td></tr><tr><td><a target="_blank" href="/Templates/Help guide for Self Assessment.pdf">Help guide for Self Assessment</a></td></tr><tr><td><a target="_blank" href="/Templates/Help guide for Goal Setting.pdf">Help guide for Goal Setting</a></td></tr><tr><td><a target="_blank" href="/Templates/Reference Goals _ IC track.xlsx">Reference Goal-IC Track</a></td></tr><tr><td><a target="_blank" href="/Templates/Reference Goals_ Architect_Job_Family.xlsx">Reference Goal-Architect Job Family</a></td></tr></table>';
+            txt = '<table class="table table-striped" style="width:100%;"><tr><td><a  href="#" id="Testing_KRA_G2_G4.xlsx" onclick="DownloadDocument(this.id)">Testing_G&Os_G2 to G4</a></td></tr><tr><td><a href="#" id="StandardisedKRA_G2_G4.xlsx" onclick="DownloadDocument(this.id)">StandardisedG&Os_G2 to G4</a></td></tr><tr><td><a id="Help guide for Self Assessment.pdf" href="#" onclick="DownloadDocument(this.id)">Help guide for Self Assessment</a></td></tr><tr><td><a id="Help guide for Goal Setting.pdf" href="#" onclick="DownloadDocument(this.id)">Help guide for Goal Setting</a></td></tr><tr><td><a href="#" id="Reference Goals _ IC track.xlsx" onclick="DownloadDocument(this.id)">Reference Goal-IC Track</a></td></tr><tr><td><a href="#" id="Reference Goals_ Architect_Job_Family.xlsx" onclick="DownloadDocument(this.id)">Reference Goal-Architect Job Family</a></td></tr><tr><td><a href="#" id="G5_plus_sample reference goals.xlsx" onclick="DownloadDocument(this.id)">G5+ sample reference goals</a></td></tr></table>';
+        }
+
+        $('#liTemplate').html(txt);
+
+        //helpguidetxt = '<table class="table table-striped" style="width:100%;"><tr><td><a target="_blank" href="/Templates/Help guide for Self Assessment.pdf">Help guide for Self Assessment</a></td></tr><tr><td><a target="_blank" href="/Templates/Help guide for Goal Setting.pdf">Help guide for Goal Setting</a></td></tr></table>';
+        //$('#HelpGuide').html(helpguidetxt);
+
+
+    });
+
+    function DownloadDocument(fileName) {
+
+
+        var fileUrl = "/Dashboard/DownloadPEPDocuments?path=" + fileName;
+        var link = document.createElement('a');
+        link.href = fileUrl;
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+</script>
+@*<script id="text/script">
+        $(document).ready(function () {
+            var txt = '';
+            var helpguidetxt = '';
+            if (sessionStorage.DivisionId == 5 || sessionStorage.DivisionId == 6) {
+                txt = '<table class="table table-striped" style="width:100%;"><tr><td><a target="_blank" href="/Templates/PEP_GO_Associate.xlsx">PEP GO Associate</a></td></tr><tr><td><a target="_blank" href="/Templates/PEP_GO_Sr Associate.xlsx">PEP GO Sr Associate</a></td></tr><tr><td><a target="_blank" href="/Templates/Help guide for Self Assessment.pdf">Help guide for Self Assessment</a></td></tr><tr><td><a target="_blank" href="/Templates/Help guide for Goal Setting.pdf">Help guide for Goal Setting</a></td></tr><tr><td><a target="_blank" href="/Templates/Reference Goals _ IC track.xlsx">Reference Goal-IC Track</a></td></tr><tr><td><a target="_blank" href="/Templates/Reference Goals_ Architect_Job_Family.xlsx">Reference Goal-Architect Job Family</a></td></tr</table>';
+            } else {
+                txt = '<table class="table table-striped" style="width:100%;"><tr><td><a target="_blank" href="/Templates/Testing_KRA_G2_G4.xlsx">Testing_G&Os_G2 to G4</a></td></tr><tr><td><a target="_blank" href="/Templates/StandardisedKRA_G2_G4.xlsx">StandardisedG&Os_G2 to G4</a></td></tr><tr><td><a target="_blank" href="/Templates/Help guide for Self Assessment.pdf">Help guide for Self Assessment</a></td></tr><tr><td><a target="_blank" href="/Templates/Help guide for Goal Setting.pdf">Help guide for Goal Setting</a></td></tr><tr><td><a target="_blank" href="/Templates/Reference Goals _ IC track.xlsx">Reference Goal-IC Track</a></td></tr><tr><td><a target="_blank" href="/Templates/Reference Goals_ Architect_Job_Family.xlsx">Reference Goal-Architect Job Family</a></td></tr></table>';
+            }
+
+            $('#liTemplate').html(txt);
+
+        });
+    </script>*@
+
+
+

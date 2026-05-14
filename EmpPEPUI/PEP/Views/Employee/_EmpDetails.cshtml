@@ -1,0 +1,39 @@
+﻿
+@using EmpPEP.UI.Views.Employee; 
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+  
+    
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+<script src="~/Scripts/PEPScripts/Common.js"></script>
+
+<script src="~/Scripts/PEPScripts/EmpDetails.js"></script>
+<div>
+    <label>@EmpDetails.EmpName</label>
+   <label id="lblEmpValue">-</label>
+  </div>
+
+
+ <div>
+    <label>@EmpDetails.Designation</label>
+   <label id="lblEmpDesValue">-</label>
+  </div>
+
+ <div>
+    <label>@EmpDetails.Manager</label>
+   <label id="lblEmpMgrValue">-</label>
+  </div>
+
+ <div>
+    <label>@EmpDetails.ManagerSince</label>
+   <label id="lblEmpMgrHistoryValue">-</label>
+<a class="pop">View Previous Managers</a>
+<div id="contentDiv" style="display:none;">Some content...</div>
+  </div>
+
+ <div>
+    <label>@EmpDetails.LastFeedbackDate</label>
+   <label id="lblEmpLastFeedaback">-</label>
+  </div>

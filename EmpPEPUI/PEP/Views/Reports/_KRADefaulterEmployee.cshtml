@@ -1,0 +1,61 @@
+﻿@*@using EmpPEP.UI.Views.Reports;*@
+<div id="divMrKRA">
+    <div class="row pdtop15">
+
+
+        <div class="col-sm-5" id="divSelectMgrFB">
+            <div class="form-horizontal">
+                <div class="form-group" style="padding-bottom:15px;">
+                    <label class="col-sm-4 control-label">Select Manager :</label>
+                    <div class="col-sm-8">
+                        <select id="ddlMgrListForKRA" class="ddlMgrList form-control"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-5 form-horizontal" id="KRA_Reportee">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Select Employee : </label>
+                <div class="col-sm-8">
+                    <select id="ddlEmpForKRA" class="form-control"></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12" id="DivKRAReport" style="display: none; margin-top: 10px;">
+            <input type="button" value="View Report" class="btn btn-primary" id="btnKRADefaulterReport" />
+            <input type="button" value="Export To Excel" class="btn btn-primary" id="btnExportToExcelKRADefaulterReport" />
+            <input type="button" value="Edit Template" class="btn btn-primary" id="btnEditTemplate" />
+            <input type="button" value="Send Mail" class="btn btn-primary" id="btnSendMail" />
+        </div>
+        <div class="col-md-12" style="height:30px"></div>
+        <div class="col-md-12">
+            <table id="tblKRADefaulter" class="table tbl-my-team-kra-beh-comp" style="width: 100%;">
+                <thead class="cf">
+                    <tr>
+                        <th><input type="checkbox" name="select_all" value="1" id="chkAll"></th>
+                        <th>Employee Code </th>
+                        <th>Employee Name </th>
+                        <th>Manager Name  </th>
+                        <th>Manager Code  </th>
+                        <th>Location </th>
+                        <th>Designation </th>
+                        <th>Employee Grade </th>
+                        <th>Appraisal CycleName </th>
+                        <th>Goal Submitted </th>
+                        <th>GoalSubmittedOn </th>
+                        <th>GoalApproved </th>
+                        <th>GoalApprovedOn </th>
+                        <th>ApprovedBy </th>
+                        <th>ApprovedID </th>
+                        <th>EmployeeStatus </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+    </div>
+
+
+</div>

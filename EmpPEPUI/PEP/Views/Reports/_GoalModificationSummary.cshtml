@@ -1,0 +1,112 @@
+<style>
+    #divGoalModificationSummary table#tblGoalModificationSummary tr td {
+        word-break: break-word;
+    }
+    .summary-card {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    .summary-card h4 {
+        margin-top: 0;
+        color: #495057;
+    }
+    .stat-box {
+        text-align: center;
+        padding: 10px;
+    }
+    .stat-number {
+        font-size: 24px;
+        font-weight: bold;
+        color: #007bff;
+    }
+    .stat-label {
+        font-size: 12px;
+        color: #6c757d;
+    }
+</style>
+
+<div class="row pdtop15" id="divGoalModificationSummary">
+    
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-md-3 form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Status:</label>
+                    <div class="col-md-8">
+                        <select id="ddlGoalModStatus" class="form-control">
+                            <option value="">All</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <input type="button" value="View Report" class="btn btn-primary" id="btnGoalModReport" />
+                <input type="button" value="Export Report" class="btn btn-primary" id="btnExportToExcelGoalModReport" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Statistics Section -->
+    <div class="col-sm-12" id="divGoalModSummaryStats" style="display:none; margin-top: 20px; margin-bottom: 20px;">
+        <div class="summary-card">
+            <h4>Summary Statistics</h4>
+            <div class="row">
+                <div class="col-md-2 stat-box">
+                    <div class="stat-number" id="statTotalRequests">0</div>
+                    <div class="stat-label">Total Requests</div>
+                </div>
+                <div class="col-md-2 stat-box">
+                    <div class="stat-number" id="statApproved" style="color: #28a745;">0</div>
+                    <div class="stat-label">Approved</div>
+                </div>
+                <div class="col-md-2 stat-box">
+                    <div class="stat-number" id="statRejected" style="color: #dc3545;">0</div>
+                    <div class="stat-label">Rejected</div>
+                </div>
+                <div class="col-md-2 stat-box">
+                    <div class="stat-number" id="statPending" style="color: #ffc107;">0</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+                <div class="col-md-2 stat-box">
+                    <div class="stat-number" id="statUniqueEmployees">0</div>
+                    <div class="stat-label">Unique Employees</div>
+                </div>
+                <div class="col-md-2 stat-box">
+                    <div class="stat-number" id="statAvgRequestCount">0</div>
+                    <div class="stat-label">Avg Requests/Employee</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Report Table -->
+    <div class="col-sm-12" style="margin-top: 20px;">
+        <table id="tblGoalModificationSummary" class="table tbl-my-team-kra-beh-comp" style="width: 100%;">
+            <thead class="cf">
+                <tr>
+                    <th>Sr No</th>
+                    <th>Request Date</th>
+                    <th>Employee Code</th>
+                    <th>Employee Name</th>
+                    <th>Appraisal Cycle</th>
+                    <th>Status</th>
+                    <th>Request Count</th>
+                    <th>Location</th>
+                    <th>Designation</th>
+                    <th>Action Taken By</th>
+                    <th>Action Taken On</th>
+                    <th>Rejection Reason</th>
+                </tr>
+            </thead>
+            <tbody id="tblGoalModificationSummaryBody">
+            </tbody>
+        </table>
+    </div>
+</div>

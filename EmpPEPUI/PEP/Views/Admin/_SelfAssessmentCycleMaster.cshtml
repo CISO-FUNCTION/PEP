@@ -1,0 +1,95 @@
+@using EmpPEP.UI.Views.Admin;
+<div class="table-responsive" style="overflow-x:hidden;">
+    <div class="row" style="margin-bottom: 15px;">
+        <div class="col-md-12">
+            <h4>Self Assessment Cycle Management</h4>
+            <p class="text-muted">Manage Self Assessment cycles (H1/H2) and mark cycles as closed to prevent goal modifications.</p>
+        </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 15px;">
+        <div class="col-md-4">
+            <label>Select Appraisal Cycle:</label>
+            <select id="ddlSelfAssessmentAppraisalCycle" class="form-control" onchange="LoadSelfAssessmentCycles()">
+                <option value="0">-- Select Appraisal Cycle --</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive" style="overflow-x: hidden;">
+    <table class="table table-striped tbl-my-kra" id="tblSelfAssessmentCycleMaster">
+        <thead>
+            <tr>
+                <th>Cycle Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Is Closed</th>
+                <th>Closed Date</th>
+                <th class="text-left">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="6" style="text-align:center; padding:20px;">Please select an Appraisal Cycle to view Self Assessment cycles</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal for Closing Cycle -->
+<div class="modal fade" id="modalCloseCycle" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Close Self Assessment Cycle</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hdnCloseCycleId" />
+                <div class="form-group">
+                    <label>Are you sure you want to close this cycle?</label>
+                    <p><strong>Cycle:</strong> <span id="lblCloseCycleName"></span></p>
+                    <p><strong>Year Break Check:</strong> <span id="lblCloseYearBreakCheck"></span></p>
+                    <p class="text-warning"><strong>Note:</strong> Once closed, goals cannot be modified for this cycle.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="ConfirmCloseCycle()">Close Cycle</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Reopening Cycle -->
+<div class="modal fade" id="modalReopenCycle" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Reopen Self Assessment Cycle</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hdnReopenCycleId" />
+                <div class="form-group">
+                    <label>Are you sure you want to reopen this cycle?</label>
+                    <p><strong>Cycle:</strong> <span id="lblReopenCycleName"></span></p>
+                    <p><strong>Year Break Check:</strong> <span id="lblReopenYearBreakCheck"></span></p>
+                    <p class="text-info"><strong>Note:</strong> Reopening will allow goal modifications for this cycle.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="ConfirmReopenCycle()">Reopen Cycle</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-success display-hide" style="display: none;" id="divSAC_ValidationAlert"></div>
+

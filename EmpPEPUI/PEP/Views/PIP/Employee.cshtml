@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "Employee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+
+    var RoleId = "0";
+
+    if (((Session["RoleId"])) != null)
+    {
+        RoleId = ((Session["RoleId"])).ToString();
+
+        //  @ViewBag.AccessType= AccessType;
+    }
+}
+<div id="main-wrapper">
+    <div id="main">
+        <div class="row pg-main-title">
+            <div class="col-12 pg-title-border"><h4><b>Employee PIP</b></h4></div>
+        </div>
+
+        <div class="panel-group" id="accordion">
+
+
+        </div>
+
+        
+
+    </div>
+
+
+    <div id="ShowGivenFeedbackToEmp" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Week Wise Feedback</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-scrollable">
+
+
+                    <div class="row">
+
+                        <div class="col-md-12 tableviewfeedback">
+                            <input type="hidden" id="hdnParameterID" value="0" />
+                            <table id="tablegivenFeedbackToEmp" class="table table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Period</th>
+                                        <th>Problem/Issue</th>
+                                        <th>Deliverables</th>
+                                        <th>Progress Measurement</th>
+                                        <th>Feedback</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Existing rows will be populated here -->
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+
+    <script type="text/javascript">
+        var SelectionRoleId= @RoleId.ToString();
+
+        if(sessionStorage.IsRM=='false' && sessionStorage.IsHRBP=='false')
+        {
+            SelectionRoleId= 1;
+        }
+    </script>
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/toastr.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/Common.js"></script>
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+    <script src="~/Scripts/PEPScripts/loader.js"></script>
+
+    <script src="~/Scripts/PEPScripts/select2.min.js"></script>
+    <link href="~/Scripts/PEPScripts/select2.min.css" rel="stylesheet" />
+    <link href="~/Scripts/PEPScripts/bootstrap-multiselect.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/bootstrap-multiselect.min.js"></script>
+    <script src="~/Scripts/PEPScripts/PIP.js"></script>
+
+
+}

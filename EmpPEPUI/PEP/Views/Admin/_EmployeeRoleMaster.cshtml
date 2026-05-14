@@ -1,0 +1,39 @@
+﻿@using EmpPEP.UI.Views.Admin;
+<div class="table-responsive">
+    <form id="formEmployeeRole">
+        <table class="table table-striped tbl-my-kra" id="tblEA_Edit">
+            <thead>
+                <tr>
+                    <th>@Master.strEmployeeName</th>
+                    <th>@Master.strEmployeeRole</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" id="txtER_EmployeeNames" class="input-exitL form-control"  />
+                        <input type="hidden" id="hdnER_EmployeeId" />
+                    </td>
+                    <td>
+                        <select id="ddlER_EmployeeRole" class="input-exitL form-control" onchange="onRoleChange()"></select>
+                        <select id="ddlER_DU" class="input-exitL form-control" onchange="" style="display:none" multiple></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" class="text-right">
+                        <input type="button" id="btnER_Update" class="btn btn-primary" value="@Master.strUpdate" onclick="SaveEmployeeRole()" />
+                        <input type="button" id="btnER_Clear" class="btn btn-primary" value="@Master.strClear" onclick="ClearForm('ER')" />
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="12">
+                        <div class="alert alert-success display-hide" style="display: none;" id="divER_ValidationAlert">
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

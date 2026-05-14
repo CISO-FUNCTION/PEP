@@ -1,0 +1,194 @@
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<script src="~/Scripts/PEPScripts/Dashboard.js"></script>*@
+
+<style>
+    .ui-autocomplete {
+        max-height: 200px;
+        overflow-y: scroll;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+    }
+
+    .top-mis-11px {
+        position: relative;
+        top: -11px;
+        margin-bottom: 0px;
+    }
+    
+    /* Dashboard Loader Styles */
+    #dashboardLoader {
+        position: fixed;
+        top: 60px;
+        left: 53px;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.72);
+        -webkit-backdrop-filter: blur(2px);
+        backdrop-filter: blur(2px);
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #dashboardLoader .loader-content {
+        text-align: center;
+        padding: 24px 32px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 24px rgba(0,0,0,.12);
+        min-width: 200px;
+    }
+    
+    #dashboardLoader .loader-content i {
+        display: none;
+    }
+    
+    #dashboardLoader .loader-content span {
+        display: block;
+        font-size: 14px;
+        color: #555;
+        font-weight: 500;
+    }
+    
+    /* Hide dashboard content initially */
+    #dashboardContent {
+        display: none;
+    }
+    
+    /* Box-specific loader styles */
+    .box-loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.9);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+    }
+    
+    .box-loader .loader-content {
+        text-align: center;
+    }
+    
+    .box-loader .loader-content i {
+        font-size: 24px;
+        color: #337ab7;
+        margin-bottom: 10px;
+    }
+    
+    .box-loader .loader-content span {
+        display: block;
+        font-size: 14px;
+        color: #333;
+        font-weight: 500;
+    }
+    
+    /* Make dashboard boxes position relative for absolute loader */
+    .row-yellow, .row-danger, .row-success, .row-Yellow {
+        position: relative;
+    }
+    
+    /* Ensure specific box containers are positioned relative */
+    #DivselfAssesment, #dvMyEmployeesListSkipLevel {
+        position: relative;
+        min-height: 200px; /* Ensure there's space for the loader */
+    }
+    @@keyframes mf-spin {
+        to { transform: rotate(360deg); }
+    }
+</style>
+
+<!-- Dashboard Loader -->
+<div id="dashboardLoader" style="display: flex;">
+    <div class="loader-content">
+        <span style="display: inline-block; width: 40px; height: 40px; border: 3px solid #e8e8e8; border-top-color: #337ab7; border-radius: 50%; animation: mf-spin 0.75s linear infinite; margin-bottom: 12px;"></span>
+        <span>Loading Dashboard...</span>
+    </div>
+</div>
+
+<div id="main-wrapper">
+    <div id="main" class="PageHeight">
+        <div class="row pg-main-title">
+            <div class="col-12 pg-title-border"><h4><b>DASHBOARD</b></h4></div>
+            @*<div class="collapse-btn"><a class="btn btn-primary" data-toggle="collapse" href="#collapsePan" role="button" aria-expanded="false" aria-controls="collapsePan">Link</a></div>*@
+        </div>
+
+        <div class="row pg-main-title">
+            <div class="col-12 pg-title-border"><h4><b>Team's PEP Status</b></h4></div>
+        </div>
+
+        <div class="row pg-main-title form-group">
+            <div class="col-md-4">
+                <h4> <b>Select Appraisal Cycle:</b></h4>
+                <select id="DBAppCycle" class="form-control" onchange="OnDBAppraisalCycleChange()"></select>
+            </div>
+        </div>
+        <br />
+        <div id="dashboardContent">
+        <div id="collapsePan" aria-expanded="true">
+            <div class="row" style="padding:10px">
+                <div class="col-sm-12 col-md-4 row-yellow" id="DivKRANotSubmitted">
+
+                    @Html.Partial("../../Views/Dashboard/_EmployeeKRANotSubmitted")
+                </div>
+                <div class="col-sm-12 col-md-4 row-yellow" id="DivKRANotApproved">
+                    @Html.Partial("_EmployeeKRANotApproved")
+                </div>
+                <div class="col-sm-12 col-md-4 row-danger" id="DivNotGiven">
+
+                    @{Html.RenderPartial("_FeedbackNotGiven");}
+                </div>
+            </div>
+            <div class="row" style="padding:10px">
+
+                <div class="col-sm-12 col-md-4 row-success" id="DivGtThan5">
+                    @Html.Partial("_FeedbackGreaterThan")
+                </div>
+
+                <div class="col-sm-12 col-md-4 row-Yellow" id="DivselfAssesment">
+                    @Html.Partial("_EmployeeSelfAssessmentDetail")
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4 row-Yellow" id="DivPIPSummary" style="display:none;">
+                @Html.Partial("_PIPSummary")
+            </div>
+            <div class="row">
+                <div class="col-md-8" id="dvMyEmployeesListSkipLevel" style="float:left;">
+                    @Html.Partial("_MyEmployeeListSkipLevel")
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/toastr.min.js"></script>
+
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/PEPScripts/Dashboard.js"></script>
+
+
+    <script>
+        $('.collapse').collapse("hide");
+
+       
+    </script>
+
+}

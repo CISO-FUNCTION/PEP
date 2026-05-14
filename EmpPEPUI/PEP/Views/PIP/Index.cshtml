@@ -1,0 +1,1251 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+
+    var RoleId = "0";
+
+    if (((Session["RoleId"])) != null)
+    {
+        RoleId = ((Session["RoleId"])).ToString();
+
+        //  @ViewBag.AccessType= AccessType;
+    }
+}
+<script type="text/javascript">
+
+    var SelectionRoleId= @RoleId.ToString();
+
+    if(sessionStorage.IsRM=='false' && sessionStorage.IsHRBP=='false')
+    {
+        SelectionRoleId= 1;
+    }
+
+
+    if(SelectionRoleId==1)
+    {
+        $('#RoleName').text('Employee');
+
+    }else if(SelectionRoleId==2)
+    {
+        $('#RoleName').text('Reporting Manager');
+    }
+    else if(SelectionRoleId==3)
+    {
+        $('#RoleName').text('Skip Reporting Manager');
+    }else if(SelectionRoleId==4)
+    {
+        $('#RoleName').text('HRBP');
+    }
+
+</script>
+<div class="container-fluid">
+
+
+    <div class="row" id="roleDiv">
+
+        <div class="col-md-6">
+            <div class="form-group">
+
+                <h5 class="divAlert">
+                    <span>Role :</span> <span id="RoleName"></span>
+                </h5>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="PIPReporteeDDLDiv" class="row border-sec" style="display:none;">
+
+        <div class="col-md-6">
+            <div class="form-horizontal">
+                <div class="form-group" style="display:flex;align-items:center;">
+                    <label class="control-label">Select Reportees to Initiate PIP:</label>
+                    <select id="ddlAspireReportee" class="ddlMgrList form-control"></select>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="display:none;" id="divSEmpID" class="col-md-12">
+            <div class="tblEmpRating-List" style="margin-top: 18px;">
+                <table class="table tbl-my-team-kra datatable table-borderd" id="tblSelectEmpPIPList">
+                    <thead>
+                        <tr>
+                            <th>Employee Name</th>
+                            <th>Grade</th>
+                            <th>Project</th>
+                            <th>PIP Reason</th>
+
+                            <th>Initiate PIP</th>
+
+                            <th>PIP Start Date</th>
+                            <th>PIP End Date</th>
+
+                            <th>PIP Status</th>
+                            <th>PIP Supporting Doc</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="row border-sec">
+        <div id="PIPFilterDiv" class="col-md-12" style="display:none;">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <div class="form-horizontal">
+                        <div class="form-group" style="display:flex;align-items:center;">
+                            <label class="control-label">Select filter :</label>
+                            <select class="form-control" id="ddlFilter">
+
+                                <option value="1">PIPs initiated by me</option>
+                                <option value="2">PIPs in my span</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-12 tblEmpRating-List" style="margin-top: 18px;">
+            <table class="table tbl-my-team-kra datatable table-borderd" width="100%" id="tblEmpPIPList">
+                <thead>
+                    <tr>
+                        <th class="PIPAction">Action History</th>
+                        <th>Employee Name</th>
+                        <th>Grade</th>
+                        <th>Project</th>
+                        <th>PIP Remarks</th>
+                        <th>PIP Start Date</th>
+                        <th>PIP End Date</th>
+                        <th>PIP Status</th>
+                        <th class="PIPDoc">PIP Supporting Doc</th>
+                        <th>Action</th>
+
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="ViewHistoryDetails" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Action History</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body modal-scrollable">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table id="tblActionHistory" class="table table-bordered table-hover blue" style="width:100%">
+                            <thead>
+                                <tr class="thead-bg-blue">
+                                    <th style="min-width:35px;">S.No.</th>
+                                    <th>Action Taken</th>
+                                    <th>Action By</th>
+                                    <th>Action On</th>
+                                    <th>Status From</th>
+                                    <th>Status To</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addPIPDoc" class="modal fade popup" role="dialog">
+
+    <div class="modal-dialog modal-lg popup-content">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add PIP Supporting Documents</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+
+            <div class="modal-body modal-scrollable">
+
+                <input type="hidden" id="hdnPEPEmpID" value="0" />
+                <input type="hidden" id="hdnStatusId" value="0" />
+                <input type="hidden" id="hdnPIPAttachement" value="0" />
+                <input type="hidden" id="hdnPIPId" value="0" />
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <p>
+                                <b>
+                                    Note: Please upload emails that may have been sent to the employee giving him/ her feedback on the performance issues. You may upload more than one file by holding down the Ctrl key while selecting files.
+                                </b>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span class="text-label"><b>Employee Name :</b> </span>
+                            <label class="text-label" id="txtSelectEmployeeName" name="txtSelectEmployeeName"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+
+                            <label>Attachment :<span class="string-red">*<span><i class='fa fa-paperclip' style='color:Grey' aria-hidden='true'></i> file attached : </span></span> </label>
+                            <a class='downloadfile' href="#"><label id="filename"></label></a>
+                            <span class="attachment-text">You may attach more than one file by holding down the Ctrl key while selecting files.</span>
+
+
+                            <div class="attachebilefile">
+                                <input type="file" name="img[]" class="file" id="uploadDocfile" multiple="multiple">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="" id="basic-addon1"><i class="fas fa-paperclip"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="txtAttachedDoc" disabled placeholder="Upload File"
+                                           aria-label="Upload File" aria-describedby="basic-addon1">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="browse btn btn-primary" id="basic-addon2">
+                                            <i class="fas fa-search"></i> Browse
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            <span class="text-label"><b>PIP Reason :</b><span class="string-red">*</span> </span>
+                            <span id="txtReasonRemaining"></span>
+
+                            <textarea class="form-control" rows="3" cols="25" maxlength="500" id="txtPIPReason" placeholder="Add Reason here" name="txtAddReason"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <div class="row" id="divRM_rejectionReason" style="display:none;">
+
+                    <div class="col-md-6">
+                        <span class="text-label"><b>Rejection Reason :</b> </span>
+                        <textarea class="form-control" rows="3" cols="25" maxlength="1600" id="RM_txtHRBPPIPRejectReason" name="RM_txtHRBPRejectReason"></textarea>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer" id="BtnFooter">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" id="btnAddDoc">Submit to HRBP</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="HRBPActionPopup" class="modal fade" role="dialog">
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">View and Approve Supporting Documents</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+
+            <div class="modal-body modal-scrollable">
+                <form class="" action="">
+                    <input type="hidden" id="hdnPEPEmpID" value="0" />
+                    <input type="hidden" id="hdnStatusId" value="0" />
+                    <input type="hidden" id="hdnPIPIds" value="0" />
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <span class="text-label"><b>Employee Name :</b> </span>
+                            <label class="text-label" id="txtHRBPSelectEmployeeName" placeholder="Add Reason here" name="txtHRBPSelectEmployeeName"></label>
+
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="form-group">
+
+                                <label>Attachment<span class="string-red">*</span> <span><a class='popupdownloadfile'><i class='fa fa-paperclip' style='color:Grey' aria-hidden='true'></i> file attached : <span id="filenamehrbp"></span> </a></span></label>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="row" id="divHRBPRemarks">
+
+                        <div class="col-md-6">
+                            <span class="text-label"><b>Remarks :</b> </span>
+                            <textarea class="form-control" rows="3" cols="25" maxlength="1600" id="txtHRBPPIPRejectReason" placeholder="Add remarks here" name="txtHRBPRejectReason"></textarea>
+
+                        </div>
+                    </div>
+
+
+
+                </form>
+            </div>
+            <div class="modal-footer" id="BtnFooter">
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" id="btnDocumentInAdequate">Need more info</button>
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" id="btnPIPDisapprove">Not proceeding with PIP</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" id="btnPIPApprove">Proceed with PIP</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="AddDocFeedbackPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">PIP Form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body modal-scrollable">
+
+
+                <input type="hidden" id="hdnsPIPID" value="0" />
+                <input type="hidden" id="hdnsPEPEmpID" value="0" />
+                <input type="hidden" id="hdnsStatusId" value="0" />
+                <input type="hidden" id="hdnsPIPAttachement" value="0" />
+                <input type="hidden" id="hdnPIPDuration" value="0" />
+                <div class="row pip-top-field-sec" style="margin-bottom: 10px;">
+                    @*<div class="col-md-2">
+                            <div class="form-group">
+                                <span class="text-label"><b>Employee Name :</b> </span>
+                                <span class="label-style">
+                                    <label id="lblEmpId"></label>
+                                </span>
+                            </div>
+                        </div>*@
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <span class="text-label"><b>Employee Name :</b> </span>
+                            <span class="label-style">
+                                <label id="lblEmpName"></label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2" id="IssueByRM" style="display:none;">
+                        <div class="form-group">
+                            <span class="text-label"><b>Issued By RM :</b> </span>
+                            <span class="label-style">
+                                <label id="lblIssueBy"></label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2" id="HRapproved" style="display:none;">
+                        <div class="form-group">
+                            <span class="text-label"><b> HR Approver :</b> </span>
+                            <span class="label-style">
+                                <label id="lblHRBPapprover"></label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="display:none;" id="Employeeapproved">
+
+                    </div>
+                    <div class="col-md-2" style="display:none;">
+                        <div class="form-group">
+                            <div class="input-group input-append date" id="PIPTotalDays">
+                                <span class="text-label"><b>PIP Total Duration : </b> </span>
+                                <span class="label-style">
+                                    <label id="lblTotaldurationtext"></label>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div id="divdisplaychecksecond" style="display:none">
+                        <div class="col-md-3">
+                            <div class="form-group">
+
+                                <label class="control-label text-label">PIP Discussion Date<span class="string-red">*</span></label>
+                                <div class="PIPDate">
+                                    <input type="text" class="input-exitSmall form-control KRADatePicks" id="txtdiscussionDate" name="date" placeholder="Select Date" />
+
+                                    @*<input type="text" class="input-exitSmall form-control KRADatePicks" id="txtdiscussionDate" name="date" placeholder="Select Date" />*@
+
+                                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="startDate" class="text-label">Start Date</label>
+                                <input type="text" id="startDate" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+
+                                <label for="endDate" class="text-label">End Date</label>
+                                <input type="text" id="endDate" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-3" id="divdisplaycheckfirst" style="display:none">
+                        <div class="form-group">
+                            <div class="input-group input-append date" id="pipdurationdiv">
+                                <label id="lblduration" class="text-label">PIP Duration<span class="string-red">*</span></label>
+                                <select class="form-control" id="ddlPIPDuration">
+                                    <option value="-1">-select -</option>
+                                    <option value="1">30 days</option>
+                                    <option value="2">60 days</option>
+                                    <option value="3">90 days</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="col-md-6" id="extensiondet">*@
+
+
+                    <div class="col-md-3" id="PIPExtensionNumber" style="display:none;">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label id="lbltotalextn" class="text-label">Total PIP Extension<span class="string-red">*</span></label>
+                                <input type="text" id="txttotalextn" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" id="PIPDurationDet" style="display:none;">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label id="lblTotalPIPDuration" class="text-label">Total PIP Duration<span class="string-red">*</span></label>
+                                <input type="text" id="txtTotalPIPDuration" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*</div>*@
+
+                    <div class="col-md-3" style="display:none;" id="PIPResultdiv">
+                        <div class="form-group">
+                            <div class="input-group input-append date">
+                                <label id="lblPIPResult" class="text-label">PIP Result<span class="string-red">*</span></label>
+                                <select class="form-control" id="ddlPIPResult"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" style="display:none;" id="PIPExtensiontdiv">
+                        <div class="form-group">
+                            <div class="input-group input-append date">
+                                <label id="lblPIPExtension" class="text-label">PIP Extension <span class="string-red">*</span></label>
+                                <select class="form-control" id="ddlPIPExtension"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="add-new-row-btn"><button class="btn btn-sm btn-primary" id="addProblemIssue">Add PIP Parameters</button></div>
+                    </div>
+                    <div class="col-md-12">
+
+                        <input type="hidden" id="hdnPEPEmpID" value="0" />
+                        <input type="hidden" id="hdnStatusId" value="0" />
+
+                        <table id="tableaddResponse" class="table table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Sno.</th>
+                                    <th>Problem/Issue</th>
+                                    <th>Deliverables</th>
+                                    <th>Progress Measurement</th>
+                                    <th class="GiveFeed">View Feedback</th>
+                                    <th class="AddFeed">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Existing rows will be populated here -->
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="col-sm-12" id="AcknowNote" style="display:none;">
+                        <div class="form-group">
+                            <p>
+                                <b>
+                                    Note: Incase the performance is not satisfactory, this PIP document will be considered as a notice of separation from the company.
+                                </b>
+                            </p>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer" id="BtnAddDocFooter">
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" id="btnPIPReferbackToRM">Refer back to RM</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" id="btnPIPApproveByRole">Submit</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" id="btnPIPFinalAction">Submit</button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="ShowGivenFeedback" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Week Wise Feedback</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body modal-scrollable">
+
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <input type="hidden" id="hdnParameterID" value="0" />
+                        <table id="tablegivenFeedback" class="table table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Period</th>
+                                    <th>Problem/Issue</th>
+                                    <th>Deliverables</th>
+                                    <th>Progress Measurement</th>
+                                    <th>Feedback</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Existing rows will be populated here -->
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="addPIPParamFeedback" class="modal fade" role="dialog">
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Weekly Feedback</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body modal-scrollable">
+
+                <input type="hidden" id="hdnPIP_WeekID" value="0" />
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <label id="WeekNumber"> Week's : </label>
+                        <span><label id="Weekval"></label></span>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <input type="hidden" id="hdnParameterID" value="0" />
+                        <input type="hidden" id="hdnPIPFeed" value="0" />
+                        <input type="hidden" id="hdnPIPWeek" value="0" />
+                        <table id="tableParameters" class="table table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Problem/Issue</th>
+                                    <th>Deliverables</th>
+                                    <th>Progress Measurement</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Existing rows will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                @*<div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="Problem/Issues">Feedback :  </label>
+                                <textarea class="form-control" rows="3" cols="50" maxlength="1600" id="txtPIPfeedback" placeholder="Add feedback here" name="txtReply"></textarea>
+
+                            </div>
+                        </div>
+                    </div>*@
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <p>
+                                <b>
+                                    Note: This feedback will be sent to the employee via email and also be visible to the employee on the PIP tool immediately after submit.
+                                </b>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="BtnFooter">
+                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" id="btnSavePIPFeedback">Save</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" id="btnAddPIPFeedback">Submit</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="addPIPPopup" class="modal fade" role="dialog">
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add PIP Parameters</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+
+            <div class="modal-body modal-scrollable">
+
+                <input type="hidden" id="hdnPIP_ParameterID" value="0" />
+                <input type="hidden" id="hdnPIP_PIPID" value="0" />
+                <input type="hidden" id="hdnPIP_PEPEmpID" value="0" />
+                <input type="hidden" id="hdnPIP_StatusId" value="0" />
+                <input type="hidden" id="hdnPIP_Attachement" value="0" />
+
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="Problem/Issues">Problem/Issues : <span class="string-red"> *</span> </label>
+                            <textarea class="form-control" rows="3" cols="50" maxlength="1600" id="txtProblemIssue" placeholder="Problem/Issues" name="txtReply"></textarea>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="Deliverables">Deliverables :<span class="string-red"> *</span> </label>
+                            <textarea class="form-control" rows="3" cols="50" maxlength="1600" id="txtDeliverables" placeholder="Deliverables" name="txtDeliverables"></textarea>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="Progress Measurement">Progress Measurement <span class="string-red"> *</span></label>
+                            <textarea class="form-control" rows="3" cols="50" maxlength="1600" id="txtProgressMeasurement" placeholder="Progress Measurement" name="txtProgressMeasurement"></textarea>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer" id="BtnFooter">
+                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" id="btnAddPIPDetails">Add PIP parameter</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div id="errorMsg" class="modal scrollable-modal fade" role="dialog">
+    <div class="modal-dialog  modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <h3>Error</h3>
+                    <div id="error" class="alert alert-danger" style="padding: 5px;text-align: left;" role="alert"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn blue btn-outline" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="confirmFeedbackSubmit" class="modal  bs-modal-md fade modal-popup" data-backdrop="static" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body modal-scrollable">
+                <div class="row">
+                    <div class="col-sm-12">
+                        Feedback once submitted cannot be edited and will immediately be emailed to the employee as well as be visible to the employee on the PIP window. Are you sure you want to submit the feedback?
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="feedbackSubmitNo">No</button>
+
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="feedbackSubmitYes">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="confirm" class="modal  bs-modal-md fade modal-popup" data-backdrop="static" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body modal-scrollable">
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        This will be sent to the HRBP for approval and cannot be edited once approved by the HRBP. Are you sure you want to proceed?
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="yes">Proceed Anyway</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="submittoemployee" class="modal  bs-modal-md fade modal-popup" data-backdrop="static" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body modal-scrollable">
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        Please ensure that you are submitting this PIP form only after having the PIP discussion with the employee and HRBP. Upon clicking the 'Yes', the PIP form would be emailed to the employee and also be visible to the employee on the PIP window. <br /><br />Are you sure you want to proceed?
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="EmployeeSubmitNo">No</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="EmployeeSubmitYes">Yes</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="confirmPIPHRBPApprove" class="modal  bs-modal-md fade modal-popup" data-backdrop="static" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Acknowledgement</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body modal-scrollable">
+                <div class="row">
+                    <div class="col-sm-12">
+                        I acknowledge that I have validated the available documents and also done a 1-1 connect with the employee and hence approving the PIP initiation.
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="yesHRBPConfirm">Proceed</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="InAdequatePIPbyHRBP" class="modal  bs-modal-md fade modal-popup" data-backdrop="static" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body modal-scrollable">
+                <div class="row">
+                    <div class="col-sm-12">
+                        If you are not convinced of proceeding with the PIP, please click below.
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="InadequatebyHRBP">Proceed</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="DisApprovePIPbyHRBP" class="modal  bs-modal-md fade modal-popup" data-backdrop="static" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body modal-scrollable">
+                <div class="row">
+                    <div class="col-sm-12">
+                        If you are disapproving of this PIP, please click below.
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="btnDisApprovePIPbyHRBP">Proceed</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="ModaldWeekfbconfirm" class="modal  bs-modal-md fade modal-popup" data-backdrop="static" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">Confirm</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body modal-scrollable">
+
+                <input type="hidden" id="hdnCheckWeekNo" value="0" />
+                <input type="hidden" id="hdnCheckPIPId" value="0" />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <span id="weekmodalmessage"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="WeekFbConfrm">Proceed Anyway</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ModaldReferBackconfirm" class="modal  bs-modal-md fade modal-popup" data-backdrop="static" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">Confirm</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body modal-scrollable">
+                <div class="row">
+                    <div class="col-sm-12">
+
+
+                        This will be sent to the RM to edit again. Are you sure you want to proceed?”
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="ReferBackConfrm">Proceed Anyway</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loader-div loader">
+    <img class="loader-img spinner" alt="Please Wait Data Loading..." src="../images/ajax-loader.gif" style="height: 120px;width: auto;" />
+</div>
+
+<style type="text/css">
+    table#tblEmpPIPList {
+        width: 100% !important;
+    }
+
+    table#tblSelectEmpPIPList {
+        width: 100% !important;
+    }
+
+
+    .file {
+        visibility: hidden;
+        position: absolute;
+    }
+
+    .file1 {
+        visibility: hidden;
+        position: absolute;
+    }
+
+    .modal .modal-header {
+        display: flex;
+        align-items: center;
+    }
+
+        .modal .modal-header .modal-title {
+            width: 100%;
+        }
+
+
+    .add-new-row-btn {
+        text-align: right;
+        margin-bottom: 10px;
+    }
+
+    select#ddlPIPDuration {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    div#pipdurationdiv {
+        width: 100%;
+    }
+
+    button.remove-row.btn.btn-sm.btn-primary {
+        border-radius: 4px;
+    }
+
+    /*.form-group .input-group {
+        position: relative;
+        display: flex;
+        border-collapse: separate;
+    }*/
+
+    .form-group .input-group.date span.input-group-addon {
+        padding: 0px;
+        position: absolute;
+        z-index: 99;
+        right: 23px;
+        border: none;
+        background: transparent;
+        top: 6px;
+    }
+
+    .PIPDate span.input-group-addon.add-on {
+        border: 0px;
+        position: absolute;
+        background: transparent;
+        padding: inherit;
+        top: 8px;
+        z-index: 99;
+        right: 16px;
+    }
+
+    .PIPDate {
+        position: relative;
+    }
+
+    #AddDocFeedbackPopup .modal-dialog.modal-lg {
+        width: 1100px;
+    }
+
+    /*div#pipdurationdiv label#lblduration {
+        width: 32%;
+    }*/
+
+    /*select#ddlPIPDuration {
+        width: 68%;
+    }*/
+
+    #tableaddResponse thead tr th:last-child {
+        width: 43px !important;
+    }
+
+
+    a.downloadfile {
+        text-decoration: none; /* Optional: remove underline */
+        color: blue; /* Optional: change link color */
+    }
+
+    #tableaddResponse thead tr th:nth-child(1) {
+        width: 26px !important;
+    }
+
+    button#btnPIPApproveByRole {
+        color: #fff;
+    }
+
+    button#btnPIPReferbackToRM {
+        color: #fff;
+    }
+
+    div#PIPReporteeDDLDiv label.control-label {
+        padding: 0px;
+        margin-right: 10px;
+    }
+
+    div#PIPReporteeDDLDiv {
+        padding: 0px 15px 0px;
+        margin-top: 10px;
+    }
+
+        div#PIPReporteeDDLDiv span.select2.select2-container.select2-container--default {
+            width: 64% !important;
+        }
+
+    #tableaddResponse thead tr th:last-child {
+        width: 18% !important;
+    }
+
+    #tableaddResponse thead tr th {
+        padding: 3px 6px;
+        width: auto !important;
+        text-align: center;
+    }
+
+    #tableaddResponse tbody tr td {
+        padding: 3px 6px;
+    }
+
+    #AddDocFeedbackPopup .modal-header {
+        padding: 7px 16px;
+    }
+
+    #AddDocFeedbackPopup .form-group {
+        margin-bottom: 4px;
+    }
+
+    #AddDocFeedbackPopup .input-group .form-control {
+        border: 1px solid #ddd !important;
+        padding: 6px 8px;
+        border-radius: 4px !important;
+    }
+
+    div#PIPResultdiv label#lblPIPResult {
+        width: 100%;
+    }
+
+    div#PIPResultdiv {
+        display: block;
+    }
+
+    div#BtnAddDocFooter {
+        margin-top: 10px;
+    }
+
+    /*
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 150px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        z-index: 1000;
+    }
+
+    .popup-content {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #ccc;
+        border-top: 5px solid #333;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }*/
+    #PIPFilterDiv .form-group label.control-label {
+        width: 56%;
+        text-align: left;
+        padding-left: 15px;
+    }
+
+    .border-sec {
+        border: 1px solid #ddd;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-bottom: 15px;
+        padding-bottom: 15px !important;
+        border-radius: 6px;
+        box-shadow: 1px 3px 12px 1px rgba(0, 0, 0, 0.4);
+        padding-top: 15px !important;
+    }
+
+    div#divSEmpID {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    span.attachment-text {
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    .attachebilefile {
+        width: 57%;
+    }
+
+    td[rowspan] {
+        vertical-align: middle; /* Vertically center the text */
+        text-align: center; /* Horizontally center the text */
+        border-bottom: none; /* Remove bottom border to avoid visible lines */
+    }
+
+    /* Hide top border of the next row under the rowspan */
+    tr td:first-child {
+        border-top: none;
+    }
+
+    /* General cell styles to hide unnecessary borders */
+    td {
+        border-top: none;
+        border-bottom: none;
+    }
+
+    .dataTables_wrapper .dataTables_paginate a.paginate_button:hover {
+        color: #000 !important;
+    }
+</style>
+@section scripts{
+
+    <script type="text/javascript">
+
+        var SelectionRoleId= @RoleId.ToString();
+
+        if(sessionStorage.IsRM=='false' && sessionStorage.IsHRBP=='false')
+        {
+            SelectionRoleId= 1;
+        }
+
+
+        if(SelectionRoleId==1)
+        {
+            $('#RoleName').text('Employee');
+
+        }else if(SelectionRoleId==2)
+        {
+            $('#RoleName').text('Reporting Manager');
+        }
+        else if(SelectionRoleId==3)
+        {
+            $('#RoleName').text('Skip Reporting Manager');
+        }else if(SelectionRoleId==4)
+        {
+            $('#RoleName').text('HRBP');
+        }
+
+    </script>
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/toastr.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/Common.js"></script>
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+    <script src="~/Scripts/PEPScripts/loader.js"></script>
+
+    <script src="~/Scripts/PEPScripts/select2.min.js"></script>
+    <link href="~/Scripts/PEPScripts/select2.min.css" rel="stylesheet" />
+    <link href="~/Scripts/PEPScripts/bootstrap-multiselect.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/bootstrap-multiselect.min.js"></script>
+    <script src="~/Scripts/PEPScripts/PIP.js"></script>
+
+
+}

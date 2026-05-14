@@ -1,0 +1,87 @@
+@* Modal for Goal Modification Request *@
+<div class="modal fade" id="goalModificationModal" tabindex="-1" role="dialog" aria-labelledby="goalModificationModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="goalModificationModalLabel">Request Goal Modification</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="modificationReason">Select reason for modification <span class="text-danger">*</span></label>
+                    <select class="form-control" id="modificationReason">
+                        <option value="">-- Select Reason --</option>
+                        <!-- Options will be loaded dynamically from API -->
+                    </select>
+                    <small class="text-muted" id="reasonLoader" style="display:none;"><i class="fa fa-spinner fa-spin"></i> Loading reasons...</small>
+                </div>
+                
+                <div class="alert alert-info">
+                    <strong>Note:</strong> You can modify your goals for any of the above reasons at most twice in H1 and H2 respectively, subject to approval from your manager.
+                </div>
+                
+                <div class="form-group">
+                    <p class="text-primary"><strong>Are you sure you want to proceed with goal modification?</strong></p>
+                </div>
+                
+                <div id="modificationErrorMsg" class="alert alert-danger" style="display:none;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" id="btnSubmitModificationRequest">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal for Exceeded Limit *@
+<div class="modal fade" id="limitExceededModal" tabindex="-1" role="dialog" aria-labelledby="limitExceededModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="limitExceededModalLabel">Limit Exceeded</h4>
+            </div>
+            <div class="modal-body">
+                <p>You have exceeded maximum limit for goal modification. Kindly connect with your HRBP in case you necessarily need to modify your goals now.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="hdnCurrentCycle" />
+<input type="hidden" id="hdnCurrentAppraisalCycleId" />
+
+@* Modal for H2 Cycle Change Warning *@
+<div class="modal fade" id="h2CycleWarningModal" tabindex="-1" role="dialog" aria-labelledby="h2CycleWarningModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="h2CycleWarningModalLabel">
+                    <i class="fa fa-exclamation-triangle"></i> Incomplete Self-Assessment
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning">
+                    <p><strong>You have not completed your self-assessment for the current goals.</strong></p>
+                    <p>We recommend completing your self-review first, as submitting a goal modification request will override your existing goals once approved by your manager.</p>
+                </div>
+                <p class="text-muted">Do you want to proceed with goal modification?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btnH2WarningNo" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" id="btnH2WarningYes">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

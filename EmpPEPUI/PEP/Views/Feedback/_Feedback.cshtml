@@ -1,0 +1,53 @@
+﻿<div class="container-fluid" style="min-height:250px;">
+    <div class="chatInfo">
+        Feedback conversation between: <span id="spnFeedBackFrom"></span> <span><b>and</b></span>
+        <span id="spnFeedBackTo"></span>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12 chatBox">
+
+        <div id="dvFrom">
+            @*<div >
+                   Feedback conversation between: <span id="spnFeedBackFrom"></span> <span><B>and</B></span>
+                    <span id="spnFeedBackTo"></span
+                </div>*@
+            <div>
+                @*<span id="spnFeedBackFrom"></span> <span><B>and</B></span>
+                    <span id="spnFeedBackTo"></span>*@
+                <input type="hidden" id="hdnFromEmpId" />
+                <input type="hidden" id="hdnParentFeedbackId" />
+            </div>
+        </div>
+
+        <div id="dvFromTo">
+            @*<div class="col-sm-8" style="background-color:aqua;">
+                </div>*@
+        </div>
+        <div class="form-group form-group-sm" id="dvFeedback">
+            <div class="col-sm-4">
+                <label>Feedback</label>
+            </div>
+            <div class="col-sm-8">
+                <textarea class="form-control" rows="3" cols="50" maxlength="1600" id="txtFeedback" readonly="readonly"></textarea>
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group form-group-sm" id="dvSendReply">
+        <div class="col-sm-12 replyDiv">
+            <textarea class="form-control" rows="3" onkeyup="RemoveScript()"; cols="50" maxlength="1600" id="txtReply" placeholder="Your Reply" name="txtReply"></textarea>
+            <div id="txtReplyRemaining"></div>
+            <button id="btnSend" class="btn btn-primary replyBtn" onclick="fnSendFeedback();">Send</button>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        function RemoveScript() {
+            debugger;
+            var txtValue = $('#txtReply').val();
+            $('#txtReply').val(txtValue.replace(/[\<\>'=]+/g, ''));
+        }
+    </script>
+}
+

@@ -1,0 +1,287 @@
+﻿
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+
+<style type="text/css">
+    .multiselect {
+        white-space: normal !important;
+        max-width: 200px;
+    }
+
+    .data-table-main {
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 11px !important;
+        font-weight: normal;
+        line-height: 1.5;
+        color: #212529;
+        text-align: left;
+        background-color: #fff;
+    }
+
+        table.dataTable.nowrap th, table.dataTable.nowrap td, .data-table-main th, .data-table-main td {
+            padding: 5px;
+            white-space: inherit !important;
+            word-wrap: normal !important;
+        }
+
+    #tblAppCycleGradeMapping tr td {
+        vertical-align: middle;
+    }
+
+    #tblAppCycleGradeMapping tr td {
+        vertical-align: middle;
+    }
+
+        #tblAppCycleGradeMapping tr td:last-child {
+            text-align: center;
+        }
+
+        #tblAppCycleGradeMapping tr td:nth-child(1) {
+            text-align: center;
+        }
+
+    #tblAppCycleGradeMapping tr th:nth-child(1) {
+        width: 50px !important;
+    }
+
+    #tblAppCycleGradeMapping tr th:last-child {
+        width: 50px !important;
+    }
+
+    #tblAppCycleGradeMapping tr th {
+        text-align: center;
+    }
+
+    #tblAppCycleGradeMapping tr td select.currRating {
+        width: 240px !important;
+        border-radius: 4px !important;
+        font-size: 11px;
+    }
+
+    #tblAppCycleGradeMapping tr td .form-control.NormStartDate.hasDatepicker {
+        font-size: 11px;
+    }
+
+    table#tblAppCycleGradeMapping {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        table#tblAppCycleGradeMapping tr th {
+            padding: 4px 6px;
+        }
+
+        table#tblAppCycleGradeMapping tr td {
+            padding: 4px 6px;
+        }
+
+    #tblActionHistory tr td .form-control {
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    hr {
+        margin-top: 14px;
+        margin-bottom: 14px;
+        border: 0;
+        border-top: 1px solid #d9dce1;
+    }
+
+    h6 {
+        padding-top: 7px;
+    }
+</style>
+
+
+<div id="main-wrapper03">
+    @*<div id="loading-overlay">
+            <img src="~/images/loading.gif" alt="Loading..." id="loading-image" />
+        </div>*@
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12" style="background-color: #f2f2f2">
+                <div class="col-md-12">
+                    <h6><b>Normalization and Promotion Roles Mapping</b></h6>
+                    <hr />
+                    <table id="tblAppCycleRoleMappingAction" class="table table-bordered data-table-main" style="width:100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select class="form-control" id="ddlApprCycleHRAdminRole" onchange="BindRolesByApprCycle();" ><option value="0">--select--</option></select>
+                                </td>
+                                <td>
+                                    <select class="form-control" id="ddlUserTpeHRAdmin" onchange="BindStartDateByRole();"><option value="0">--select--</option></select>
+                                </td> 
+                                @*<td>
+                                    <select class="form-control" id="ddlIsAciveHRAdmin">
+                                        <option value="1">Active</option>
+                                        <option value="0">InActive</option>
+                                    </select>
+                                </td>*@
+                                <td>
+                                    <input placeholder="Pick Normalisation Start Date" id="dtNormStartDate" readonly class="input-exitSmall form-control NormStartDate" />
+                                </td>
+                                <td>
+                                <input placeholder="Pick Normalisation End Date" id="dtNormEndDate" readonly class="input-exitSmall form-control NormEndDate" />
+                                </td>
+                                <td><button class="btn btn-primary" id="btnAddNormRoleMapping">Add</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12" style="min-height:15px;"></div>
+                <div class="col-md-12 tblEmpRating-List">
+                    <table id="tblAppCycleRoleMapping" class="table table-bordered table-hover blue data-table-main" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="min-width:35px;">Sr.No.</th>
+                                <th>Appraisal Cycle</th>
+                                <th>Role</th>
+                                <th>Normalisation Start Date</th>
+                                <th>Normalisation End Date</th>
+                                @*<th>Status</th>*@
+                                @*<th>Action</th>*@
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            @*<div class="col-md-12" style="background-color: #f2f2f2">
+                <div class="col-md-12">
+                    <h6><b>Appraisal Cycle - Grade Mapping</b></h6>
+                    <hr />
+                    <table id="tblActionHistory" class="table table-bordered data-table-main" style="width:100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select class="form-control" id="ddlApprCycleHRAdmin"><option value="0">--select--</option></select>
+                                </td>
+                                <td>
+                                    <select class="form-control" id="ddlGradeApprCycleHRAdmin"><option value="0">--select--</option></select>
+                                </td>
+                                <td>
+                                    <input placeholder="Pick Normalisation Date" id="dtNormStartDate" class="input-exitSmall form-control NormStartDate" />
+                                </td>
+                                <td><button class="btn btn-primary" id="btnAddNormAppriasalCycleGradeMapping">Add</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12" style="min-height:15px;"></div>
+                <div class="col-md-12 tblEmpRating-List">
+                    <table id="tblAppCycleGradeMapping" class="table table-bordered table-hover blue data-table-main" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="min-width:35px;">Sr.No.</th>
+                                <th>Appraisal Cycle</th>
+                                <th>Grade Assigned</th>
+                                <th>Normalisation Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12" style="margin-top: 21px; padding-bottom: 11px; background-color: #f2f2f2; ">
+                <div class="col-md-12">
+                    <h6><b>Normalisation Configurations</b></h6>
+                    <hr />
+                    <table id="tblActionHistory" class="table table-bordered data-table-main" style="width:100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select class="form-control" id="ddlApprCycleHRAdminConf"><option value="0">--select--</option></select>
+                                </td>
+                                <td style="padding-top:11px;">
+                                    <span><b>Show Rating To Employee :</b></span>
+                                    <input id="chkRatingVisibleConfYes" class="form-check-input" name="ratingVisible" type="radio" style="margin-top: 5px; margin-left: 5px; margin-right: 5px;" /><span><b>Yes</b></span>
+                                    <input id="chkRatingVisibleConfNo" class="form-check-input" name="ratingVisible" type="radio" style="margin-top: 5px; margin-left: 19px; margin-right: 5px;" /><span><b>No</b></span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary" id="btnUpdateNormConf">Update</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12" style="margin-top: 21px; padding-bottom: 11px; background-color: #f2f2f2;">
+                <div class="col-md-12">
+                    <h6><b>Promotion Grade Configuration</b></h6>
+                    <hr />
+                    <table id="tblActionHistory" class="table table-bordered data-table-main" style="width:100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select class="form-control" id="ddlApprCycleHRAdminPromoConf"><option value="0">--select--</option></select>
+                                </td>
+                                <td>
+                                    <select class="form-control" id="ddlGradeHRAdminPromoConf"><option value="0">--select--</option></select>
+                                </td>
+                                <td>
+                                    <input placeholder="Promotion Percentage" class="form-control" type="number" id="txtPromotionPer" />
+                                </td>
+                                <td>
+                                    <input placeholder="Male Percentage" class="form-control" type="number" id="txtPromotionMalePer" />
+                                </td>
+                                <td>
+                                    <input placeholder="Female Percentage" class="form-control" type="number" id="txtPromotionFemalePer" />
+                                </td>
+                                <td>
+                                    <input placeholder="Others Percentage" class="form-control" type="number" id="txtPromotionOthersPer" />
+                                </td>
+                                <td><button class="btn btn-primary" id="btnAddNormAppriasalCycleGradePromoConf">Add</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12" style="min-height:15px;"></div>
+                <div class="col-md-12 tblEmpRating-List">
+                    <table id="tblAppCycleGradePromoConf" class="table table-bordered table-hover blue data-table-main" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="min-width:35px;">Sr.No.</th>
+                                <th>Appraisal Cycle</th>
+                                <th>Grade</th>
+                                <th>Promotion Percentage</th>
+                                <th>Male Percentage</th>
+                                <th>Female Percentage</th>
+                                <th>Others Percentage</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>*@
+        </div>
+    </div>
+    <br />
+</div>
+
+@section scripts{
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/toastr.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/Common.js"></script>
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+    <script src="~/Scripts/PEPScripts/loader.js"></script>
+    <script src="~/Scripts/PEPScripts/RatingAppraisalCycleContext.js"></script>
+    <script src="~/Scripts/PEPScripts/RatingAdmin.js"></script>
+    @*<script src="~/Scripts/PEPScripts/RatingCurve.js"></script>*@
+
+}
+

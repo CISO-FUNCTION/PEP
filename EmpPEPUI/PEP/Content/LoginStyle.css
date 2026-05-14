@@ -1,0 +1,243 @@
+﻿body {
+}
+
+
+.logindiv
+{
+    padding-top:151px;
+   
+}
+.margintop8px
+{
+  margin-top:8px;
+ 
+}
+
+
+
+.outerdivcost
+{
+ margin-bottom:0px;
+ 
+}
+.logoutbtnmargin {
+   
+    margin-right: 8px;
+    margin-top: 10px;
+}
+
+@media (min-width: 1100px)
+{
+     .logindiv {
+    width: 32%;
+}
+.margintop8px
+{
+  margin-top:0px;
+ 
+}
+
+}
+
+@media (max-width: 1280px)
+{
+     .logindiv {
+    width: 40%;
+}
+
+.margintop8px
+{
+  margin-top:0px;
+ 
+}
+}
+
+@media (max-width: 1024px)
+{
+     .logindiv {
+    width: 40%;
+}
+.margintop8px
+{
+  margin-top:0px;
+ 
+}
+}
+
+@media (max-width: 979px)
+{
+}
+
+@media  (max-width: 800px)
+{
+    
+ .logindiv {
+    width: 40%;
+}
+}
+
+@media (min-width: 769px)
+{
+}
+
+@media (max-width: 768px) 
+{
+}
+
+@media (max-width: 640px) 
+{
+ .logindiv {
+    width: 100%;
+}
+.margintop8px
+{
+  margin-top:8px;
+ 
+}
+}
+
+@media (max-width: 480px)
+{
+    
+     .logindiv {
+    width: 100%;
+}
+.margintop8px
+{
+  margin-top:8px;
+ 
+}
+}
+
+@media (max-width: 360px) 
+{
+     .logindiv {
+    width: 100%;
+}
+}
+
+@media (max-width: 320px) 
+{
+}
+
+.navbar-brand > strong {font-size: 37px!important;
+color: #fff!important;
+}
+.login_button {margin-top: 10px!important;
+width: 200px!important;
+}
+    .login_button a {color: #fff!important;
+margin-left: 124px!important; margin-left: -5px!important;
+    }
+.lbluser_text { 
+margin-left: 50px!important;}
+.log_out {margin-left: 123px!important;
+}
+
+.row > h2 {
+color:azure;
+}
+
+/*#btnSubmit {
+padding: 15px;
+font-size: large;
+}*/
+.panel-title > label {
+    max-width: 92%;
+}
+
+.portlet.box.red-sunglo > .portlet-title {
+  background-color: #E26A6A;
+}
+.portlet.box > .portlet-title {
+  border-bottom: 0;
+  padding: 0 10px;
+  margin-bottom: 0;
+  color: #fff;
+}
+
+.portlet.box.red-sunglo > .portlet-title > .caption {
+  color: #fff;
+}
+.portlet.box > .portlet-title > .caption {
+  padding: 4px 7px 2px 4px;
+}
+.form .form-body {
+  padding: 10px;
+}
+
+/* Circle Inputs */
+.input-circle {
+  border-radius: 25px !important;
+}
+.form .form-body {
+  padding: 10px;
+}
+
+/* Form inputs */
+.form-control {
+  font-size: 14px;
+  font-weight: normal;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  box-shadow: none;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+}
+
+/***
+Green Default
+***/
+/* Button */
+.green.btn {
+  color: #FFFFFF;
+  background-color: #26a69a;
+}
+/* Static form control */
+.form-control-static {
+  margin: 0px 0;
+  display: inline-block;
+}
+
+/**********
+Blue Colors
+***********/
+/***
+Blue Default
+***/
+/* Button */
+.blue.btn {
+  color: #FFFFFF;
+  background-color: #3598dc;
+}
+
+/* Circle Buttons */
+.btn-circle {
+  border-radius: 25px !important;
+}
+/* Button */
+.btn.default {
+  color: #333333;
+  background-color: #E5E5E5;
+}
+.btn {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  border-width: 0 !important;
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+  padding: 9px 14px 8px 14px;
+}

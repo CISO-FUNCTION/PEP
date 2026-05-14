@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "ChooseRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="modal" tabindex="-1" role="dialog" id="accessModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Choose Access</h5>
+                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>*@
+            </div>
+            <div class="modal-body">
+                <label>Select Access:</label>
+                <select id="accessType" class="form-control">
+                    <option value="2">HRBP</option>
+                    <option value="1">Admin</option>
+
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        debugger;
+        if (sessionStorage.IsRatingAdmin == 1) {
+            $.post('@Url.Action("ProcessAccess", "RatingAdmin")', { accessType: 1 }, function (data) {
+
+                window.location.href = data.redirectTo;
+            });
+        }
+        else {
+
+            $.post('@Url.Action("ProcessAccess", "RatingAdmin")', { accessType: 2 }, function (data) {
+
+                window.location.href = data.redirectTo;
+            });
+        }
+
+        @*if (sessionStorage.IsRatingAdmin == 1) {
+            $('#accessModal').modal('show');
+
+
+            $("#submitBtn").click(function () {
+                var selectedAccess = $("#accessType").val();
+                $.post('@Url.Action("ProcessAccess", "RatingAdmin")', { accessType: selectedAccess }, function (data) {
+
+                    window.location.href = data.redirectTo;
+
+                });
+            });
+        } else {
+            $.post('@Url.Action("ProcessAccess", "RatingAdmin")', { accessType: '2' }, function (data) {
+
+                window.location.href = data.redirectTo;
+
+
+            });
+
+        }*@
+
+    });
+
+</script>

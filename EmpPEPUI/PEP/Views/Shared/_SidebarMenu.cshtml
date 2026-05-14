@@ -1,0 +1,98 @@
+﻿﻿@model IEnumerable<EmpPEP.UI.Models.SideBarMenu>
+
+<link href="~/Content/style.css?v=1" rel="stylesheet" />
+
+
+
+<!-- BEGIN SIDEBAR MENU -->
+<div class="section-bg">
+    <div class="sidebar-menu">
+        <div class="sidebar-open-menu">
+            <button class="openbtn" onclick="openNav()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+        </div>
+        <div id="sidebar">
+            <ul>
+
+
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        //  if (!(HttpContext.Current.Session["IsDelegatorManager"].ToString() == "1" && !item.Title.Contains("DelegatorFeedback")))
+                        // {
+
+                        <li>
+                            @if (Html.DisplayFor(modelItem => item.Title).ToString() == "Dashboard")
+                            {
+                                <a class="current" href="@Html.DisplayFor(modelItem => item.Href)">
+                                    <img src="@Html.DisplayFor(modelItem => item.ImageURL)" @*data-toggle="tooltip" data-placement="right"*@ title=@Html.DisplayFor(modelItem => item.Title) />
+                                    @*<span class="menu-text" style="color: white">@Html.DisplayFor(modelItem => item.Title)</span>*@
+                                </a>
+
+
+                            }
+                            else
+                            {
+                                if (Html.DisplayFor(modelItem => item.Title).ToString() != "PowerBI Report")
+                                {
+                                    <a href="@Html.DisplayFor(modelItem => item.Href)">
+                                        <img src="@Html.DisplayFor(modelItem => item.ImageURL)" @*data-toggle="tooltip" data-placement="right"*@ title=@Html.DisplayFor(modelItem => item.Title) />
+                                        @*<span class="menu-text" style="color: white">@Html.DisplayFor(modelItem => item.Title)</span>*@
+                                    </a>
+                                }
+
+                            }
+
+
+                        </li>
+                        //   }
+
+                    }
+                }
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fa fa-arrow-circle-left"></i></a>
+    <ul>
+
+
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                //  if (!(HttpContext.Current.Session["IsDelegatorManager"].ToString() == "1" && !item.Title.Contains("DelegatorFeedback")))
+                // {
+
+                <li>
+                    @if (Html.DisplayFor(modelItem => item.Title).ToString() == "Dashboard")
+                    {
+                        <a class="current" href="@Html.DisplayFor(modelItem => item.Href)">
+                            <img src="@Html.DisplayFor(modelItem => item.ImageURL)" />@Html.DisplayFor(modelItem => item.Title)
+                        </a>
+
+                    }
+                    else
+                    {
+                        if (Html.DisplayFor(modelItem => item.Title).ToString() != "PowerBI Report")
+                        {
+                            <a href="@Html.DisplayFor(modelItem => item.Href)">
+                                <img src="@Html.DisplayFor(modelItem => item.ImageURL)" />@Html.DisplayFor(modelItem => item.Title)
+                            </a>
+                        }
+
+                    }
+
+
+                </li>
+                //   }
+
+            }
+        }
+
+    </ul>
+
+</div>
+<!-- END SIDEBAR MENU -->

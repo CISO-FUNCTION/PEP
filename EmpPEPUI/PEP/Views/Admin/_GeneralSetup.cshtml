@@ -1,0 +1,42 @@
+﻿@using EmpPEP.UI.Views.Admin;
+<div class="table-responsive">
+    <form id="formAppraisalCycle">
+        <table class="table table-striped tbl-my-kra" id="tblAC_Edit">
+            <thead>
+                <tr>
+                    <th >Feedback Limit Parameter</th>
+                    <th >Pie Chart Parameter</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>
+                        <input id="txtFeedbacklimit" class="input-exitL form-control"  onkeyup="RemoveScript('txtFeedbacklimit');" />
+                      <input type="hidden" id="hdnFeedbackLimitId"  />
+                    </td>
+                    <td>
+                        <input id="txtPiechartParameter" class="input-exitL form-control" onkeyup="RemoveScript('txtPiechartParameter');"  />
+                        <input type="hidden" id="hdnPieChartParameter"  />
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td colspan="8" class="text-right">
+                        <input type="button" id="btnGeneralSetupSave" class="btn btn-primary" value="Update" onclick="SaveGeneralSetUp()" />
+                        <input type="button" id="btnGeneralSetupClear" class="btn btn-primary" value="@Master.strClear" onclick="ClearForm('GS')" />
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="12">
+                        <div class="alert alert-success display-hide" style="display: none;" id="divGS_ValidationAlert">
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+

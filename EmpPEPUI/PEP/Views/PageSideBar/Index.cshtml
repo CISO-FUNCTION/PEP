@@ -1,0 +1,40 @@
+﻿@model IEnumerable<EmpPEP.UI.Models.SideBarMenu>
+
+
+
+    <!-- BEGIN SIDEBAR MENU -->
+    
+     
+    
+<div id="sidebar">
+
+    <ul class="nav list-group">
+
+        @*<ul style="list-style-type: none; padding-left: 0px; border-right: 1px solid #f5d866">*@
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {     
+            <li>
+                <a class="list-group-item zoom" href="@Html.DisplayFor(modelItem => item.Href)">
+
+                    <span class="menu-text" style="color: white">@Html.DisplayFor(modelItem => item.Title)</span>
+
+
+
+                </a>
+
+
+                <hr />
+
+            </li>
+            }
+        }
+
+    </ul>
+</div>
+
+
+    <!-- END SIDEBAR MENU -->
+
+

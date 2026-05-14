@@ -1,0 +1,64 @@
+@*Normalization Report*@
+<style type="text/css">
+    /* Force horizontal scroll: container must not grow, inner content must be wider */
+    #divNormalizationReportScrollWrapper {
+        overflow-x: auto !important;
+        overflow-y: visible;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        max-width: 100vw; /* constrain to viewport so scroll appears instead of page expanding */
+        min-width: 0; /* allow shrink in flex layouts */
+        display: block;
+    }
+    #divNormalizationReportScrollWrapper .normalization-report-inner {
+        min-width: 2800px;
+        width: 2800px;
+        display: block;
+    }
+</style>
+<div class="row pdtop15 normalization-report-content">
+    <div class="col-sm-12 form-group pdtop15" id="DivNormalizationReportButtons" style="display:none;">
+        <input type="button" value="View Report" class="btn btn-primary" id="btnGetNormalizationReport" />
+        <input type="button" value="Export To Excel" class="btn btn-primary" id="btnExportToExcelNormalizationReport" />
+    </div>
+
+    <div>
+        <img src="~/images/InternetSlowdown_Day.gif" id="imgLoadNormalization" style="display:none" />
+    </div>
+  
+    <div class="col-sm-12" id="divNormalizationReportScrollWrapper">
+        <div class="normalization-report-inner">
+            <table id="tblNormalizationReport" class="table tbl-my-team-kra-beh-comp" style="width: 100%; table-layout: auto; min-width: 2800px;">
+                <thead class="cf">
+                <tr>
+                    <th>Emp ID</th>
+                    <th>Emp Name</th>
+                    <th>Grade</th>
+                    <th>Past RMs</th>
+                    <th>Group Account</th>
+                    <th>Talent Cube</th>
+                    <th>Location</th>
+                    <th>Gender</th>
+                    <th>Total Exp.</th>
+                    <th>Infogain Exp.</th>
+                    <th>FY-24 Rating</th>
+                    <th>FY-25 Rating</th>
+                    <th>Last Promotion Date</th>
+                    <th>FY-26 Rating</th>
+                    <th>FY-26 Promotion Reco.</th>
+                    <th>Promotion Track</th>
+                    <th>Reco. Designation</th>
+                    <th>Reco. Designation Consent</th>
+                    <th>Criticality</th>
+                    <th>Criticality Reason</th>
+                    <th>Attrition Risk</th>
+                    <th>Immediate Backup Name</th>
+                    <th>Successor Name (Long Term)</th>
+                    <th>Comments</th>
+                    <th>Action Status</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>

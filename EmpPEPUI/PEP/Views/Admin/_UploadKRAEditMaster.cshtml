@@ -1,0 +1,68 @@
+﻿@using EmpPEP.UI.Views.KRA;
+<div class="table-responsive">
+    <form id="formKRAEdit">
+        <table class="table table-striped tbl-my-kra" id="tblKRAEdit">
+            <thead>
+                <tr>
+                    <th style="display:none">@KRA.strSeqNo</th>
+                    <th style="width:15%">Upload G&Os Set</th>
+                    <th style="width:15%">@KRA.strGoalType</th>
+                    <th style="width:15%">@KRA.strGoalDesc</th>
+                    <th style="width:5%">@KRA.strWeightage</th>
+                    <th style="width:26%">@KRA.strMeasure</th>
+                    <th style="width:12%">@KRA.strKRAStartDate</th>
+                    <th style="width:12%">@KRA.strKRAEndDate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="display:none">
+                        <label id="lblKRASequence">1</label>
+                        <input type="hidden" id="hdnUploadKRAId" />
+                    </td>
+                    <td>
+                        <select id="ddlKRAUploadSet" class="input-exit form-control">
+                            
+                        </select>
+                    </td>
+                    <td>
+                        <select id="ddlGoalType" class="input-exit form-control">
+                            <option value="O">Operational</option>
+                            <option value="D">Developmental</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" id="txtGoalDesc" class="input-exit form-control" onkeyup="RemoveScript('txtGoalDesc');"   maxlength="250"/>
+                    </td>
+                    <td style="width:5%">
+                        <input id="txtGoalWeightage" class="input-exitXSmall form-control" onkeyup="RemoveScript('txtGoalWeightage');"  max="100" />
+                    </td>
+                    <td>
+                        <textarea id="txtAreaMeasure" class="input-exitL form-control" onkeyup="RemoveScript('txtAreaMeasure');"  maxlength="990"></textarea>
+                    </td>
+                    <td>
+                        <input id="txtKRAStartDate" onkeyup="RemoveScript('txtKRAStartDate');"  class="input-exitSmall form-control DatePicks" />
+                   
+                    </td>
+                    <td>
+                        <input id="txtKRAEndDate" onkeyup="RemoveScript('txtKRAEndDate');"  class="input-exitSmall form-control DatePicks" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" class="text-right">
+                        <input type="button" id="btnKRAUpdate" class="btn btn-primary" value="@KRA.strKRAInsert" onclick="SaveKRAUploadForm()" />
+                        <input type="button" id="btnKRAClear" class="btn btn-primary" value="@KRA.strKRAClear" onclick="ClearKRAUploadForm()" />
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="12">
+                        <div class="alert alert-success display-hide" style="display: none;" id="divValidationAlert">
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

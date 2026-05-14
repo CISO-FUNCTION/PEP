@@ -1,0 +1,62 @@
+﻿@using EmpPEP.UI.Views.Admin;
+<div class="table-responsive">
+    <form id="formEmployeeAwards">
+        <table class="table table-striped tbl-my-kra" id="tblEA_Edit">
+            <thead>
+                <tr>
+                    <th>@Master.strEmployeeName</th>
+                    <th>@Master.strAwardHeading</th>
+                    <th>@Master.strAwardDescription</th>
+                    <th>@Master.strAwardDate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" id="txtEA_EmployeeNames" class="input-exitL form-control" onkeyup="RemoveScript('txtEA_EmployeeNames');"  />
+                        <input type="hidden" id="hdnEA_EmployeeId" />
+                        <input type="hidden" id="hdnEA_AwardId" />
+                    </td>
+                    <td>
+                        <input type="text" id="txtEA_AwardHeading" class="input-exitL form-control" onkeyup="RemoveScript('txtEA_AwardHeading');"  />
+                    </td>
+                    <td>
+                        <textarea id="txtEA_AwardDescription" class="input-exitL form-control" onkeyup="RemoveScript('txtEA_AwardDescription');" ></textarea></td>
+                    <td>
+                        <input id="txtEA_AwardDate" class="input-exitSmall form-control DatePicks" onkeyup="RemoveScript('txtEA_AwardDate');"  /></td>
+                </tr>
+                <tr>
+                    <td colspan="8" class="text-right">
+                        <input type="button" id="btnEA_UpSert" class="btn btn-primary" value="@Master.strInsert" onclick="SaveEmployeeAwards()" />
+                        <input type="button" id="btnEA_Clear" class="btn btn-primary" value="@Master.strClear" onclick="ClearForm('EA')" />
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="12">
+                        <div class="alert alert-success display-hide" style="display: none;" id="divEA_ValidationAlert">
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped tbl-my-kra" id="tblEA_Master" style="width:100%">
+        <thead>
+            <tr>
+                <th>@Master.strEmployeeName</th>
+                <th>@Master.strAwardHeading</th>
+                <th>@Master.strAwardDescription</th>
+                <th>@Master.strAwardDate</th>
+                <th>@Master.strManagerName</th>
+                <th>@Master.strLocationName</th>
+                <th>@Master.strAppraisalPeriod</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>

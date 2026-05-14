@@ -1,0 +1,293 @@
+<div class="bottom-padding">
+    <!-- Action Buttons (Expand All, Collapse All, Download All Attachments) -->
+    <div id="feedbackActionButtons" style="margin-bottom: 15px; display: none; text-align: right;">
+        <button type="button" id="btnExpandAll" class="btn btn-info">
+            <i class="glyphicon glyphicon-resize-full"></i> Expand All
+        </button>
+        <button type="button" id="btnCollapseAll" class="btn btn-info" style="margin-left: 10px;">
+            <i class="glyphicon glyphicon-resize-small"></i> Collapse All
+        </button>
+        <button type="button" id="btnDownloadAllSelfAssessmentAttachments" class="btn btn-success" style="margin-left: 10px;">
+            <i class="glyphicon glyphicon-download"></i> Download All Attachments
+        </button>
+    </div>
+
+    <!-- Progress Bar -->
+    <div id="feedbackProgressContainer" style="margin-bottom: 20px; display: none;">
+        <div class="progress" style="height: 25px; border-radius: 4px;">
+            <div id="feedbackProgressBar" class="progress-bar progress-bar-success" role="progressbar" 
+                 style="width: 0%; background-color: #4CAF50; transition: width 0.3s ease;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Loader Container -->
+    <div id="feedbackLoader" class="text-center" style="padding: 40px; display: none;">
+        <i class="fa fa-spinner fa-spin" style="font-size: 24px; color: #337ab7;"></i>
+        <br/>
+        <span style="margin-top: 10px; display: block; font-size: 14px;">Loading...</span>
+    </div>
+
+    <!-- Goals Cards Container -->
+    <div id="goalsCardsContainer">
+        <!-- Cards will be dynamically generated here -->
+    </div>
+
+    <!-- Submitted Feedback View Container (Simple View) -->
+    <div id="submittedFeedbackContainer" style="display: none;">
+        <!-- Submitted feedback will be displayed here in simple format -->
+    </div>
+</div>
+
+<!-- Sticky Footer with Save Draft and Submit Buttons Always Visible -->
+<div class="sticky-footer" id="stickyFooter" style="display: none;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 text-center" style="margin-bottom: 33px; padding: 15px; background: #f5f5f5; border-top: 1px solid #ddd; ">
+                <button type="button" id="btnSaveDraft" class="btn btn-warning" style="margin-right: 10px;">
+                    <i class="glyphicon glyphicon-floppy-disk"></i> Save Draft
+                </button>
+                @*<button type="button" id="btnSubmitFeedback" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-ok"></i> Submit Feedback
+                </button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    /* Card Styles */
+    .goal-card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .goal-card-header {
+        padding: 20px;
+        background: #f8f9fa;
+        border-bottom: 2px solid #2196F3;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .goal-card-header:hover {
+        background: #e9ecef;
+    }
+
+    .goal-card-header .expand-icon {
+        float: right;
+        margin-left: 10px;
+        color: #666;
+        transition: transform 0.3s;
+        font-size: 14px;
+        margin-top: 2px;
+    }
+
+    .goal-card.expanded .goal-card-header .expand-icon {
+        transform: rotate(180deg);
+    }
+
+    .goal-card-body {
+        display: none;
+    }
+
+    .goal-card.expanded .goal-card-body {
+        display: block;
+    }
+
+    .goal-card-header h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .goal-card-header .goal-type-badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 12px;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .goal-card-header .goal-type-badge.operational {
+        background: #4CAF50;
+        color: white;
+    }
+
+    .goal-card-header .goal-type-badge.strategic {
+        background: #9C27B0;
+        color: white;
+    }
+
+    .goal-card-header .goal-type-badge.developmental {
+        background: #FF9800;
+        color: white;
+    }
+
+    .goal-card-header .goal-description-header {
+        flex: 1;
+        margin-right: 15px;
+        color: #333;
+    }
+
+    .goal-card-header .goal-weightage {
+        color: #666;
+        font-size: 14px;
+    }
+    
+    .goal-card-header .goal-weightage strong {
+        font-weight: bold;
+    }
+
+    .goal-card-body {
+        padding: 20px;
+    }
+
+    /* One Row Layout for Goal Details */
+    .goal-details-row {
+        margin-bottom: 20px;
+    }
+
+    .goal-field-label {
+        font-weight: bold;
+        color: #555;
+        display: block;
+        margin-bottom: 8px;
+        font-size: 13px;
+    }
+
+    .goal-field-value {
+        color: #333;
+        padding: 10px;
+        background: #f9f9f9;
+        border-radius: 3px;
+        min-height: 40px;
+        line-height: 1.5;
+        word-wrap: break-word;
+    }
+
+    .goal-field-value.empty {
+        color: #999;
+        font-style: italic;
+    }
+
+    /* Read More/Less Styles */
+    .read-more-container {
+        position: relative;
+    }
+
+    .read-more-link {
+        color: #2196F3;
+        text-decoration: none;
+        font-size: 12px;
+        margin-left: 5px;
+        cursor: pointer;
+    }
+
+    .read-more-link:hover {
+        text-decoration: underline;
+    }
+
+    .rm-feedback-textarea {
+        width: 100%;
+        min-height: 120px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        resize: vertical;
+        font-family: inherit;
+    }
+
+    .rm-feedback-textarea:focus {
+        border-color: #2196F3;
+        outline: none;
+        box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
+    }
+
+    .goal-navigation {
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid #ddd;
+        text-align: right;
+    }
+
+    .goal-navigation button {
+        padding: 8px 20px;
+    }
+
+    /* Sticky Footer */
+    .sticky-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Add padding to body when footer is visible */
+    body.has-sticky-footer {
+        padding-bottom: 70px;
+    }
+
+    /* Autosave indicator */
+    .autosave-indicator {
+        position: fixed;
+        top: 70px;
+        right: 20px;
+        padding: 8px 15px;
+        background: #4CAF50;
+        color: white;
+        border-radius: 4px;
+        font-size: 12px;
+        z-index: 1001;
+        display: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .autosave-indicator.show {
+        display: block;
+        animation: fadeInOut 2s;
+    }
+
+    @@keyframes fadeInOut {
+        0% { opacity: 0; }
+        20% { opacity: 1; }
+        80% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+
+    /* Feedback Summary Modal Styles */
+    .feedback-summary {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .summary-item {
+        border-bottom: 1px solid #ddd;
+        padding: 15px 0;
+    }
+
+    .summary-item:last-child {
+        border-bottom: none;
+    }
+
+    .summary-item h5 {
+        margin-top: 0;
+        color: #555;
+        font-size: 15px;
+    }
+
+    .summary-item p {
+        margin: 5px 0;
+    }
+</style>

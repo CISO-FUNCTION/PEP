@@ -1,0 +1,81 @@
+<style>
+    /* ViewAll Page Loader Styles */
+    #viewAllLoader {
+        position: fixed;
+        top: 60px;
+        left: 53px;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.72);
+        -webkit-backdrop-filter: blur(2px);
+        backdrop-filter: blur(2px);
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #viewAllLoader .loader-content {
+        text-align: center;
+        padding: 24px 32px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 24px rgba(0,0,0,.12);
+        min-width: 200px;
+    }
+    
+    #viewAllLoader .loader-content i {
+        display: none;
+    }
+    
+    #viewAllLoader .loader-content span {
+        display: block;
+        font-size: 14px;
+        color: #555;
+        font-weight: 500;
+    }
+    
+    /* Hide table initially */
+    #tblFeedbackAll {
+        display: none;
+    }
+    @@keyframes mf-spin {
+        to { transform: rotate(360deg); }
+    }
+</style>
+
+<script>
+    var GColor = @ViewBag.Color;
+</script>
+
+<!-- ViewAll Page Loader -->
+<div id="viewAllLoader" style="display: flex;">
+    <div class="loader-content">
+        <span style="display: inline-block; width: 40px; height: 40px; border: 3px solid #e8e8e8; border-top-color: #337ab7; border-radius: 50%; animation: mf-spin 0.75s linear infinite; margin-bottom: 12px;"></span>
+        <span>Loading data...</span>
+    </div>
+</div>
+
+<div id="main">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_a">
+                    <div id="divViewAll">@Html.Partial("../Dashboard/_ViewAllFeedback")</div>
+                </div>
+
+            </div><!-- tab content -->
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+    <script src="~/Scripts/PEPScripts/Common.js"></script>
+    <script src="~/Scripts/PEPScripts/DashboardViewAll.js"></script>
+}
+
+
+
+

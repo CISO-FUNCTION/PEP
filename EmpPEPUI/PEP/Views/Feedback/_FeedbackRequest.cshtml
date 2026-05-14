@@ -1,0 +1,126 @@
+﻿<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+@section scripts{
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/toastr.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+        });
+
+        $("input").keyup(function () {
+            var txtValue = $('#searchEmp').val();
+            $('#searchEmp').val(txtValue.replace(/[\<\>=]+/g, ''));
+
+        });
+
+        $("textarea").keypress(function (e) {
+
+            var txtValue = $(this).val();
+
+            $(this).val(txtValue.replace(/[\<\>=]+/g, ''));
+
+
+            var ascii = e.which || e.keyCode;
+
+            if (ascii === 60 || ascii === 61 || ascii === 62) {
+
+                $(e.target).addClass('csstxtarea');
+                toastr.error("Special characters < , > and = are not allowed and !,@@,#,$,%,^,&,*,(,),?,/,\,},{,[,],~,:,; are allowed. \n For security reasons, please refrain from using special characters in your input. Special characters may pose a risk to the system's security. Kindly remove any special characters and try again. Thank you for your understanding.")
+                return false;
+            }
+            else {
+                $(e.target).removeClass('csstxtarea');
+                $(this).removeClass('csstxtarea');
+
+            }
+        });
+
+
+
+        //$(document).on('keyup', function (e) {
+
+        //    $('textarea').each(function () {
+
+
+        //        var txtValue = $(this).val();
+
+        //        $(this).val(txtValue.replace(/[\<\>=]+/g, ''));
+
+        //        var keycode = (e.keyCode ? e.keyCode : e.which);
+        //        if (keycode == '187' || keycode == '188' || keycode == '190') {
+
+        //            $(e.target).addClass('csstxtarea');
+        //            toastr.error("Some special keywords like < , > and = are not allowed ! \n For security reasons, please refrain from using special characters in your input. Special characters may pose a risk to the system's security. Kindly remove any special characters and try again. Thank you for your understanding.")
+        //            return false;
+        //        }
+        //        else {
+        //            $(e.target).removeClass('csstxtarea');
+        //            $(this).removeClass('csstxtarea');
+
+        //        }
+        //    });
+
+        //});
+    </script>
+
+}
+
+<div class="floating-feedback zoom" style="padding: 7px 15px;
+    height: 50px;
+    width: 50px;">
+    <img src="~/images/feedback.png" height="25px" width="25px">
+</div>
+<div class="feedback-container row">
+    <div class="feedback-header row">
+        <span class="feedback-close zoom">x</span>
+        Feedback
+
+    </div>
+    <div class="feedback-body">
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset id="group1">
+                    <input type="radio" value="1" name="group1"> <span>Give Feedback</span>
+                    <input type="radio" value="3" name="group1"> <span>Request Feedback</span>
+                </fieldset>
+            </div>
+            <div class="col-md-12">
+                <input type="text" class="rounded ui-autocomplete" id="searchEmp" placeholder="Search for employee" />
+                <input type="hidden" id="hdnsearchEmp" name="ToEmployeeId" />
+                <input type="hidden" id="hdnsearchManagerID" name="EmployeeManagerId" />
+            </div>
+            <div class="col-md-12">
+                <textarea style="" class="rounded" rows="6" cols="35" maxlength="700" id="txtComments" name="Feedback"></textarea>
+            </div>
+            <div class="col-md-12 text-center" id="btnFeedbackReq">
+                <input type="button" class="btn btn-primary" value="Submit" onclick="fnFeedbackRequest();" />
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+

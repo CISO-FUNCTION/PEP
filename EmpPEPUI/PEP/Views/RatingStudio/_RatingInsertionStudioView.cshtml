@@ -1,0 +1,953 @@
+﻿
+@{
+    var OrgShortName = Session["OrgShortName"] != null ? Convert.ToString(Session["OrgShortName"]) : string.Empty;
+
+}
+
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+
+@*@{
+        var cycleidval = 0;
+
+        <script type="text/javascript">
+
+            settimeput
+            cycleidval = sessionStorage.AppraisalCycleFrom.slice(-2);
+
+
+        </script>
+    }*@
+
+
+<style type="text/css">
+    .multiselect-container {
+        max-width: 100%;
+        word-break: break-all;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow: hidden auto;
+        position: absolute;
+        /*transform: translate3d(0px, -200px, 0px);*/
+        top: 0px;
+        left: 0px;
+        will-change: transform;
+    }
+
+    .multiselect {
+        white-space: normal !important;
+        max-width: 200px;
+    }
+
+    #tblEmpRatingList thead tr th {
+        font-size: 11px;
+        font-weight: normal;
+        padding: 8px;
+        width: auto !important;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        border: 1px solid #ddd !important;
+        border-collapse: collapse;
+    }
+
+    #tblEmpRatingList tbody tr td {
+        font-size: 11px;
+        font-weight: normal;
+        padding: 8px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        border: 1px solid #ddd !important;
+        border-collapse: collapse;
+    }
+
+    .Description {
+        cursor: pointer;
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    label#filteronclick {
+        margin-right: 75px;
+    }
+
+    label#filteronclick {
+        box-shadow: inset 0 0 0 0 #54b3d6;
+        color: #54b3d6;
+        padding: 0 .25rem;
+        transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+    }
+
+        label#filteronclick:hover {
+            box-shadow: inset 100px 0 0 0 #54b3d6;
+            color: black;
+        }
+
+    .rating-summery label {
+        box-shadow: none !important;
+        color: #000 !important;
+        font-size: 13px;
+        font-weight: normal;
+        margin-right: 0px !important;
+    }
+
+        .rating-summery label:hover {
+            box-shadow: none !important;
+            color: #000;
+        }
+
+
+    /*.rating-summery .rating-summery-inn button:nth-child(1) {
+        background: #7ab750;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(2) {
+        background: #52c34b;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(3) {
+        background: #FFD966;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(4) {
+        background: #f74646;
+    }*/
+    .rating-summery .rating-summery-inn button:nth-child(1) {
+        background: #2f2b28;
+        color: #fff;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(2) {
+        background: #75a6d5;
+        color: #fff;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(3) {
+        background: #2f2b28;
+        color: #fff;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(4) {
+        background: #5e5651;
+        color: #fff;
+    }
+
+    div#filtersDiv {
+        width: 100%;
+    }
+
+    .rating-summery {
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .tblEmpRating-List table thead tr th {
+        background: #8f867e;
+        color: #fff;
+        padding: 6px 4px;
+        vertical-align: middle;
+        border: 1px solid #ccc;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(1).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(2).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(3).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(4).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(5).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(6).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(7).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(8).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+    }
+
+    .abc {
+        cursor: pointer;
+    }
+
+    select.currRating {
+        width: 70px !important;
+        border-radius: 4px !important;
+        font-size: 11px;
+    }
+
+    #filteronclick {
+        cursor: pointer;
+    }
+
+    #ViewNTHistoryDetails .modal-header {
+        padding: 5px 18px;
+    }
+
+    #ViewNTHistoryDetails .modal-footer {
+        padding: 5px 18px;
+    }
+
+
+    ViewRMHistoryDetails .modal-header {
+        padding: 5px 18px;
+    }
+
+    ViewRMHistoryDetails .modal-footer {
+        padding: 5px 18px;
+    }
+
+
+
+
+    #tblEmpRatingList tr td textarea {
+        width: 123px;
+        margin: 0 auto;
+        height: 33px !important;
+        max-height: 33px !important;
+        min-height: 33px !important;
+        border: 0px !important;
+        border-bottom: 1px solid #4986f1 !important;
+        box-shadow: none !important;
+    }
+
+    select.rating {
+        margin: 0 auto;
+        border-radius: 4px !important;
+        font-size: 11px;
+        width: 70px !important;
+    }
+
+    #tblEmpRatingList tbody tr td:nth-child(9) {
+        width: 90px;
+    }
+
+    #tblEmpRatingList tbody tr td:nth-child(1) {
+        width: 170px;
+    }
+
+    #tblEmpRatingList tbody tr td:nth-child(5) {
+        width: 50px;
+    }
+
+    #tblEmpRatingList tbody tr td:nth-child(6) {
+        width: 50px;
+    }
+
+    #tblEmpRatingList tbody tr td:nth-child(2) {
+        width: 40px;
+    }
+
+    #tblEmpRatingList tbody tr td:nth-child(3) {
+        width: 40px;
+    }
+
+    #tblEmpRatingList tbody tr td:nth-child(4) {
+        width: 40px;
+    }
+
+    #tblEmpRatingList tbody tr td:nth-child(7) {
+        width: 50px;
+    }
+
+    #tblEmpRatingList tbody tr td:nth-child(10) {
+        width: 45px;
+    }
+
+    #tblEmpRatingList tbody tr td:nth-child(11) {
+        width: 45px;
+    }
+
+    #tblEmpRatingList tbody tr td:nth-child(12) {
+        width: 82px;
+    }
+
+    #tblEmpRatingList tbody tr td:nth-child(13) {
+        width: 230px;
+    }
+
+    #tblEmpRatingList tbody tr td:nth-child(8) {
+        width: 58px;
+    }
+
+    table#tblEmpRatingList {
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+    }
+
+    select#ddlReportee {
+        font-size: 11px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+
+    .rating-summery .rating-summery-inn button {
+        font-size: 12px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        padding: 6px 8px 3px;
+        border: none;
+        outline: none;
+        height: auto;
+        border-radius: 4px;
+    }
+
+        .rating-summery .rating-summery-inn button:hover {
+            transform: scale(1.03);
+        }
+
+
+    label#filteronclick {
+        font-size: 11px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        color: #212529 !important;
+        margin-bottom: 0px;
+    }
+
+    #tblUnsavedData thead tr th {
+        font-size: 12px;
+        font-weight: normal;
+        padding: 6px 2px;
+        width: auto !important;
+        text-align: center;
+    }
+
+    #tblUnsavedData tbody tr td {
+        font-size: 12px;
+        font-weight: normal;
+        padding: 6px 2px;
+    }
+
+    #tblFilteredData thead tr th {
+        font-size: 12px;
+        font-weight: normal;
+        padding: 6px 2px;
+        width: auto !important;
+    }
+
+    #tblFilteredData tbody tr td {
+        font-size: 12px;
+        font-weight: normal;
+        padding: 6px 2px;
+    }
+
+    input#input {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-right: 5px;
+        margin-bottom: 7px;
+    }
+
+    label.filterAttr {
+        width: 100%;
+        /*display: flex;
+        align-items: center;
+        justify-content: space-between;*/
+    }
+
+        label.filterAttr .form-control {
+            font-size: 11.5px;
+        }
+
+        /*label.filterAttr button.multiselect.dropdown-toggle.btn.btn-default:hover {
+        transform: scale(1);
+    }*/
+
+        label.filterAttr ul.multiselect-container.dropdown-menu {
+            max-width: 100% !important;
+            width: 100% !important;
+            top: 35px !important;
+        }
+
+    .col-md-12.tblEmpRating-List {
+        position: relative;
+    }
+
+        .col-md-12.tblEmpRating-List .col-md-12.text-center.btn-fixedon-scroll {
+            position: fixed;
+            bottom: 40px;
+            z-index: 999;
+            display: none;
+        }
+
+    .col-md-12.filter-top-sec-item-studio:after {
+        content: "";
+        position: absolute;
+        top: -16px;
+        right: 18px;
+        margin-left: -6px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: transparent transparent #ddd transparent;
+    }
+
+    .col-md-12.filter-top-sec-item-studio {
+        position: relative;
+        margin-top: 10px;
+        background: #fff;
+        padding: 0px 16px 16px;
+        display: block;
+        width: 100%;
+        left: 0;
+        top: 0px;
+        z-index: 9;
+        box-shadow: 0 15px 18px -14px #00000091;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+    /*.col-md-12.filter-top-sec-item span#close-filter {
+        position: absolute;
+        right: 17px;
+        font-size: 20px;
+        background: #5650c6;
+        color: #fff;
+        padding: 5px;
+        border-radius: 100%;
+        z-index: 9;
+    }*/
+
+    .filter-img-sec {
+        text-align: right;
+    }
+
+        .filter-img-sec #open-filter-studio {
+            background: #2e84e7;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            padding: 4px 4px 0px;
+            cursor: pointer;
+            height: auto !important;
+            border: none;
+            outline: none;
+            display: none;
+        }
+
+        .filter-img-sec #close-filter-studio {
+            background: #000;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            padding: 4px 4px 0px;
+            cursor: pointer;
+            height: auto !important;
+            border: none;
+            outline: none;
+        }
+
+
+    #confirm .modal-header {
+        padding: 15px 18px;
+    }
+
+    #confirm .modal-footer {
+        padding: 15px 18px;
+    }
+
+    #tblActionHistory thead tr th {
+        background: #4986f1 !important;
+        color: #fff;
+        font-size: 11px;
+    }
+
+    #tblActionHistory tbody tr td {
+        color: #000;
+        font-size: 11px;
+    }
+
+    a#btnExcelDownload1 {
+        font-size: 16px;
+        background: #4fbc48;
+        color: #fff;
+        cursor: pointer;
+        padding: 3px 4px;
+        border-radius: 4px;
+    }
+
+    #tblEmpRatingList tbody tr td .CurrPromotion select.rating {
+        width: 45px !important;
+    }
+</style>
+
+
+<div id="main-wrapper03">
+    @*<div id="loading-overlay">
+            <img src="~/images/loading.gif" alt="Loading..." id="loading-image" />
+        </div>*@
+
+    <div class="container-fluid">
+        @*class="modal fade" role="dialog"*@
+
+        <div id="ViewNTHistoryDetails" class="modal  bs-modal-lg fade modal-popup" role="dialog">
+            <div class="modal-dialog modal-lg" style="width:1100px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:10px 10px !important">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Action History</h4>
+                    </div>
+                    <div class="modal-body modal-scrollable" style="padding:0px 15px 15px!important">
+                        <table id="tblActionHistory" class="table table-bordered table-hover blue" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="width:20px; padding: 5px;">S.No.</th>
+                                    <th style="width:110px; padding: 5px;">Action Taken By</th>
+                                    <th style="padding: 5px;">Rating</th>
+                                    <th style="width:80px;padding: 5px;">Promotion Reco.</th>
+                                    <th style="padding: 5px;">Action Taken On</th>
+                                    <th style="padding: 5px;">Action</th>
+                                    <th style="padding: 5px;">Comment</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="ViewRMHistoryDetails" class="modal  bs-modal-lg fade modal-popup" role="dialog">
+            <div class="modal-dialog modal-lg" style="width:1100px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:10px 10px !important">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Past RM's Details</h4>
+                    </div>
+                    <div class="modal-body modal-scrollable" style="padding:0px 15px 15px!important">
+                        <table id="tblRMHistory" class="table table-bordered table-hover blue" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="width:20px; padding: 5px;">S.No.</th>
+                                    <th style="width:110px; padding: 5px;">RM ID</th>
+                                    <th style="padding: 5px;">RM Name</th>
+                                    <th style="width:80px;padding: 5px;">RM Effective From</th>
+                                    <th style="padding: 5px;">RM Designation</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" style="position: relative;display:block;" id="divFilters">
+
+            <div class="col-md-12">
+
+
+                <div id="filtersDiv">
+                    <div class="rating-summery">
+                        <div class="rating-summery-inn">
+                            <button id="tdRI_EE1" class="abc" onclick="filterData('EE1', 'tblEmpRatingList');"><span id="filteronclick" class="filterEE1">EE-Exceeds Expectations(5%) - [<span id="EE1span">EE1</span>]</span></button>
+                            <button id="tdRI_EE" class="abc" onclick="filterData('EE', 'tblEmpRatingList');"><span id="filteronclick" class="filterEE">EE-Exceeds Expectations(25)% - [<span id="EEspan">EE</span>]</span></button>
+                            <button id="tdRI_ME" class="abc" onclick="filterData('ME', 'tblEmpRatingList');"><span id="filteronclick" class="filterME">ME-Meets Expectations(60%) - [<span id="MEspan">ME</span>]</span></button>
+                            <button id="tdRI_BE" class="abc" onclick="filterData('BE', 'tblEmpRatingList');"><span id="filteronclick" class="filterBE"> BE-Below Expectations(10%) - [<span id="BEspan">BE</span>]</span></button>
+                            <button id="tdRI_GivenRating" class="abc" onclick="filterData('All', 'tblEmpRatingList');"><span id="filteronclick" class="filterAll">Ratings Given - [<span id="Totalspan">Total</span>]</span></button>
+                            <button id="tdRI_NotGivenRating" class="abc" onclick="filterData('Not', 'tblEmpRatingList');"><span id="filteronclick" class="filterNot">Not Given - [<span id="Notspan">Not</span>]</span></button>
+                            <button id="tdRI_MyReportee" style="display:none;" class="abc" onclick="filterData('RM', 'tblEmpRatingList');"><span id="filteronclick" class="RM">My Reportees - [<span id="ReporteeNo"></span>]</span></button>
+                            <button id="tdRI_ResetFilters" class="abc" onclick="filterData('Total', 'tblEmpRatingList');"><span id="filteronclick" class="filterReset">Reset@*My Reportees- [<span id="ReporteeNo"></span>]*@</span></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <h5 class="divAlert"><span style="color:red;display:none; ">Alert:</span> <span class="spnRole"></span> @*Window has been closed.*@</h5>
+            </div>
+            <div class="col-md-6">
+                <div class="filter-img-sec">
+                    <button title="Filter" id="open-filter-studio"><span class="glyphicon glyphicon-filter"></span></button>
+                    <button id="close-filter-studio"><span class="glyphicon glyphicon-remove"></span></button>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 filter-top-sec-item-studio">
+                <h5 class="reprt-heading-title" style="color: #696a6b; font-size:12px"><b>Filters</b></h5>
+                <div id="filtersDropDiv" style="display:block;">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label id="reporteeDDL" class="ReporteeOFRM filterAttr" style="font-size:11px">
+                                <span class="text-label">My Studio List</span>
+                                <span><select class="form-control" multiple="multiple" id="ddlPracticeGridView"></select></span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label id="gradeDDL" class="Grade filterAttr" style="font-size:11px">
+                                <span class="text-label">Grade</span>
+                                <span><select class="form-control" multiple="multiple" id="ddlgrade" onchange="FirstScreenfilterschange();"><option value="0">--select--</option></select></span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label id="locationDDL" class="Location filterAttr" style="font-size:11px">
+                                <span class="text-label">Location</span>
+                                <span><select class="form-control" multiple="multiple" id="ddllocation" onchange="FirstScreenfilterschange();"><option value="1">India</option><option value="3">US</option><option value="2">ROW</option></select></span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label id="GroupAccountDDL" class="GroupAccount filterAttr" style="font-size:11px;">
+                                <span class="text-label">Group Account</span>
+                                <span><select class="form-control" multiple="multiple" id="ddlgroupaccount" onchange="FirstScreenfilterschange();"><option value="0">--select--</option></select></span>
+                            </label>
+                        </div>
+                        <div class="col-md-2" id="divGender" style="display:none">
+                            <label id="GenderDDL" class="Gender filterAttr" style="font-size:11px;">
+                                <span class="text-label">Gender</span>
+                                <span><select class="form-control" multiple="multiple" id="ddlgender" onchange="FirstScreenfilterschange();"><option value="Male">Male</option><option value="Female">Female</option></select></span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label id="EmployeeStatusDDL" class="EmployeeStatus filterAttr" style="font-size:11px;">
+                                <span class="text-label">Employee Status</span>
+                                <span><select class="form-control" multiple="multiple" id="ddlEmployeeStatus" onchange="FirstScreenfilterschange();"><option value="0">--select--</option></select></span>
+                            </label>
+                        </div>
+                        <div class="col-md-2" id="divpromotion">
+                            <label id="PromotionDDL" class="promotion filterAttr" style="font-size:11px;">
+                                <span class="text-label">Promotion</span>
+                                <span><select class="form-control" multiple="multiple" id="ddlPromotion" onchange="FirstScreenfilterschange();"><option value="3">Eligible</option><option value="4">Not Eligible</option><option value="1">Recommended</option><option value="2">Not Recommended</option></select></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+        @*<div class="row">
+                <div class="col-md-12">
+                    <div class="norm-doc-download-top" style="margin-bottom:10px;">
+                        <div class="norm-doc-download">
+                            <div style="text-align: left; color: #696a6b; font-size:12px">
+                                <h5 class="reprt-heading-title"><b>Normalization Details</b></h5>
+                            </div>
+                            <a style="width:122px;" class="form-control" onclick="tableToExcel('CompleteSpanNormalizationtblPractice', 'Normalization Overall Details', 'btnExcelDownload')" id="btnExcelDownload">
+                                <i class="fa fa-file-excel-o"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <table id="CompleteSpanNormalizationtblPractice" class="table table-striped table-bordered nowrap data-table-main" style="width:100%">
+
+                        <thead>
+
+                            <tr>
+                                <td colspan="2" class="bluelightShade"></td>
+                                <td colspan="4" class="text-center blue-light">Exceeds Expectations (5%)</td>
+                                <td colspan="4" class="text-center bluelightShade">Exceeds Expectations (25%)</td>
+                                <td colspan="4" class="text-center blue-light">Meets Expectations (60%)</td>
+                                <td colspan="4" class="text-center bluelightShade">Below Expectations (10%)</td>
+                                <td colspan="3" class="text-center blue-light">TOTAL</td>
+                            </tr>
+                            <tr>
+                                <td class="bluelightShade">Grade Wise</td>
+                                <td class="bluelightShade">Total Nos.</td>
+                                <td class="blue-light">Ideal No's</td>
+                                <td class="blue-light">Ratings Given</td>
+                                <td class="blue-light">Difference</td>
+                                <td class="blue-light">%</td>
+                                <td class="bluelightShade">Ideal No's</td>
+                                <td class="bluelightShade">Ratings Given</td>
+                                <td class="bluelightShade">Difference</td>
+                                <td class="bluelightShade">%</td>
+                                <td class="blue-light">Ideal No's</td>
+                                <td class="blue-light">Ratings Given</td>
+                                <td class="blue-light">Difference</td>
+                                <td class="blue-light">%</td>
+                                <td class="bluelightShade">Ideal No's</td>
+                                <td class="bluelightShade">Ratings Given</td>
+                                <td class="bluelightShade">Difference</td>
+                                <td class="bluelightShade">%</td>
+                                <td class="blue-light">Ideal No's</td>
+                                <td class="blue-light">Ratings Given</td>
+                                <td class="blue-light">Difference</td>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>*@
+        <div class="row col-md-12">
+            <div class="col-md-12" style="display: flex;align-items: center;justify-content: space-between;padding-left:0px;">
+                <label id="NoteforGird"><b>Note : Below Grid data is based on above  "My Studio List"  filter.</b> </label>
+                <a class="" onclick="ExportFullGridToExcel('tblEmpRatingList','Employeewise Normalization Overall Details','btnExcelDownload1')" id="btnExcelDownload1">
+                    <i class="fa fa-file-excel-o"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 tblEmpRating-List" style="margin-top: 18px;">
+                <table class="table tbl-my-team-kra datatable table-borderd" width="100%" id="tblEmpRatingList">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Past RM's'</th>
+                            <th style="display:none;" class="hide-this">Gender</th>
+                            <th>Grade</th>
+                            <th>Location</th>
+                            <th>Group Account</th>
+                            <th>Total <br />Exp.</th>
+                            <th>@OrgShortName <br />Exp.</th>
+                            <th>Talent Cube</th>
+
+                            <th>FY-24<br />Rating</th>
+                            <th>Last Promotion Date</th>
+                            <th class="ThCurrrating">FY-25<br /> Rating</th>
+                            <th class="ThCurrrentPromotion">FY-25<br />Promotion Reco.</th>
+                            <th>Promotion Track</th>
+                            <th>Action<br /> History</th>
+                            <th>Comments</th>
+                        </tr>
+                    </thead>
+
+                </table>
+
+
+            </div>
+
+
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12" style="display: flex;align-items: center;justify-content:flex-end;">
+
+                        <label>
+                            <b>
+                                Note: Promotion eligibility indicated is based on specific eligibility criteria. However, final promotion decision would also take into account various other factors as per the Career Progression Policy and subject to management discretion.
+                            </b>
+                        </label>
+                        @*<div class="attachefile">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="" id="basic-addon1"><i class="fas fa-paperclip"></i></span>
+                                    </div>
+                                    <input type="file" accept=".csv" class="form-control" id="input" disabled placeholder="Upload File"
+                                           aria-label="Upload File" aria-describedby="basic-addon1">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="browse btn btn-primary" id="basic-addon2">
+                                            <i class="fas fa-search"></i> Browse
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>*@
+                        @*<label class="control-label">Select File</label>
+                            <input id="input" name="input-b5[]" type="file" accept=".csv">*@
+
+                        @*<input style="display:none;" type="file" name="input-b1" class="file" id="input">
+                            <button style="display:none;" type="button" id="uploadRatings" class="btn btn-primary" title="Upload Ratings" value="Upload Ratings" style="margin-bottom: 10px;margin-right:5px;"><span class="glyphicon glyphicon-upload"></span></button>
+                            <button style="display:none;" type="button" onclick="downloadRatingGrid();" title="Download Employees Sheet" class="btn btn-primary" value="Employees Sheet" style="margin-bottom: 10px;"><span class="glyphicon glyphicon-download-alt"></span></button>*@
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+
+                <div id="divDisplayData" style="display:none">
+                    <label id="lblFailed" style="color:red"></label>
+                </div>
+                <table class="table tbl-my-team-kra datatable table-borderd" width="100%" id="tblFilteredData" style="display:none">
+                    <thead>
+                        <tr>
+                            <th style="width: 300px !important;">Name</th>
+                            <th>Gender</th>
+                            <th>Total Exp.</th>
+                            <th>@OrgShortName Exp.</th>
+                            <th style="width: 180px !important; display:none;">Previous year-2022<br /> rating</th>
+                            <th style="width: 180px !important;">Last Year Promotion Date</th>
+                            <th style="width:10%">Current year -2024<br /> Rating</th>
+                            <th style="width: 200px !important;">Recommendation for promotion <br />(Year-2025</th>
+                            <th>Comments</th>
+                        </tr>
+                    </thead>
+
+                </table>
+                <table class="table-borderd" width="100%" id="tblUnsavedData" style="display:none">
+                    <thead>
+                        <tr>
+                            <th>Sr no.</th>
+                            <th style="width: 300px !important;">Name</th>
+                            <th>Gender</th>
+                            <th>Total Exp.</th>
+                            <th>@OrgShortName Exp.</th>
+                            <th style="width: 180px !important;">Previous year-2022<br /> rating</th>
+                            <th style="width:10%">Current year-2023<br /> Rating</th>
+                            <th style="width: 180px !important;">Recommendation for promotion<br />(Year-2023)</th>
+                            <th style="width: 180px !important;">Comments</th>
+                            <th style="width: 400px !important;">Reason</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="confirm" class="modal  bs-modal-md fade modal-popup" data-backdrop="static" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body modal-scrollable">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            Leaving this page would lead to loss of inputted data. Kindly click on the Submit button to avoid data loss.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="yes">Proceed Anyway</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmReferbackAlert" class="modal  bs-modal-md fade modal-popup" data-backdrop="static" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body modal-scrollable">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            Are you sure you want to Referback ratings of : <span id="ReferbackText"></span> span?.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="btnconfirmReferbackAlert">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="confirmSubmitAlert" class="modal  bs-modal-md fade modal-popup" data-backdrop="static" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Confirm</h4>
+                </div>
+                <div class="modal-body modal-scrollable">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            Are you sure you want to submit? By submitting, you acknowledge that you have followed the guidelines for rating and promotion recommendations. Please note that this would be reviewed by senior levels and is subject to change.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="btnconfirmSubmitAlert">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="pleasewait" class="modal  bs-modal-md fade modal-popup" data-backdrop="static" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Please Wait..</h4>
+            </div>
+            <div class="modal-body modal-scrollable">
+                <div class="row">
+                    <div class="col-sm-12">
+                        Submit in progress, please wait while data gets submitted, it will take some time, do not refresh or reload the page.
+                    </div>
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="cancel">Okay</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+@section scripts{
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/toastr.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/Common.js"></script>
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+    <script src="~/Scripts/PEPScripts/loader.js"></script>
+
+    <script src="~/Scripts/PEPScripts/RatingCurve.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Initialize GlobalAppConfig and replace organization name in headers
+            //GlobalAppConfig.init(function () {
+            //    var orgshortName = GlobalAppConfig.getShortOrgName();
+            //    if (orgshortName) {
+            //        // Replace "Infogain" in all <th> elements (table headers)
+            //        $('th').each(function () {
+            //            var headerText = $(this).html();
+            //            // Use regex to replace all instances of "Infogain" (case-insensitive)
+            //            // This will handle "Infogain", "Infogain1", etc.
+            //            var updatedText = headerText.replace(/Infogain\d*/gi, orgshortName);
+
+            //            $(this).html(updatedText);
+            //        });
+
+            //        // Also replace in table headers of hidden tables
+            //        $('#tblFilteredData th, #tblUnsavedData th').each(function () {
+            //            var headerText = $(this).html();
+            //            var updatedText = headerText.replace(/Infogain\d*/gi, orgshortName);
+            //            $(this).html(updatedText);
+            //        });
+            //    }
+            //});
+
+        });
+    </script>
+}
+

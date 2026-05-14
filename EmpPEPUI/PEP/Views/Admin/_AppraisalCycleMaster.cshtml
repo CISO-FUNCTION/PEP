@@ -1,0 +1,76 @@
+﻿@using EmpPEP.UI.Views.Admin;
+<div class="table-responsive">
+    <form id="formAppraisalCycle">
+        <table class="table table-striped tbl-my-kra" id="tblAC_Edit">
+            <thead>
+                <tr>
+                    <th style="display:none">@Master.strCompany</th>
+                    <th style="display:none">@Master.strAppraisalType</th>
+                    <th style="width:20%">@Master.strAppraisalCycleName</th>
+                    <th style="width:25%">@Master.strAppraisalCycleDesc</th>
+                    <th style="width:15%">@Master.strStartDate</th>
+                    <th style="width:15%">@Master.strEndDate</th>
+                    <th style="width:15%">@Master.strStatus</th>
+                    <th style="width:5%">@Master.strIsActive</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="display:none">
+                        <select id="ddlAppraisalCycleCompany" class="input-exit form-control PEPCompanyMasterDDL" onchange="LoadAppraisalType($('#ddlAppraisalCycleCompany').val())"></select></td>
+                    <td style="display:none">
+
+                        <select id="ddlAppraisalCycleType" class="input-exit form-control"></select></td>
+                    <td>
+                        <input type="text" id="txtAppCycleName" class="input-exitSmall form-control" />
+                        <input type="hidden" id="hdnAppCycleId" /></td>
+                    <td>
+                        <textarea id="txtAppCycleDesc" class="input-exitL form-control"  onkeyup="RemoveScript('txtAppCycleDesc');"></textarea></td>
+                    <td>
+                        <input id="txtAppCycleStartDate" class="input-exitSmall form-control DatePicks"  onkeyup="RemoveScript('txtAppCycleStartDate');"/></td>
+                    <td>
+                        <input id="txtAppCycleEndDate" class="input-exitSmall form-control DatePicks"  onkeyup="RemoveScript('txtAppCycleEndDate');" /></td>
+                    <td>
+                        <select id="ddlAppCycleStatus" class="input-exitSmall form-control" onchange="OnAppraisalCycleStatusChange()"></select>
+                    </td>
+                    <td>
+                        <input id="chkIsActive" type="checkbox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" class="text-right">
+                        <input type="button" id="btnAC_UpSert" class="btn btn-primary" value="@Master.strInsert" onclick="SaveAppraisalCycle()"/>
+                        <input type="button" id="btnAC_Clear" class="btn btn-primary" value="@Master.strClear" onclick="ClearForm('AC')" />
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="12">
+                        <div class="alert alert-success display-hide" style="display: none;" id="divAC_ValidationAlert">
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped tbl-my-kra" id="tblAppraisalCycleMaster">
+        <thead>
+            <tr>
+                <th style="display:none">@Master.strCompany</th>
+                <th style="display:none">@Master.strAppraisalType</th>
+                <th>@Master.strAppraisalCycleName</th>
+                <th>@Master.strAppraisalCycleDesc</th>
+                <th>@Master.strStartDate</th>
+                <th>@Master.strEndDate</th>
+                <th>@Master.strStatus</th>
+                <th>@Master.strIsActive</th>
+                <th></th>
+                @*<th></th>*@
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>

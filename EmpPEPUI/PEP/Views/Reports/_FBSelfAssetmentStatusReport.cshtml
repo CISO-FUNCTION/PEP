@@ -1,0 +1,50 @@
+﻿<style>
+    #divFBSelfAssetmentStatusReport table#tblFBSelfassesmentStatusRpt tr td {
+        word-break: break-word;
+    }
+</style>
+
+
+<div class="row pdtop15" id="divFBSelfAssetmentStatusReport">
+
+
+
+    <div class="col-md-5 form-horizontal">
+        <div class="form-group">
+            <label class="col-md-4 control-label">Select Sub-Cycle: </label>
+            <div class="col-md-8">
+                <select id="ddlHalfAppCycle1" class="form-control"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 form-horizontal">
+        </div>
+    </div>
+
+
+    <div class="col-sm-12 form-group pdtop15">
+        <input type="button" value="View Report" class="btn btn-primary" id="btnFBSelfAssesmentStatusReport" />
+        <input type="button" value="Export Report" class="btn btn-primary" id="btnExportToExcelFBSelfAssesmentStatusReport" />
+    </div>
+
+    <div class="col-sm-12">
+        <table id="tblFBSelfassesmentStatusRpt" class="table tbl-my-team-kra-beh-comp" style="width: 100%;">
+            <thead class="cf">
+                <tr>
+                    <th>ReportingManager ID</th>
+                    <th>ReportingManager Name</th>
+                    <th>Employee ID</th>
+                    <th>Employee Name</th>
+                    <th>Emp Grade</th>
+                    <th>Emp DU</th>
+                    <th>Emp Account</th>
+                    <th>Emp Location</th>
+                    <th>Self Assessment Done (Y/N)</th>
+                    <th>Manager Assessment Done (Y/N)</th>
+
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

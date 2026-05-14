@@ -1,0 +1,120 @@
+@using EmpPEP.UI.Views.KRA;
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+        
+            <div class="text-left" style="margin-bottom: 15px;">
+                
+            </div>
+            
+            <!-- Copy KRA Section (Legacy - kept for backward compatibility, but will be replaced by modal) -->
+            <div id="tblCopyKRA" style="display:none; margin-bottom: 15px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Copy Previous Year Goals & Objectives</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ddlAppraisalCycleCopyKRA">Select Appraisal Cycle:</label>
+                                    <select id="ddlAppraisalCycleCopyKRA" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="margin-top: 25px;">
+                                <div id="btncpydiv" style="display:none;">
+                                    <button type="button" id="btnCopyKRA" class="btn btn-primary">Copy G&Os</button>
+                                    <button type="button" id="btnCancelCopyKRA" class="btn btn-default" onclick="CancelCopyKRA()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                     
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert alert-success display-hide" style="display: none;" id="divValidationAlert">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive01">
+    <div class="col-md-8" style=" padding-right: 30px;margin-bottom:10px; float: right;">
+        <div style=" float: right;">
+            @*<button type="button" id="btnCopyKRAOptions" class="btn btn-primary" style="margin-right:10px;">
+                <i class="glyphicon glyphicon-copy"></i> Copy previous G&O's
+            </button>*@
+            <button type="button" id="btnAddNewGoal" class="btn btn-primary" onclick="OpenAddGoalModalCommon('self')">
+                <i class="glyphicon glyphicon-plus"></i> Add Goal
+            </button>
+        </div>
+        @*<div style=" float: right;">
+            <input type="button" id="btnRequestGoalModification" class="btn btn-warning" value="Request Goal Modification" style="display:none; margin-left: 15px;" />
+        </div>*@
+        <div style=" float: right; margin-right: 10px;">
+            <button type="button" id="btnReferenceGoalRepository" class="btn btn-primary">
+                <i class="glyphicon glyphicon-book"></i> Reference Goal Repository
+            </button>
+        </div>
+    </div>
+    <div class="form-group" style="display:none;" id="KRAListGird">
+        <table class="table table-striped tbl-my-kra" id="tblKRAList">
+            <thead style="text-align: center;">
+                <tr>
+                    <th style="display: none">KRAId</th>
+                    <th style="display:none">@KRA.strSeqNo</th>
+                    <th style="text-align: left;">@KRA.strGoalType</th>
+                    <th style="text-align: center;">Key Responsibility Area (KRA)</th>
+                    <th style="text-align: center;">Key Performance Indicators (KPIs)</th>
+                    <th style="text-align: center;">Action Plan</th>
+                    <th style="text-align: center;">Weightage (%)</th>
+                    <th style="text-align: center;">Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        
+        <!-- Training Details Section (shown below KRA list for Developmental goals) -->
+        <div id="trainingDetailsSection" style="display: none; margin-top: 10px; margin-bottom: 10px;">
+            <table id="tblTrainingDetails" class="table table-bordered" style="width: 100%; margin-bottom: 0; font-size: 13px;">
+                <thead>
+                    <tr style="background-color: #f5f5f5;">
+                        <th style="text-align: left; width: 50%; padding: 8px; font-weight: 600;">Training Name</th>
+                        <th style="text-align: left; width: 50%; padding: 8px; font-weight: 600;">Training Type</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        
+        <!-- Footer information div (replaces tfoot) -->
+        <div id="tblKRAListFooter" style="background-color: #f5f5f5; border-top: 2px solid #ddd; padding: 12px; display: none; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <label style="margin: 0; font-weight: 100 !important; ">G&O's Approver:</label>
+                    <input type="hidden" id="HdnKRAToSubmitManager" />
+                    <label id="lblKRAToSubmitManager" class="form-control-static" style="margin: 0; padding: 7px 12px; display: inline-block; min-width: 200px; text-align: left;">-</label>
+                    <input id="KRAToSubmitManager" type="text" disabled class="input-exitL form-control" style="display: none;" />
+                </div>
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <label style="margin: 0; font-weight: 100 !important;">Status:</label>
+                    <label id="lblKRAStatus" class="form-control-static" style="margin: 0; padding: 7px 12px; display: inline-block; min-width: 150px; text-align: left; font-weight: bold;">-</label>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <label style="margin: 0; font-weight: 100 !important;">Start Date:</label>
+                    <label id="lblStartDate" class="form-control-static" style="margin: 0; padding: 7px 12px; display: inline-block; min-width: 150px; text-align: left; font-weight: bold;">-</label>
+                </div>
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <label style="margin: 0; font-weight: 100 !important;">End Date:</label>
+                    <label id="lblEndDate" class="form-control-static" style="margin: 0; padding: 7px 12px; display: inline-block; min-width: 150px; text-align: left; font-weight: bold;">-</label>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <input type="button" id="btnSubmitKRA" class="btn btn-primary" value="@KRA.strKRASubmit" onclick="SubmitKRAForm()" style="display:none;" />
+            </div>
+        </div>
+    </div>
+</div>
+

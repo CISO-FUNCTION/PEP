@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{39DE3923-6FC6-4F80-903B-C42C3EBA6DFC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EmpPEP.BusinessLayer</RootNamespace>
+    <AssemblyName>EmpPEP.BusinessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppraisalCycleBL.cs" />
+    <Compile Include="AppraisalTypeMasterBL.cs" />
+    <Compile Include="AreaMasterBL.cs" />
+    <Compile Include="CompanyMasterBL.cs" />
+    <Compile Include="CriticalEmployeeBL.cs" />
+    <Compile Include="DelegatorBL.cs" />
+    <Compile Include="DeliveryUnitBL.cs" />
+    <Compile Include="EmailTemplateMasterBL.cs" />
+    <Compile Include="EmployeeAwardsBL.cs" />
+    <Compile Include="EmployeeFeedbackBL.cs" />
+    <Compile Include="EmployeeGradeMasterBL.cs" />
+    <Compile Include="EmployeeKRABL.cs" />
+    <Compile Include="EmployeeKRABLADO.cs" />
+    <Compile Include="EmployeeLoginDetailsBL.cs" />
+    <Compile Include="EmployeeMasterBL.cs" />
+    <Compile Include="EmployeeRoleMasterBL.cs" />
+    <Compile Include="EmployeeTrainingBL.cs" />
+    <Compile Include="ErrorLogBL.cs" />
+    <Compile Include="GeneralSetupBL.cs" />
+    <Compile Include="GetFeedbackRport_ResultEntity.cs" />
+    <Compile Include="GoalModificationReasonMasterBL.cs" />
+    <Compile Include="GoalModificationRequestBL.cs" />
+    <Compile Include="GoalModificationEmailService.cs" />
+    <Compile Include="GlobalAppConfigBL.cs" />
+    <Compile Include="GradeAreaQuestionMappingBL.cs" />
+    <Compile Include="LoginBL.cs" />
+    <Compile Include="ManagerDashboardBL.cs" />
+    <Compile Include="NotificationsBL.cs" />
+    <Compile Include="PageSideBarBL.cs" />
+    <Compile Include="PEPratingMasterBL.cs" />
+    <Compile Include="PIPMasterBL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionaryMasterBL.cs" />
+    <Compile Include="RatingColumnVisibilityBL.cs" />
+    <Compile Include="ReportsBL.cs" />
+    <Compile Include="RolesMasterBL.cs" />
+    <Compile Include="StartEndDateDTO.cs" />
+    <Compile Include="StatusMasterBL.cs" />
+    <Compile Include="TrainingMasterBL.cs" />
+    <Compile Include="TrainingRequestService.cs" />
+    <Compile Include="UploadKRAMasterBL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmpPEP.BusinessEntity\EmpPEP.BusinessEntity.csproj">
+      <Project>{a0d4b634-0680-4bf4-aac7-3895a8f4d008}</Project>
+      <Name>EmpPEP.BusinessEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmpPEP.Framework\EmpPEP.Framework.csproj">
+      <Project>{0452773a-81f4-46ef-bc2d-7a11b938ea6d}</Project>
+      <Name>EmpPEP.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmpPEP.Repository\EmpPEP.Repository.csproj">
+      <Project>{03758794-10a9-42c9-9fb3-419097cc3e2b}</Project>
+      <Name>EmpPEP.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

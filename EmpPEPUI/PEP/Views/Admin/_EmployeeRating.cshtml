@@ -1,0 +1,47 @@
+﻿@using EmpPEP.UI.Views.Admin;
+<div class="table-responsive">
+    <form id="formAppraisalCycle">
+        <table class="table table-striped tbl-my-kra" id="tblPEPrating">
+            @*<thead>
+                    <tr>
+                        <th>Rating</th>
+
+                    </tr>
+                </thead>*@
+            <tbody>
+                <tr>
+                    <td>
+
+                        <div class="form-group required">
+                            <label class="control-label col-sm-5">Upload File</label>
+                            <div class="col-sm-7">
+                                <span class="control-fileupload">
+                                    <input type="file" id="fileInput">
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="~/Templates/EmployeePEPRating.csv">Download Emp Rating Format</a>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="8" class="text-right">
+                        <input type="button" id="upload" class="btn btn-primary" value="Upload" />
+                        @*<input type="button" id="btnGeneralSetupClear" class="btn btn-primary" value="@Master.strClear" onclick="ClearForm('GS')" />*@
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="12">
+                        <div class="alert alert-success display-hide" style="display: none;" id="divGS_ValidationAlert">
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+

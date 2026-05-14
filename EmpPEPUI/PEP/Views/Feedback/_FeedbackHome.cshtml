@@ -1,0 +1,28 @@
+﻿@using EmpPEP.UI.Views.Feedback;
+<div>
+    <!-- Nav tabs -->
+    <div id="main">
+        <div class="col-md-12">
+            
+            <ul class="nav nav-tabs" role="tablist" id="tabFeedbackDashboard">
+                <li role="presentation" class="active"><a href="#myFeedback" class="tbs" aria-controls="myFeedback" role="tab" data-toggle="tab" id="tabMyFeedback">@Feedback.MyFeedback</a></li>
+                <li role="presentation"><a href="#feedbackGiven" class="tbs" aria-controls="feedbackGiven" role="tab" data-toggle="tab" id="tabfeedbackGiven">@Feedback.FeedbackGiven</a></li>
+                <li role="presentation"><a href="#pendingFeedback" class="tbs" aria-controls="pendingFeedback" role="tab" data-toggle="tab" id="tabPendingFeedback">@Feedback.PendingFeedback</a></li>
+                <li role="presentation"><a href="#requestFeedback" class="tbs" aria-controls="requestFeedback" role="tab" data-toggle="tab" id="TabRequestFeedback">@Feedback.RequestFeedback</a></li>
+            </ul>
+            
+
+            <!-- Tab panes  -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="myTeam">@Html.Partial("../Feedback/_MyTeamMain")</div>
+                <div role="tabpanel" class="tab-pane" id="myFeedback">@Html.Partial("../Feedback/_EmployeeFeedbackList")</div>
+                <div role="tabpanel" class="tab-pane" id="feedbackGiven">@Html.Partial("../Feedback/_EmployeeFeedbackList")</div>
+                <div role="tabpanel" class="tab-pane" id="pendingFeedback">@Html.Partial("../Feedback/_FeedbackPendingRequestList")</div>
+                <div role="tabpanel" class="tab-pane" id="requestFeedback">@Html.Partial("../Feedback/_FeedbackPendingRequestList")</div>
+
+                <div role="tabpanel" class="tab-pane" id="trainings">@Html.Partial("../Training/_MyTrainings")</div>
+            </div>
+
+        </div>
+        </div>
+    </div>

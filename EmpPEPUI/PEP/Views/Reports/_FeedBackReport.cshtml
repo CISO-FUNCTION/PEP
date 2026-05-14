@@ -1,0 +1,148 @@
+﻿<style>
+    #divFBReport table#tblFBReport tr td {
+        word-break: break-word;
+    }
+
+    #divFBReport table#tblFBReport th:nth-child(1),
+    #divFBReport table#tblFBReport td:nth-child(1) {
+        width: 6%;
+    }
+
+    #divFBReport table#tblFBReport th:nth-child(2),
+    #divFBReport table#tblFBReport td:nth-child(2) {
+        width: 8%;
+    }
+
+    #divFBReport table#tblFBReport th:nth-child(3),
+    #divFBReport table#tblFBReport td:nth-child(3) {
+        width: 6%;
+    }
+
+    #divFBReport table#tblFBReport th:nth-child(4),
+    #divFBReport table#tblFBReport td:nth-child(4) {
+        width: 8%;
+    }
+
+    #divFBReport table#tblFBReport th:nth-child(5),
+    #divFBReport table#tblFBReport td:nth-child(5) {
+        width: 6%;
+    }
+
+    #divFBReport table#tblFBReport th:nth-child(6),
+    #divFBReport table#tblFBReport td:nth-child(6) {
+        width: 6%;
+    }
+
+    #divFBReport table#tblFBReport th:nth-child(7),
+    #divFBReport table#tblFBReport td:nth-child(7) {
+        width: 12%;
+    }
+
+    #divFBReport table#tblFBReport th:nth-child(8),
+    #divFBReport table#tblFBReport td:nth-child(8) {
+        width: 12%;
+    }
+
+    #divFBReport table#tblFBReport th:nth-child(9),
+    #divFBReport table#tblFBReport td:nth-child(9) {
+        width: 12%;
+    }
+
+    #divFBReport table#tblFBReport th:nth-child(10),
+    #divFBReport table#tblFBReport td:nth-child(10) {
+        width: 5%;
+    }
+
+    #divFBReport table#tblFBReport th:nth-child(11),
+    #divFBReport table#tblFBReport td:nth-child(11) {
+        width: 5%;
+    }
+
+    #divFBReport table#tblFBReport th:nth-child(12),
+    #divFBReport table#tblFBReport td:nth-child(12) {
+        width: 14%;
+    }
+</style>
+
+
+<div class="row pdtop15" id="divFBReport">
+
+
+
+    @*<div class="col-md-5 form-horizontal">
+        <div class="form-group">
+            <label class="col-md-4 control-label">Select Sub-Cycle: </label>
+            <div class="col-md-8">
+                <select id="ddlHalfAppCycle" class="form-control"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 form-horizontal">
+        </div>
+    </div>*@
+
+
+    <div class="col-sm-5">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Start :</label>
+                <div class="col-sm-8">
+                    <input class="input-exitSmall form-control KRADatePicks" id="dtFromFBReport" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-5">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">End :</label>
+                <div class="col-sm-8">
+                    <input class="input-exitSmall form-control KRADatePicks" id="dtToFBReport" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-5 form-horizontal pdtop15">
+        <div class="form-group">
+            <label class="col-md-4 control-label">Select Type :</label>
+            <div class="col-md-8">
+                <select id="ddlFBStatus" class="form-control">
+                    <option value="FBKNC">Manager Feedback (G&Os)</option>
+                    <option value="FBGIVEN">Feedback Given</option>
+                    <option value="FBREQUEST">Feedback Requested</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-sm-12 form-group pdtop15">
+        <input type="button" value="View Report" class="btn btn-primary" id="btnFBReport" />
+        <input type="button" value="Export Report" class="btn btn-primary" id="btnExportToExcelFBReport" />
+    </div>
+
+    <div class="col-sm-12">
+        <table id="tblFBReport" class="table tbl-my-team-kra-beh-comp" style="width: 100%;">
+            <thead class="cf">
+                <tr>
+                    <th>Feedback Date</th>
+                    <th>EmployeeName (From)</th>
+                    <th>EmployeeCode (From)</th>
+                    <th>EmployeeName (To)</th>
+                    <th>EmployeeCode (To)</th>
+                    <th>Area</th>
+                    <th>KRA</th>
+                    <th>KPIs</th>
+                    <th>Action Plan</th>
+                    <th>Weightage</th>
+                    <th>Rating</th>
+                    <th>Feedback</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

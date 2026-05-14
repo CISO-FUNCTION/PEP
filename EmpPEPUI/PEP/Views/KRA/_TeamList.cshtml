@@ -1,0 +1,18 @@
+﻿@using EmpPEP.UI.Views.KRA;
+
+<div class="row table-responsive" id="divSubordinateList">
+    <div class="col-md-4 form-inline">
+        <label class="form-label">G&Os Status:</label>
+        <select class="form-control" style="width: 70%;" id="ddlKRAStatusForTeam" ></select>
+
+    </div>
+
+    <div class="col-md-6 form-inline">
+        <label class="form-label">Team Member Name:</label>
+        <select class="form-control" id="ddlMyTeamList_KRA" onchange="ShowMyKRA($('#ddlMyTeamList_KRA').val(), 'S', $('#AppCycle :selected').val())"></select>
+        @*<button class="btn btn-default btn-xs btn-round" title="GetKRA" id="btnGetSubKRA" onclick="ShowMyKRA($('#ddlMyTeamList_KRA').val(), 'S')"><span class="glyphicon glyphicon-search"></span></button>*@
+    </div>
+
+</div>
+<br/>
+<div class="alert alert-success display-hide" style="display: none;" id="divValidationAlert_Team"></div>

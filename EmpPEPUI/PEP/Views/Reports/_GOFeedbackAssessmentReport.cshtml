@@ -1,0 +1,185 @@
+﻿<style type="text/css">
+    #divGOFSReport table#tblEmpGOFS th:nth-child(1),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(1) {
+        width: 5%;
+        max-width: 5%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(2),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(2) {
+        width: 8%;
+        max-width: 8%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(3),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(3) {
+        width: 6%;
+        max-width: 6%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(4),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(4) {
+        width: 8%;
+        max-width: 8%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(5),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(5) {
+        width: 5%;
+        max-width: 5%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(6),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(6) {
+        width: 10%;
+        max-width: 10%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(7),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(7) {
+        width: 10%;
+        max-width: 10%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(8),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(8) {
+        width: 10%;
+        max-width: 10%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(9),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(9) {
+        width: 5%;
+        max-width: 5%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(10),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(10) {
+        width: 5%;
+        max-width: 5%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(11),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(11) {
+        width: 10%;
+        max-width: 10%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(12),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(12) {
+        width: 6%;
+        max-width: 6%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(13),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(13) {
+        width: 6%;
+        max-width: 6%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(14),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(14) {
+        width: 12%;
+        max-width: 12%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(15),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(15) {
+        width: 6%;
+        max-width: 6%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(16),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(16) {
+        width: 8%;
+        max-width: 8%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(17),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(17) {
+        width: 5%;
+        max-width: 5%;
+    }
+
+    #divGOFSReport table#tblEmpGOFS th:nth-child(18),
+    #divGOFSReport table#tblEmpGOFS td:nth-child(18) {
+        width: 5%;
+        max-width: 5%;
+    }
+</style>
+
+<div class="row pdtop15" id="divGOFS">
+
+    <div class="col-sm-5" id="divSelectCycleBreakGOFS">
+        <div class="form-horizontal">
+            <div class="form-group" style=" margin-bottom: 17px;">
+                <label class="col-sm-4 control-label">Select Sub-Cycle:</label>
+                <div class="col-sm-8">
+                    <select id="ddlCBGOFS" class="form-control"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 form-horizontal">
+        </div>
+    </div>
+
+    <div class="col-sm-5" id="divSelectMgrGOFS">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Select Manager :</label>
+                <div class="col-sm-8">
+                    <select id="ddlMgrGOFS" class="form-control"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-5 form-horizontal" id="GOFS_Reportee">
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Select Employee : </label>
+            <div class="col-sm-8">
+                <select id="ddlEmpGOFS" class="form-control"></select>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-12 form-group pdtop15">
+        <input type="button" value="View Report" class="btn btn-primary" id="btnGetGOFS" />
+        <input type="button" value="Export To Excel" class="btn btn-primary" id="btnGOFSExportToExcel" />
+    </div>
+
+    <div class="col-sm-12">
+        <table id="tblEmpGOFS" class="table tbl-my-team-kra-beh-comp" style="width: 100%; display: none">
+            <thead>
+                <tr>
+                    <th>AppraisalCycle</th>
+                    <th>AppraisalCycleName</th>
+                    <th>EmployeeCode</th>
+                    <th>EmployeeName</th>
+                    <th>GoalType</th>
+                    <th>KRA</th>
+                    <th>KPIs</th>
+                    <th>Action Plan</th>
+                    <th>Weightage</th>
+                    <th>GoalApproved</th>
+                    <th>SelfAssesment</th>
+                    <th>SelfReview_Date</th>
+                    <th>FeedbackStatus</th>
+                    <th>Feedback</th>
+                    <th>Feedback_Date</th>
+                    <th>FeedbackGivenBy</th>
+                    <th>FeedbackGiven_By_EmpID</th>
+                    <th>EmployeeStatus</th>
+                    @*<th></th>*@
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="col-sm-12">
+
+    </div>
+</div>
+

@@ -1,0 +1,952 @@
+
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+@*<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>*@
+
+
+@*<script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/DataTables/buttons.flash.js"></script>
+    <script src="~/Scripts/DataTables/jszip.min.js"></script>
+    <script src="~/Scripts/DataTables/vfs_fonts.js"></script>
+    <script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
+    <script src="~/Scripts/DataTables/buttons.print.js"></script>
+    <script src="~/Scripts/DataTables/ellipsis.js"></script>*@
+
+
+@*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.4.0/css/buttons.dataTables.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.flash.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.print.min.js"></script>*@
+
+
+<style type="text/css">
+    .clsUploadRatings div{
+        margin-left:30px;
+        display:flex;
+    }
+        .clsUploadRatings div button {
+            margin-left: -60px !important;
+        }
+    .multiselect-container {
+        max-width: 100%;
+        word-break: break-all;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow: hidden auto;
+        position: absolute;
+        /*transform: translate3d(0px, -200px, 0px);*/
+        top: 0px;
+        left: 0px;
+        will-change: transform;
+    }
+
+    /* Remove background colors from column visibility dropdown items */
+    #ddlColumnVisibilityAdmin + .btn-group .multiselect-container li {
+        background-color: transparent !important;
+    }
+
+    #ddlColumnVisibilityAdmin + .btn-group .multiselect-container li.disabled {
+        background-color: transparent !important;
+        opacity: 0.6;
+    }
+
+    #ddlColumnVisibilityAdmin + .btn-group .multiselect-container li a {
+        background-color: transparent !important;
+        color: inherit !important;
+    }
+
+    #ddlColumnVisibilityAdmin + .btn-group .multiselect-container li.active {
+        background-color: transparent !important;
+    }
+
+    #ddlColumnVisibilityAdmin + .btn-group .multiselect-container li a:hover {
+        background-color: #f5f5f5 !important;
+        color: inherit !important;
+    }
+
+    #ddlColumnVisibilityAdmin + .btn-group .multiselect-container li.active a {
+        background-color: transparent !important;
+        color: inherit !important;
+        font-weight: normal !important;
+    }
+
+    #ddlColumnVisibilityAdmin + .btn-group .multiselect-container li a label {
+        color: #333 !important;
+    }
+
+    .Description {
+        cursor: pointer;
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+
+    .multiselect {
+        white-space: normal !important;
+        max-width: 200px;
+    }
+
+    #tblHRBPAdminView thead tr th {
+        font-size: 11px;
+        font-weight: normal;
+        padding: 8px;
+        width: auto !important;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        border: 1px solid #ddd !important;
+        border-collapse: collapse;
+    }
+
+    #tblActionHistoryAdmin tbody tr th {
+        font-size: 11px;
+        font-weight: normal;
+        padding: 8px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        border: 1px solid #ddd !important;
+        border-collapse: collapse;
+    }
+
+    #tblActionHistoryAdmin tbody tr td {
+        font-size: 11px;
+        font-weight: normal;
+        padding: 8px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        border: 1px solid #ddd !important;
+        border-collapse: collapse;
+    }
+
+    #tblHRBPAdminView tbody tr td {
+        font-size: 11px;
+        font-weight: normal;
+        padding: 8px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        border: 1px solid #ddd !important;
+        border-collapse: collapse;
+    }
+
+    label#filteronclick {
+        margin-right: 75px;
+    }
+
+    label#filteronclick {
+        box-shadow: inset 0 0 0 0 #54b3d6;
+        color: #54b3d6;
+        padding: 0 .25rem;
+        transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+    }
+
+        label#filteronclick:hover {
+            box-shadow: inset 100px 0 0 0 #54b3d6;
+            color: black;
+        }
+
+    .rating-summery label {
+        box-shadow: none !important;
+        color: #000 !important;
+        font-size: 13px;
+        font-weight: normal;
+        margin-right: 0px !important;
+    }
+
+        .rating-summery label:hover {
+            box-shadow: none !important;
+            color: #000;
+        }
+
+    .rating-summery .rating-summery-inn button:nth-child(1) {
+        background: #2f2b28;
+        color: #fff;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(2) {
+        background: #3392ed;
+        color: #fff;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(3) {
+        background: #2f2b28;
+        color: #fff;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(4) {
+        background: #5e5651;
+        color: #fff;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(5) {
+        background: #3392ed;
+        color: #fff;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(6) {
+        background: #3392ed;
+        color: #fff;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(7) {
+        background: #3392ed;
+        color: #fff;
+    }
+
+    div#filtersDiv {
+        width: 100%;
+    }
+
+    table.table.table-bordered.rating-summery {
+        margin-bottom: 15px;
+    }
+
+    .tblHRBPAdminView table thead tr th {
+        background: #4986f1;
+        color: #fff;
+        padding: 6px 4px;
+        vertical-align: middle;
+        border: 1px solid #ccc;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(1).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(2).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(3).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(4).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(5).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(6).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(7).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .rating-summery .rating-summery-inn button:nth-child(8).abc.animation {
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+    .abc {
+        cursor: pointer;
+    }
+
+    .rating-summery .rating-summery-inn button {
+        font-size: 12px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        padding: 6px 8px 3px;
+        border: none;
+        outline: none;
+        height: auto;
+        border-radius: 4px;
+        background: transparent;
+        border: 2px solid #3392ed;
+        color: #000;
+    }
+
+        .rating-summery .rating-summery-inn button:hover {
+            transform: scale(1.03);
+        }
+
+    select.currRating {
+        width: 90px !important;
+        border-radius: 4px !important;
+        font-size: 11px;
+    }
+
+    #filteronclick {
+        cursor: pointer;
+    }
+
+    #ViewAdminNTHistoryDetails .modal-header {
+        padding: 5px 18px;
+    }
+
+    #ViewAdminNTHistoryDetails .modal-footer {
+        padding: 5px 18px;
+    }
+
+    #tblHRBPAdminView tr td textarea {
+        width: 215px;
+        margin: 0 auto;
+        height: 33px !important;
+        max-height: 33px !important;
+        min-height: 33px !important;
+        border: 0px !important;
+        border-bottom: 1px solid #4986f1 !important;
+        box-shadow: none !important;
+    }
+
+    select.rating {
+        margin: 0 auto;
+        border-radius: 4px !important;
+        font-size: 11px;
+        width: 79px !important;
+    }
+
+    #tblHRBPAdminView tbody tr td:nth-child(1) {
+        width: 60px;
+    }
+
+    #tblHRBPAdminView tbody tr td:nth-child(1) {
+        width: 90px;
+    }
+
+    #tblHRBPAdminView tbody tr td:nth-child(8) {
+        width: 60px;
+    }
+
+    #tblHRBPAdminView tbody tr td:nth-child(10) {
+        width: 60px;
+    }
+
+    #tblHRBPAdminView tbody tr td:nth-child(11) {
+        width: 70px;
+    }
+
+    #tblHRBPAdminView tbody tr td:nth-child(13) {
+        width: 100px;
+    }
+
+    #tblHRBPAdminView tbody tr td:nth-child(14) {
+        width: 100px;
+    }
+
+    #tblHRBPAdminView tbody tr td:nth-child(15) {
+        width: 100px;
+    }
+
+
+    #tblHRBPAdminView tbody tr td:nth-child(8) {
+        width: 58px;
+    }
+
+    table#tblHRBPAdminView {
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+    }
+
+    /* Horizontal scrolling for table wrapper */
+    .table-responsive-wrapper {
+        overflow-x: auto;
+        overflow-y: visible;
+        -webkit-overflow-scrolling: touch;
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .table-responsive-wrapper::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .table-responsive-wrapper::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    .table-responsive-wrapper::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+    }
+
+    .table-responsive-wrapper::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+    /* Ensure table maintains minimum width for all columns */
+    /* With 26 columns, we need approximately 2500-3000px minimum width */
+    #tblHRBPAdminView {
+        min-width: 2800px; /* Adjust based on your column count (26 columns) */
+        width: 100%;
+        table-layout: auto; /* Allow columns to size based on content */
+    }
+
+    /* Ensure wrapper enables scrolling when content exceeds viewport */
+    .tblEmpRating-List {
+        overflow-x: auto;
+        overflow-y: visible;
+    }
+
+    /* For smaller screens, enable scrolling */
+    @@media screen and (max-width: 1920px) {
+        .table-responsive-wrapper {
+            overflow-x: auto;
+        }
+        
+        #tblHRBPAdminView {
+            min-width: 2800px;
+        }
+    }
+
+    select#ddlReportee {
+        font-size: 11px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+
+    label#filteronclick {
+        font-size: 11px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+
+    #tblUnsavedData thead tr th {
+        font-size: 12px;
+        font-weight: normal;
+        padding: 6px 2px;
+        width: auto !important;
+        text-align: center;
+    }
+
+    #tblUnsavedData tbody tr td {
+        font-size: 12px;
+        font-weight: normal;
+        padding: 6px 2px;
+    }
+
+    #tblUnsavedData {
+        width: 100% !important;
+    }
+
+    #tblFilteredData thead tr th {
+        font-size: 12px;
+        font-weight: normal;
+        padding: 6px 2px;
+        width: auto !important;
+    }
+
+    #tblFilteredData tbody tr td {
+        font-size: 12px;
+        font-weight: normal;
+        padding: 6px 2px;
+    }
+
+    input#input {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-right: 5px;
+        margin-bottom: 7px;
+    }
+
+    label.filterAttr {
+        width: 100%;
+        /*display: flex;
+        align-items: center;
+        justify-content: space-between;*/
+    }
+
+
+        label.filterAttr .form-control {
+            font-size: 11.5px;
+        }
+
+        /*label.filterAttr button.multiselect.dropdown-toggle.btn.btn-default:hover {
+        transform: scale(1);
+    }*/
+
+        label.filterAttr ul.multiselect-container.dropdown-menu {
+            max-width: 100% !important;
+            width: 100% !important;
+            top: 35px !important;
+        }
+
+    .col-md-12.tblEmpRating-List {
+        position: relative;
+    }
+
+        .col-md-12.tblEmpRating-List .col-md-12.text-center.btn-fixedon-scroll {
+            position: fixed;
+            bottom: 40px;
+            z-index: 999;
+            display: none;
+        }
+
+    .col-md-12.filter-top-sec-item-HRBPAdmin:after {
+        content: "";
+        position: absolute;
+        top: -16px;
+        right: 18px;
+        margin-left: -6px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: transparent transparent #ddd transparent;
+    }
+
+    .col-md-12.filter-top-sec-item-HRBPAdmin {
+        position: relative;
+        margin-top: 10px;
+        background: #fff;
+        padding: 0px 16px 16px;
+        display: block;
+        width: 100%;
+        left: 0;
+        top: 0px;
+        z-index: 9;
+        box-shadow: 0 15px 18px -14px #00000091;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+    /*.col-md-12.filter-top-sec-item-HRBPAdmin span#close-filter-HRBPAdmin {
+        position: absolute;
+        right: 17px;
+        font-size: 20px;
+        background: #5650c6;
+        color: #fff;
+        padding: 5px;
+        border-radius: 100%;
+        z-index: 9;
+    }*/
+
+    .filter-img-sec-HRBPAdmin {
+        text-align: right;
+    }
+
+        .filter-img-sec-HRBPAdmin #open-filter-HRBPAdmin {
+            background: #2e84e7;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            padding: 4px 4px 0px;
+            cursor: pointer;
+            height: auto !important;
+            border: none;
+            outline: none;
+            display: none;
+        }
+
+        .filter-img-sec-HRBPAdmin #close-filter-HRBPAdmin {
+            background: #000000;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            padding: 4px 4px 0px;
+            cursor: pointer;
+            height: auto !important;
+            border: none;
+            outline: none;
+        }
+
+    .data-table-main {
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 11px !important;
+        font-weight: normal;
+        line-height: 1.5;
+        color: #212529;
+        text-align: left;
+        background-color: #fff;
+    }
+
+        table.dataTable.nowrap th, table.dataTable.nowrap td, .data-table-main th, .data-table-main td {
+            padding: 5px;
+            white-space: inherit !important;
+            word-wrap: normal !important;
+        }
+
+
+    #tblActionHistoryAdmin thead tr th {
+        background: #4986f1 !important;
+        color: #fff;
+        font-size: 11px;
+    }
+
+    #tblActionHistoryAdmin tbody tr td {
+        color: #000;
+        font-size: 11px;
+    }
+    /*.multiselect-container.dropdown-menu input[type='radio'] {
+        display: none;
+    }*/
+</style>
+
+
+<div id="main-wrapper03">
+    @*<div id="loading-overlay">
+            <img src="~/images/loading.gif" alt="Loading..." id="loading-image" />
+        </div>*@
+
+    <div class="container-fluid">
+        @*class="modal fade" role="dialog"*@
+
+        <div id="ViewAdminNTHistoryDetails" class="modal  bs-modal-lg fade modal-popup" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Action History</h4>
+                    </div>
+                    <div class="modal-body modal-scrollable">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="tblActionHistoryAdmin" class="table table-bordered table-hover blue" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:20px; padding: 5px;">S.No.</th>
+                                            <th style="width:110px; padding: 5px;">Action Taken By</th>
+                                            <th style="padding: 5px;">Rating</th>
+                                            <th style="width:80px;padding: 5px;">Promotion Reco.</th>
+                                            <th style="padding: 5px;">Action Taken On</th>
+                                            <th style="padding: 5px;">Action</th>
+                                            <th style="padding: 5px;">Comment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="position: relative;display:none;" id="divFilters">
+
+            <div class="col-md-12">
+                <div id="filtersDiv" style="display:none;margin-top: 10px;">
+                    <div class="rating-summery">
+                        <div class="rating-summery-inn">
+                            <button id="tdADM_RI_EE1" style="font-size:11px;" class="abc" onclick="filterData('EE1', 'tblHRBPAdminView');"><span id="filteronclick" class="filterEE1">EE-Exceeds Expectations(5%) - [<span id="EE1span">EE1</span>]</span></button>
+                            <button id="tdADM_RI_EE" style="font-size:11px;" class="abc" onclick="filterData('EE', 'tblHRBPAdminView');"><span id="filteronclick" class="filterEE">EE-Exceeds Expectations(25)% - [<span id="EEspan">EE</span>]</span></button>
+                            <button id="tdADM_RI_ME" style="font-size:11px;" class="abc" onclick="filterData('ME', 'tblHRBPAdminView');"><span id="filteronclick" class="filterME">ME-Meets Expectations(60%) - [<span id="MEspan">ME</span>]</span></button>
+                            <button id="tdADM_RI_BE" style="font-size:11px;" class="abc" onclick="filterData('BE', 'tblHRBPAdminView');"><span id="filteronclick" class="filterBE">BE-Below Expectations(10%) - [<span id="BEspan">BE</span>]</span></button>
+                            <button id="tdRI_ratinggiven" style="font-size:11px;" class="abc" onclick="filterData('All', 'tblHRBPAdminView');"><span id="filteronclick" class="filterAll"> Ratings Given - [<span id="Given">Given</span>]</span></button>
+                            <button id="tdRI_ratingnotgiven" style="font-size:11px;" class="abc" onclick="filterData('Not', 'tblHRBPAdminView');"><span id="filteronclick" class="filterNot">Ratings Not Given - [<span id="NotGiven">Not Given</span>]</span></button>
+                            <button id="tdRI_All" style="font-size:11px;" class="abc" onclick="filterData('Total', 'tblHRBPAdminView');"><span id="filteronclick" class="filterReset">Reset</span></button>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h5 class="divRole"><span style="color:black">Role:</span><b> <span class="spnRole"></span></b></h5>
+            </div>
+            <div class="col-md-6">
+                <div class="filter-img-sec-HRBPAdmin">
+                    <button title="Filter" id="open-filter-HRBPAdmin" class="glyphicon glyphicon-filter"></button>
+                    <button id="close-filter-HRBPAdmin" class="glyphicon glyphicon-remove"></button>
+                </div>
+            </div>
+            <div class="col-md-12 filter-top-sec-item-HRBPAdmin">
+                <h5 class="reprt-heading-title"><b>Filters</b></h5>
+                <div id="filtersDropDiv_GDLDept_head" style="display:block;">
+                    <div class="filter-top-item">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="GDLDeptHead filterAttr" style="font-size:11px">
+                                    <span class="text-label">Approver Span</span>
+                                    <span><select class="form-control" id="ddlGDLDept_head" multiple="multiple" onchange="InputFormfilterschange('GDL')"></select></span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="RMSpan filterAttr" style="font-size:11px">
+                                    <span class="text-label">Reviewer Span</span>
+                                    <span><select class="form-control" id="ddlDPSpan_head" multiple="multiple" onchange="InputFormfilterschange('DP')"></select></span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="RMSpan filterAttr" style="font-size:11px">
+                                    <span class="text-label">Inputer Span</span>
+                                    <span><select class="form-control" id="ddlRMSpan_head" multiple="multiple" onchange="InputFormfilterschange('RM')"></select></span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="Grade filterAttr" style="font-size:11px">
+                                    <span class="text-label">Grade</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddlgrade_GDLDept_head" onchange="FirstScreenfilterschange()"><option value="0">--select--</option></select></span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="Location filterAttr" style="font-size:11px">
+                                    <span class="text-label">Location</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddllocation_GDLDept_head" onchange="FirstScreenfilterschange()"><option value="1">India</option><option value="3">US</option><option value="2">ROW</option></select></span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="GroupAccount filterAttr" style="font-size:11px;">
+                                    <span class="text-label">Group Account</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddlgroupaccount_GDLDept_head" onchange="FirstScreenfilterschange()"><option value="0">--select--</option></select></span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label id="GenderDDL" class="Gender filterAttr" style="font-size:11px;">
+                                    <span class="text-label">Gender</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddlgender" onchange="FirstScreenfilterschange()"><option value="Male">Male</option><option value="Female">Female</option></select></span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="GroupAccount filterAttr" style="font-size:11px;">
+                                    <span class="text-label">Employee Status</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddlEmployeeStatus_HRBP" onchange="FirstScreenfilterschange()"><option value="0">--select--</option></select></span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="Delivery filterAttr" style="font-size:11px;">
+                                    <span class="text-label">Delivery/ Non-delivery</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddlDeliveryStatus_HRBP" onchange="FirstScreenfilterschange()"><option value="0">--select--</option></select></span>
+                                </label>
+                            </div>
+
+                            <div class="col-md-2" id="divpromotion">
+                                <label id="PromotionDDL" class="promotion filterAttr" style="font-size:11px;">
+                                    <span class="text-label">Promotion</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddlPromotion_HRBP" onchange="FirstScreenfilterschange();"><option value="3">Eligible</option><option value="4">Not Eligible</option><option value="1">Recommended</option><option value="2">Not Recommended</option></select></span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="ddlCriticalityPriority_HRBP" class="Criticality filterAttr" style="font-size:11px;">
+                                    <span class="text-label">Criticality Priority</span>
+                                    <span>
+                                        <select id="ddlCriticalityPriority_HRBP" multiple="multiple" class="form-control" onchange="CriticalityFilterChange_HRBP();">
+                                            <!-- Options populated dynamically -->
+                                        </select>
+                                    </span>
+                                </label>
+                            </div>
+                            @*<div class="col-md-2">
+                                <label id="ColumnVisibilityDDL_Admin" class="columnVisibility filterAttr" style="font-size:11px;">
+                                    <span class="text-label">Show Columns</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddlColumnVisibilityAdmin"></select></span>
+                                </label>
+                            </div>*@
+                        </div>
+                    </div>
+
+                    @*<table class="table table-bordered">
+                            <tr>
+                                <td style="width:20%"><label class="GDLDeptHead filterAttr" style="font-size:11px"><span class="text-label">GDL/Department Head</span><span><select class="form-control" multiple="multiple" id="ddlGDLDept_head" onchange="InputFormfilterschange()"></select></span></label></td>
+                                <td style="width:20%"><label class="RMSpan filterAttr" style="font-size:11px"><span class="text-label">RM Span</span><span><select class="form-control" multiple="multiple" id="ddlRMSpan_head" onchange="InputFormfilterschange()"></select></span></label></td>
+                                <td style="width:20%"><label class="Grade filterAttr" style="font-size:11px"><span class="text-label">Grade</span><span><select class="form-control" multiple="multiple" id="ddlgrade_GDLDept_head"><option value="0">--select--</option></select></span></label></td>
+                                <td style="width:20%"><label class="Location filterAttr" style="font-size:11px"><span class="text-label">Location</span><span><select class="form-control" multiple="multiple" id="ddllocation_GDLDept_head"><option value="1">India</option><option value="3">US</option><option value="2">ROW</option></select></span></label></td>
+                                <td style="width:20%">
+                                    <label class="GroupAccount filterAttr" style="font-size:11px;"><span class="text-label">Group Account</span><span><select class="form-control" multiple="multiple" id="ddlgroupaccount_GDLDept_head"><option value="0">--select--</option></select></span></label>
+                                </td>
+                            </tr>
+                        </table>*@
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="norm-doc-download-top" style="margin-bottom:10px;">
+                    <div class="norm-doc-download">
+                        <div style="text-align: left;">
+                            <h5 class="reprt-heading-title"><b>Normalization Details</b></h5>
+                        </div>
+                        @*<a style="width:122px;" class="form-control" onclick="tableToExcel('tblHRBPAdminView', 'Normalization Details', 'btnAdminNormDownload')" id="btnAdminNormDownload">
+            <i class="fa fa-file-excel-o"></i>
+        </a>*@
+
+
+                        <div class="row" style="float:right">
+
+                            <div class="col-md-3" style=" top: 45px;">
+                                <label id="ColumnVisibilityDDL_Admin" class="columnVisibility filterAttr" style="font-size:11px;">
+                                    <span class="text-label">Select Columns to show</span>
+                                    <span><select class="form-control" multiple="multiple" id="ddlColumnVisibilityAdmin"></select></span>
+                                </label>
+                            </div>
+                            <div class="clsUploadRatings row" style="float: right; display: none;" id="UploadSection">
+                                <div class="col-md-5">
+                                    <input type="file" name="input-b1" class="file" id="input1">
+                                    <button type="button" id="uploadRatingProm" class="btn btn-primary" title="Upload Ratings" value="Upload Ratings" style="margin-bottom: 10px;margin-right:5px;"><span class="glyphicon glyphicon-upload"></span></button>
+
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="file" name="input-b1" class="file" id="input2">
+                                    <button type="button" id="uploadDesignations" class="btn btn-primary" title="Upload Designations" value="Upload Designations" style="margin-bottom: 10px;margin-right:5px;"><span class="glyphicon glyphicon-upload"></span></button>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12 tblEmpRating-List">
+                        <div class="table-responsive-wrapper" style="overflow-x: auto; overflow-y: visible; max-width: 100%;">
+                            <table class="table tbl-my-team-kra datatable table-borderd data-table-main" width="100%" id="tblHRBPAdminView" style="min-width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>EmployeeId</th>
+                                        <th>Employee Name</th>
+                                        <th>Gender</th>
+                                        <th>Grade</th>
+                                        <th>Location</th>
+                                        <th>Group Account</th>
+                                        <th>Delivery/ Non-delivery</th>
+                                        <th>FY-24<br />Rating </th>
+                                        <th>Last Promotion Date</th>
+                                        <th>FY-25<br />Rating</th>
+                                        <th>FY-25<br />Promotion</th>
+                                        <th>Reco.<br />Designation</th>
+                                        <th>Reco.<br />Designation Consent</th>
+                                        <th>Promotion Track</th>
+                                        <th>Talent Cube</th>
+                                        <th>Action History</th>
+                                        <th>Inputter</th>
+                                        <th>Reviewer</th>
+                                        <th>Approver</th>
+                                        <th>Comments</th>
+                                        <th>Criticality Reasons</th>
+                                        <th>Criticality Priority</th>
+                                        <th>Attrition Risk</th>
+                                        <th>Attrition Risk Reason</th>
+                                        <th>Immediate Backup Name</th>
+                                        <th>Successor Name</th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                        <div class="col-md-12  text-center btn-fixedon-scroll" style="margin-bottom: 10px;">
+                            <input type="button" id="btnReferback" class="btn btn-primary" value="ReferBack to Approver" style="margin-right:5px;">
+                            <input type="button" id="btnShowToEmp" class="btn btn-primary" value="Show To Employee" style="margin-right:5px;">
+                            <input type="button" id="btnAdminApproved" class="btn btn-primary" value="Admin Approved" style="margin-right:5px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="dataModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dataModalLabel">Employee Data</h5>
+                <button type="button" class="btn-close close" style="float:right" data-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Failed Label (If Any Error) -->
+                <div id="divDisplayData" style="display:none">
+                    <label id="lblFailed" class="text-danger"></label>
+                </div>
+
+                <!-- First Table: Filtered Data -->
+                <!--<h5 class="mt-3">Filtered Data</h5>
+                <table class="table table-bordered table-striped" id="tblFilteredData" style="display:none;">
+                    <thead class="table-dark">
+                        <tr>
+                            <th style="width: 300px !important;">Name</th>
+                            <th>Gender</th>
+                            <th>Total Exp.</th>
+                            <th>Infogain Exp.</th>
+                            <th style="width: 180px !important; display:none;">Previous year-2022<br> rating</th>
+                            <th style="width: 180px !important;">Last Year Promotion Date</th>
+                            <th style="width:10%">Current year -2023<br> Rating</th>
+                            <th style="width: 200px !important;">Recommendation for promotion <br>(Year-2023)</th>
+                            <th>Comments</th>
+                        </tr>
+                    </thead>
+                    <tbody>-->
+                <!-- Data will be dynamically inserted here -->
+                <!--</tbody>
+                </table>-->
+                <!-- Second Table: Unsaved Data -->
+                @*<h5 class="mt-4">Unsaved Data</h5>*@
+                <table class="table table-bordered table-striped" id="tblUnsavedData">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Sr no.</th>
+                            <th style="width: 300px !important;">Name</th>
+                            <th>Gender</th>
+                            <th>Grade</th>
+                            <th>Location</th>
+                            <th style="width:10%">Rating</th>
+                            <th>Recommendation<br />for promotion</th>
+                            <th>Recommended<br />Designation</th>
+                            <th style="width: 180px !important;">Comments</th>
+                            <th style="width: 400px !important;">Failure Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data will be dynamically inserted here -->
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section scripts{
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.5/xlsx.full.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>*@
+
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/toastr.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/Common.js"></script>
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+    <script src="~/Scripts/PEPScripts/loader.js"></script>
+    <script src="~/Scripts/PEPScripts/RatingAppraisalCycleContext.js"></script>
+    <script src="~/Scripts/PEPScripts/Ratings.js"></script>
+    <script src="~/Scripts/PEPScripts/RatingCurve.js"></script>
+
+    @*<script>
+                $(document).ready(function () {
+
+                });
+        </script>*@
+}
+

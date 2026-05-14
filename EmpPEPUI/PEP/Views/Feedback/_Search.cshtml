@@ -1,0 +1,123 @@
+﻿@using EmpPEP.UI.Views.Feedback;
+
+<style>
+    .ui-autocomplete {
+        max-height: 100px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+    }
+
+    #fromDate {
+        z-index: 10051 !important;
+    }
+    
+    #toDate {
+        z-index: 10051 !important;
+    }
+</style>
+
+<div class="row">
+    <div class="form-group">
+        <input class="btn btn-primary btn-sm" type="button" value="My KRA">
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <input class="btn btn-primary btn-sm" type="button" id="btnTeamKRA" value="Team KRA">
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <input class="btn btn-primary btn-sm" type="button" value="Give Feedback" id="btnGiveFeedback" onclick="ShowGiveFeedbackForManager();">
+    </div>
+    <div class="form-group">
+        <input class="btn btn-primary btn-sm" type="button" value="Suggest training">
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group">
+        <input class="btn btn-primary btn-sm" type="button" value="Training request" onclick="ShowTrainingRequest();">
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-8" style="padding:0px;">
+            <span>Search other employee:</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-horizontal">
+        <div class="form-group form-group-sm">
+            <div class="col-md-8">
+                <input type="text" class="form-control ui-autocomplete" onkeyup="RemoveScript('searchEmp');" id="searchEmp">
+                <input type="hidden" id="hdnsearchEmp" name="ToEmployeeId" />
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <input class="btn btn-primary btn-sm" type="button" value="Give feedback" onclick="ShowRequest();">
+    </div>
+</div>
+
+<div class="modal fade" role="dialog" id="trainingReqModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="dvTrainingReqContainer">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Training request</h4>
+            </div>
+            <div class="modal-body">
+                <div id="requestContent">
+                    @Html.Partial("../Training/_TrainingRequest")
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnSendTrainingRequest" onclick="fnSendTrainingRequest();">Send</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" role="dialog" id="GiveFeedbackModalForManagerModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="dvGiveFeedbackForManagerContainer">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Give Feedback</h4>
+            </div>
+            <div class="modal-body">
+                <div id="requestContent">
+                    @Html.Partial("../Feedback/_AddManagersFeedbackHome")
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+          
+@section scripts{
+    <script type="text/javascript">
+        function RemoveScript(id) {
+            var txtValue = $('#' + id).val();
+            $('#' + id).val(txtValue.replace(/[\<\>'=]+/g, ''));
+        }
+    </script>
+
+}

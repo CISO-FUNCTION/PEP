@@ -1,0 +1,57 @@
+﻿@*@{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
+
+
+<script>
+    var GToEmployeeId = @ViewBag.EmployeeID;
+    var GToYearCycle = @ViewBag.YearCycle;
+
+</script>
+<div id="main">
+    <div class="row">
+
+        <div class="col-md-12">
+            <p id="EmployeeName" class="bg-primary heading-strip">
+                <span class="glyphicon glyphicon-user"></span>
+                @ViewBag.EmployeeName
+            </p>
+            <ul class="nav nav-tabs">
+
+                @*Commented for hide behavioural competencies start*@
+                @*<li class="active"><a href="#tab_a" data-toggle="tab">Behavioural Competency</a></li>*@
+                @*Commented for hide behavioural competencies end*@
+                
+                <li class="active"><a href="#tab_b" data-toggle="tab">Goals & Objectives</a></li>
+            </ul>
+            <div class="tab-content">
+
+                @*Commented for hide behavioural competencies start*@
+                @*<div class="tab-pane active" id="tab_a" style="display:none">
+                    <div id="ViewAvgRatingBC">@Html.Partial("../Dashboard/_ViewAvgRatingBC")</div>
+                </div>*@
+                @*Commented for hide behavioural competencies end*@
+
+                <div class="tab-pane active" id="tab_b">
+                    <div id="ViewAvgRatingKRA">@Html.Partial("../Dashboard/_ViewAvgRatingKRA")</div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+    <script src="~/Scripts/PEPScripts/Common.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/PEPScripts/Ratings.js"></script>
+    <script src="~/Scripts/PEPScripts/DashboardViewAvgRatings.js"></script>
+
+}
+
+

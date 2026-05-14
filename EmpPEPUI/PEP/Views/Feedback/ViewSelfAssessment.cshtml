@@ -1,0 +1,95 @@
+@{
+    ViewBag.Title = "ViewGivenFeedback";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #selfAssessmentLoader {
+        position: fixed;
+        top: 60px;
+        left: 53px;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.72);
+        -webkit-backdrop-filter: blur(2px);
+        backdrop-filter: blur(2px);
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #selfAssessmentLoader .loader-content {
+        text-align: center;
+        padding: 24px 32px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 24px rgba(0,0,0,.12);
+        min-width: 200px;
+    }
+
+    #selfAssessmentLoader .loader-content span {
+        display: block;
+        font-size: 14px;
+        color: #555;
+        font-weight: 500;
+    }
+
+    @@keyframes selfAssessSpin {
+        to { transform: rotate(360deg); }
+    }
+</style>
+
+<script>
+
+    var GToEmployeeId = @ViewBag.EmployeeId;
+    var DashboardValue = @ViewBag.DashboardValue;
+    var SubCycleCheckSelfAssest =@ViewBag.SubCycleCheckSelfAssest;
+    var ddlAppCycleId =@ViewBag.ddlAppCycleId;
+
+</script>
+
+<div id="selfAssessmentLoader" style="display: flex;">
+    <div class="loader-content">
+        <span style="display: inline-block; width: 40px; height: 40px; border: 3px solid #e8e8e8; border-top-color: #337ab7; border-radius: 50%; animation: selfAssessSpin 0.75s linear infinite; margin-bottom: 12px;"></span>
+        <span>Loading Self-Assessment...</span>
+    </div>
+</div>
+
+<div id="main">
+
+    <div class="row">
+        <div class="col-md-12">
+            <p id="EmployeeName" class="bg-primary heading-strip">
+                <span class="glyphicon glyphicon-user"></span>
+                @ViewBag.EmployeeName
+            </p>
+            <ul class="nav nav-tabs" id="feedbackTabs">
+                <li class="active"><a href="#tab_a" data-toggle="tab">Self-assessment Detail</a></li>
+
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_a">
+                    <div id="ViewSelfassesst">@Html.Partial("../Feedback/_SelfAssessmentViewSection")</div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/toastr.min.js"></script>
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+    <script src="~/Scripts/PEPScripts/Common.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/FeedbackConsolidatedTraining.js"></script>
+    <script src="~/Scripts/PEPScripts/AddManagersFeedback.js"></script>
+    @*<script src="~/Scripts/PEPScripts/Ratings.js"></script>*@
+
+}

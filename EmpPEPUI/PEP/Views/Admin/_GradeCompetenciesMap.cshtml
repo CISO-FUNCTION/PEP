@@ -1,0 +1,51 @@
+﻿<div class="table-responsive">
+    <form id="le">
+        <table class="table table-striped tbl-my-kra" id="tblGradeAreaQuestion">
+            <thead>
+                <tr>
+                    <th>AppraisalCycle</th>
+                    <th>Area</th>
+                    <th>Competencies</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <select id="ddlAppraisalCycle" class="input-exitL form-control selectGCFill"></select>
+                    </td>
+                    <td>
+                        <select id="ddlArea" class="input-exitL form-control selectGCFill"></select>
+                    </td>
+                    <td>
+                        <select id="ddlCompetencyNew" class="input-exitL form-control selectGCFill"></select>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="12">
+                        <div class="alert alert-success display-hide" style="display: none;" id="divAC_ValidationAlert">
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<div class="table-responsive">
+    @*<div class="table-responsive" style="height: 373px; overflow-x: hidden!important">*@
+    <table class="table table-striped tbl-my-kra" id="tblGradeAreaCompetency">
+        <thead>
+            <tr>
+                <th>Employee Grade</th>
+                <th>Expected Ratings</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<div class="clearfix"></div>
+<div class="col-md-12 bottom-padding">
+    <input type="button" id="btnSubmitGradeAreaCompetency" class="btn btn-primary pull-right" value="Submit">
+</div>
+

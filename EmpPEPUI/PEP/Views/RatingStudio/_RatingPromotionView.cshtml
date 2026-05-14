@@ -1,0 +1,341 @@
+
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<style>
+    .norm-doc-download {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+        .norm-doc-download button {
+            margin-bottom: 10px;
+        }
+
+    #practice_chart {
+        height: 400px;
+    }
+
+        #practice_chart svg.highcharts-root {
+            font-size: 16px !important;
+        }
+
+
+    .highcharts-figure,
+    .highcharts-data-table table {
+        min-width: 310px;
+        max-width: 800px;
+        margin: 1em auto;
+    }
+
+    .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #ebebeb;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .highcharts-data-table th {
+        font-weight: 600;
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table td,
+    .highcharts-data-table th,
+    .highcharts-data-table caption {
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr,
+    .highcharts-data-table tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .highcharts-data-table tr:hover {
+        background: #f1f7ff;
+    }
+
+    label.filterAttr {
+        width: 100%;
+        /* display: flex;
+        align-items: center;
+        justify-content: space-between;*/
+    }
+
+        label.filterAttr button.multiselect.dropdown-toggle.btn.btn-default {
+            width: 100% !important;
+            max-width: 100% !important;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 11px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: bold;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        }
+
+        label.filterAttr .form-control {
+            font-size: 11.5px;
+        }
+
+        /*label.filterAttr button.multiselect.dropdown-toggle.btn.btn-default:hover {
+            transform: scale(1);
+        }*/
+
+        label.filterAttr ul.multiselect-container.dropdown-menu {
+            max-width: 100% !important;
+            width: 100% !important;
+            top: 35px !important;
+        }
+
+    .col-md-12.filter-top-sec-item3:after {
+        content: "";
+        position: absolute;
+        top: -16px;
+        right: 18px;
+        margin-left: -6px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: transparent transparent #ddd transparent;
+    }
+
+    .col-md-12.filter-top-sec-item3 {
+        position: relative;
+        margin-top: 10px;
+        background: #fff;
+        padding: 0px 16px 16px;
+        display: block;
+        width: 100%;
+        left: 0;
+        top: 0px;
+        z-index: 9;
+        box-shadow: 0 15px 18px -14px #00000091;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+    /*.col-md-12.filter-top-sec-item3 span#close-filter3 {
+        position: absolute;
+        right: 17px;
+        font-size: 20px;
+        background: #5650c6;
+        color: #fff;
+        padding: 5px;
+        border-radius: 100%;
+        z-index: 9;
+    }*/
+
+    .filter-img-sec {
+        text-align: right;
+    }
+
+        .filter-img-sec #open-filter3 {
+            background: #2e84e7;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            padding: 4px 4px 0px;
+            cursor: pointer;
+            height: auto !important;
+            border: none;
+            outline: none;
+            display: none;
+        }
+
+        .filter-img-sec #close-filter3 {
+            background: #000;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            padding: 4px 4px 0px;
+            cursor: pointer;
+            height: auto !important;
+            border: none;
+            outline: none;
+        }
+
+    .multiselect-container.dropdown-menu input[type='radio'] {
+        display: none;
+    }
+</style>
+<div id="main-wrapper01">
+    @*<div id="loading-overlay">
+            <img src="~/images/loading.gif" alt="Loading..." id="loading-image" />
+        </div>*@
+
+    <div class="container-fluid">
+    
+        <div class="row" style="position: relative;">
+            <div class="col-md-12">
+                <div class="filter-img-sec">
+                    <button title="Filter" id="open-filter3"><span class="glyphicon glyphicon-filter"></span></button>
+                    <button id="close-filter3"><span class="glyphicon glyphicon-remove"></span></button>
+                </div>
+            </div>
+            <div class="col-md-12 filter-top-sec-item3">
+                <h5 class="reprt-heading-title"><b>Filters</b></h5>
+                <div class="filter-top-item">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label id="reporteeDDL" class="ReporteeOFRM filterAttr" style="font-size:11px">
+                                <span class="text-label">My Studio List</span>
+                                <span><select class="form-control" multiple="multiple" id="ddlReporteePractice"></select></span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="Grade filterAttr" style="font-size:11px">
+                                <span class="text-label">Grade</span>
+                                <span><select class="form-control" multiple="multiple" id="ddlgradePractice" onchange="Practicefilterschange();"><option value="0">--select--</option></select></span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="Location filterAttr" style="font-size:11px">
+                                <span class="text-label">Location</span>
+                                <span><select class="form-control" multiple="multiple" id="ddllocationPractice" onchange="Practicefilterschange();"><option value="1">India</option><option value="3">US</option><option value="2">Rest Of World</option></select></span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="GroupAccount filterAttr" style="font-size:11px;">
+                                <span class="text-label">Group Account</span>
+                                <span><select class="form-control" multiple="multiple" id="ddlgroupaccountPractice" onchange="Practicefilterschange();"><option value="0">--select--</option></select></span>
+                            </label>
+                        </div>
+                        <div class="col-md-2" id="divGenderPromoPractice" style="display:none">
+                            <label id="" class="Gender filterAttr" style="font-size:11px;">
+                                <span class="text-label">Gender</span>
+                                <span><select class="form-control" multiple="multiple" id="ddlgenderPractice" onchange="Practicefilterschange();"><option value="Male">Male</option><option value="Female">Female</option></select></span>
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label id="" class="GroupAccount filterAttr" style="font-size:11px;">
+                                <span class="text-label">Employee Status</span>
+                                <span><select class="form-control" multiple="multiple" id="ddlEmpStatusPractice" onchange="Practicefilterschange();"><option value="0">--select--</option></select></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="norm-doc-download-top" style="margin-bottom:10px;">
+            <div class="norm-doc-download">
+                <div style="text-align: left;">
+                    <h5 class="reprt-heading-title"><b>Promotion Summary Details</b></h5>
+                </div>
+
+                <a class="form-control" style="width:122px;" onclick="return tableToExcel('tblPromotionSummaryPractice', 'Promotion Summary Details', 'BtnPracticeSummary')" id="BtnPracticeSummary">
+                    <i class="fa fa-file-excel-o"></i>
+                </a>
+
+            </div>
+        </div>
+        <table id="tblPromotionSummaryPractice" class="table table-striped table-bordered nowrap data-table-main" style="width:100%">
+
+            <tbody>
+                <tr>
+                    <td class="text-center bluelightShade">Grade Wise</td>
+                    <td class="text-center blue-light">Total Nos.</td>
+                    <td class="text-center bluelightShade">Current Org distribution</td>
+                    <td class="text-center blue-light">Promotion %</td>
+                    <td class="text-center bluelightShade">Ideal Nos.</td>
+                    <td class="text-center blue-light">Promotion <br />Reco. Received</td>
+                    <td class="text-center bluelightShade">Ratio</td>
+                    <td class="text-center blue-light">Difference</td>
+                    <td class="text-center bluelightShade">Final Approved</td>
+                    <td class="text-center blue-light">Final Approved %</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="norm-doc-download-top divMaleFemaleTable" style="margin-bottom:10px;display:none">
+            <div class="norm-doc-download">
+                <div style="text-align: left;">
+                    <h5 class="reprt-heading-title"><b>Gender Promotion Summary Details</b></h5>
+                </div>
+                <a class="form-control" style="width:122px;" onclick="tableToExcel('tblMFPromotionSummaryPractice', 'Male/Female Promotion Summary Details', 'BtnMFPracticeSummary')" id="BtnMFPracticeSummary">
+                    <i class="fa fa-file-excel-o"></i>
+                </a>
+
+            </div>
+        </div>
+        <table id="tblMFPromotionSummaryPractice" class="table table-striped table-bordered nowrap data-table-main" style="width:100%;display:none;">
+
+            <tbody>
+                <tr>
+                    <td class="text-center bluelightShade"></td>
+                    <td colspan="6" class="text-center blue-light">Male</td>
+                    <td colspan="6" class="text-center bluelightShade">Female</td>
+                    <td colspan="6" class="text-center blue-light">Others</td>
+                </tr>
+                <tr>
+                    <td class="bluelightShade">Grade Wise</td>
+                    <td class="text-center blue-light">Total Male</td>
+                    <td class="text-center blue-light">Current Org  distribution</td>
+
+                    <td class="text-center blue-light">Promotion Reco. Received</td>
+                    <td class="blue-light">Ratio</td>
+                    <td class="blue-light">Final Approved</td>
+                    <td class="blue-light">Final Approved %</td>
+
+                    <td class="bluelightShade">Total Female</td>
+                    <td class="text-center bluelightShade">Current Org  distribution</td>
+
+                    <td class="text-center bluelightShade">Promotion Reco. Received</td>
+                    <td class="bluelightShade">Ratio</td>
+                    <td class="bluelightShade">Final Approved</td>
+                    <td class="bluelightShade">Final Approved %</td>
+
+                    <td class="blue-light">Total Others</td>
+                    <td class="text-center blue-light">Current Org  distribution</td>
+
+                    <td class="text-center blue-light">Promotion Reco. Received</td>
+                    <td class="blue-light">Ratio</td>
+                    <td class="blue-light">Final Approved</td>
+                    <td class="blue-light">Final Approved %</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+
+        <div id="practice_chart" style="margin-top:20px;"></div>
+    </div>
+</div>
+
+@section scripts{
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/toastr.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/Common.js"></script>
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+    <script src="~/Scripts/PEPScripts/loader.js"></script>
+    @*<script src="~/Scripts/PEPScripts/Ratings.js"></script>*@
+
+    <script src="~/Scripts/highcharts.min.js"></script>
+    <script src="~/Scripts/accessibility.js"></script>
+}

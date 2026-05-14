@@ -1,0 +1,55 @@
+
+<div class="container-fluid" style="padding: 20px;">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="dvFrom">
+                <input type="hidden" id="hdnFromEmpId" />
+                <input type="hidden" id="hdnKRAId" />
+            </div>
+
+            <div id="dvFromTo"></div>
+        </div>
+    </div>
+    
+    <div class="row" id="dvSendReply" style="margin-top: 15px;">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <textarea class="form-control" rows="5" id="txtReply" placeholder="Your Reply" name="txtReply" style="resize: vertical; min-height: 120px;" maxlength="2000"></textarea>
+                <small id="hintReplyLength" class="text-muted" style="display:block; margin-top:3px;">Maximum 2000 characters</small>
+            </div>
+            
+            <!-- Attachment Section -->
+            <div class="form-group" style="margin-bottom: 20px; text-align: left;">
+                <input type="file" id="fileSelfAssessmentAttachment" style="display: none;" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif,.msg,.eml,.txt,application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,image/*" />
+                <button type="button" class="btn btn-info btn-sm" id="btnSelectSelfAssessmentAttachment" style="margin-left:10px" onclick="document.getElementById('fileSelfAssessmentAttachment').click();">
+                    <i class="glyphicon glyphicon-paperclip"></i> Select Files
+                </button>
+                <span id="selfAssessmentAttachmentCount" style="margin-left: 10px; color: #666; font-size: 12px;"></span>
+                <div id="selfAssessmentExistingWrap" style="display: none; margin-top: 10px;">
+                    <div style="font-size: 12px; color: #333; font-weight: 600; margin-bottom: 4px;">Uploaded attachments</div>
+                    <div id="selfAssessmentExistingFiles" style="font-size: 12px; color: #555;"></div>
+                </div>
+                <div id="selfAssessmentPendingWrap" style="margin-top: 10px;">
+                    <div id="selfAssessmentPendingFiles" style="font-size: 12px; color: #555;"></div>
+                </div>
+                <p class="help-block" style="margin-top: 10px; margin-bottom: 0; font-size: 12px; color: #555;">
+                    <strong>Allowed file types:</strong> PDF; Microsoft Word (.doc, .docx); Microsoft Excel (.xls, .xlsx); Microsoft PowerPoint (.ppt, .pptx); images (.jpg, .jpeg, .png, .gif); email (.msg, .eml); plain text (.txt).<br />
+                    <strong>Maximum size:</strong> 10 MB per file. Empty (0 KB) files are not allowed.
+                </p>
+            </div>
+            
+            <!-- Note Section -->
+            <div class="alert alert-info" style="margin-bottom: 15px; padding: 10px 15px;">
+                <i class="glyphicon glyphicon-info-sign"></i> 
+                <strong>Note:</strong> Hope you have carefully reviewed the self assessment as no changes can be made after submission.
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="text-right">
+                <button id="btnSend" class="btn btn-primary" onclick="fnSendAssesment();" style="min-width: 100px;">
+                    <i class="glyphicon glyphicon-ok"></i> Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,251 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    /*span.select2-dropdown.select2-dropdown--below {
+        width: 310px !important;
+    }*/
+
+    #divSelectEmpFB span.select2.select2-container span.select2-selection.select2-selection--single {
+        height: auto;
+        padding: 2px 6px;
+    }
+
+    #divSelectEmpFB span.select2.select2-container {
+        width: 100% !important;
+    }
+
+    div#tblKRADefaulter_wrapper {
+        margin-bottom: 30px;
+    }
+
+    div#tblEmpGOFS_filter input[type="search"] {
+        border: 1px solid #ccc;
+        box-shadow: none;
+        outline: none;
+        border-radius: 6px;
+        padding: 5px;
+        margin-left: 8px;
+    }
+
+    div#tblEmpGOFS_filter {
+        text-align: right;
+    }
+
+    span.select2.select2-container {
+        width: 100% !important;
+    }
+
+    span.select2-selection__clear {
+        display: none;
+    }
+
+    span.select2.select2-container .select2-selection__rendered {
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 21px;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: none;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+
+    span.select2.select2-container .select2-selection--single {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        height: 36px;
+    }
+</style>
+
+<div id="main">
+    <div class="row pg-main-title">
+        <div class="col-12 pg-title-border"><h4><b>REPORTS</b></h4></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tbl-reports-main-sec" id="tblReports">
+                @*<table class="table tbl-my-kra" id="tblReports">
+                    <thead>
+                        <tr>
+                            <th>Reports</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border:none">*@
+
+                <div class="row">
+                    <div class="col-md-5 form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Report : </label>
+                            <div class="col-md-8">
+                                <select id="ddlReport" class="form-control ddlReport">
+                                    <option value="0">--Select Report--</option>
+                                    <option value="#divManagerStatus">Manager Status</option>
+                                    <option value="#divKRADefaulterEmployee">G&O Report</option>
+                                    <option value="#divMSChart" style="display:none;">Manager Feedback Status Chart</option>
+                                    <option value="#divNormalizationReport">Normalization Report</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <div class="row" id="AppcycleDiv" style="display:none;">
+                <div class="col-md-5 form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Appraisal Cycle :</label>
+                        <div class="col-md-8">
+                            <select id="ddlRptAppCycle" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="divManagerStatus" style="display:none">@Html.Partial("_ManagerStatusReport")</div>
+            <div id="divEmpStrengthWeakness" style="display:none">@Html.Partial("_EmployeeStrengthWeaknessReport")</div>
+            <div id="divKRADefaulterEmployee" style="display:none">@Html.Partial("_KRADefaulterEmployee")</div>
+            <div id="divDUWiseManagerFeedbackReport" style="display:none">@Html.Partial("_DUWiseManagerFeedbackReport")</div>
+            <div id="divWeightage" style="display:none">@Html.Partial("_weightedscorecalculation")</div>
+            <div id="divMSChart" style="display:none">@Html.Partial("_ManagerFeedBackChart")</div>
+            <div id="divFBReport" style="display:none">@Html.Partial("_FeedbackReport")</div>
+            <div id="divFBReportEmpWise" style="display:none">@Html.Partial("_FeedbackEmpWiseReport")</div>
+            <div id="divFBSelfAssetmentStatusReport" style="display:none">@Html.Partial("_FBSelfAssetmentStatusReport")</div>
+            <div id="divRatingCalReport" style="display:none">@Html.Partial("_RatingCalculation")</div>
+            <div id="divGoalModificationSummary" style="display:none">@Html.Partial("_GoalModificationSummary")</div>
+            <div id="divGoalModificationSummaryForManager" style="display:none">@Html.Partial("_GoalModificationSummaryForManager")</div>
+            <div id="divTrainingRequestReport" style="display:none">@Html.Partial("_TrainingRequestReport")</div>
+            <div id="divTrainingRequestReportForManager" style="display:none">@Html.Partial("_TrainingRequestReportForManager")</div>
+            <div id="divNormalizationReport" style="display:none">@Html.Partial("_NormalizationReport")</div>
+            <div id="divGOFSReport" style="display:none">@Html.Partial("_GOFeedbackAssessmentReport")</div>
+        </div>
+    </div>
+</div>
+
+<div class="LoaderSection" style="display:none;">
+    <div class="LoaderSection-inner">
+        <div class="spinner">
+            <div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div>
+        </div>
+        <div class="loading-text">Please wait...</div>
+    </div>
+</div>
+<div class="modal test" role="dialog" id="modelEditEmailFormat" data-url="@Url.Action("RenderEmailFormatpopup", "Reports")">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Email Format</h4>
+            </div>
+            <div class="modal-body">
+                <div id="EmailFormatContent">
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" role="dialog" id="WeightageBreakDownModal" data-url="@Url.Action("GetWeightageBDModal")">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Weightage Calculation</h4>
+            </div>
+            <div class="modal-body">
+                <div id="WBDContent">
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- /.modal -->
+<div class="modal fade" role="dialog" id="DUSubOrdinateRModal" data-url="@Url.Action("GetDUFBSubRModal")">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header form-inline">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-title form-group">
+                    <h1><span id="spnEmpName"></span><input type="hidden" id="hdntxtduwMgrName" /></h1>
+                </div>
+                <div class="form-group form-group-sm" id="divSR">
+                    <div class="col-sm-12 replyDiv">
+                        <input type="button" value="Export To Excel" class="btn btn-primary" id="btnSRExportToExcel" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-body">
+                <div id="DUSRContent">
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<iframe id="txtArea1" style="display:none"></iframe>
+@section scripts{
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <script src="~/Scripts/PEPScripts/toastr.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/PEPScripts/Common.js"></script>
+    <script src="~/Scripts/PEPScripts/CommonConfig.js"></script>
+
+    <script src="~/Scripts/jquery.table2excel.js"></script>
+    <script src="~/Scripts/jquery-customselect-1.9.1.min.js"></script>
+    <link href="~/Content/jquery-customselect-1.9.1.css" rel="stylesheet" />
+
+
+    <script src="~/Scripts/PEPScripts/select2.min.js"></script>
+    <link href="~/Scripts/PEPScripts/select2.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(function () {
+            if (sessionStorage.EmployeeRoleId == 1) {
+                window.location.href = "/Error/NotAuthorized";
+            }
+        });
+
+
+        //$(document).ready(function () {
+
+
+        //});
+
+    </script>
+    <script src="~/Scripts/PEPScripts/Reports.js"></script>
+    <script src="~/Scripts/PEPScripts/download.js"></script>
+    @*  <script src="~/Scripts/PEPScripts/floating-feedback.js"></script>*@
+    <link href="~/Scripts/jqPlot/jquery.jqplot.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jqPlot/jquery.jqplot.min.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.barRenderer.min.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.enhancedLegendRenderer.min.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.highlighter.min.js"></script>
+
+}

@@ -1,0 +1,66 @@
+﻿@*@using EmpPEP.UI.Views.Reports;*@
+<div class="row pdtop15" id="divMgrStatus">
+
+
+    <div class="col-md-5 form-horizontal" id="mgrstatus" style="padding-bottom: 15px;">
+        <div class="form-group">
+            <label class="col-md-4 control-label">Select Sub-Cycle: </label>
+            <div class="col-md-8">
+                <select id="ddlHalfAppCycle" class="form-control"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row form-horizontal">
+        <div class="col-md-5 form-group">
+        </div>
+    </div>
+    <div class="col-sm-5 form-horizontal" id="ddlMgrDiv">
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Select Manager: </label>
+            <div class="col-sm-8">
+                <select id="ddlMgrList" class="ddlMgrList form-control"></select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-5 form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Select Status :</label>
+            <div class="col-sm-8">
+                <select id="ddlStatus" class="form-control"></select>
+            </div>
+        </div>
+
+    </div>
+
+    <div>
+        <img src="~/images/InternetSlowdown_Day.gif" id="imgLoad" style="display:none" />
+    </div>
+    <div class="col-sm-12 form-group pdtop15" id="DivManagerStatusReport" style="display:none;">
+        <input type="button" value="View Report" class="btn btn-primary" id="btnGetMgrStatusReport" />
+        <input type="button" value="Export To Excel" class="btn btn-primary" id="btnExportToExcelReport" />
+
+    </div>
+
+    <div class="col-sm-12">
+        <table id="tblMgrStatus" class="table tbl-my-team-kra-beh-comp" style="width: 100%;">
+            <thead class="cf">
+                <tr>
+                    <th>Employee Code </th>
+                    <th>Employee Name </th>
+                    <th>Manager Name  </th>
+                    <th>Location </th>
+                    <th>Designation </th>
+                    <th>Project Name  </th>
+                    <th>G&Os Feedback Count</th>
+                    @*Commented for hide behavioural competencies start*@
+                    @*<th>Behavioural Competency Count </th>*@
+                    @*Commented for hide behavioural competencies start*@
+                    <th>Team Count </th>
+
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+</div>

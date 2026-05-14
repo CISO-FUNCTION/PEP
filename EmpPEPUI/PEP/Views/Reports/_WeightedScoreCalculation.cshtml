@@ -1,0 +1,52 @@
+﻿<div class="row pdtop15" id="divWeightageCalculation">
+
+    <div class="col-sm-5" id="divSelectMgr">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Select Manager :</label>
+                <div class="col-sm-8">
+                    <select id="ddlMgrWeightageCalculation" class="form-control"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-5 form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Select Employee : </label>
+            <div class="col-sm-8">
+                <select id="ddlEmpWeightageCalculation" class="form-control"></select>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-12 form-group pdtop15">
+        <input type="button" value="View Report" class="btn btn-primary" id="btnGetWeightageCalculation" />
+        <input type="button" value="Export To Excel" class="btn btn-primary" id="btnWeightageCalculationExportToExcel" />
+    </div>
+
+    <div class="col-sm-12">
+        <table id="tblEmpWeightageCalculation" class="table tbl-my-team-kra-beh-comp" style="width: 100%; display: none">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>NewEmployeeCode</th>
+                    <th>Email Address</th>
+                    <th>Managers Name</th>
+                    <th>Location</th>
+                    <th>Designation</th>
+                    <th>Grade</th>
+                    <th>G&OsScore</th>
+                    <th>CompetencyScore</th>
+                    <th>Weighted Score</th>
+                    @*<th></th>*@
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="col-sm-12">
+        
+    </div>
+</div>
+

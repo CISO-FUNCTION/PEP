@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{03758794-10A9-42C9-9FB3-419097CC3E2B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EmpPEP.Repository</RootNamespace>
+    <AssemblyName>EmpPEP.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="common\Connection.cs" />
+    <Compile Include="common\DataUtility.cs" />
+    <Compile Include="common\ExceptionLogging.cs" />
+    <Compile Include="EntityDataModel\ActionTypeMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\ApiLog.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\AppMenu.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\AppMenuAccess.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\AppraisalCycleMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\AppraisalCycleYearbreakupDetail.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\AppraisalCycleYearbreakupDetail_Partial.cs" />
+    <Compile Include="EntityDataModel\AppraisalTypeMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\AreaMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\AreaRoleMappingMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\BindDropdown_Result.cs" />
+    <Compile Include="EntityDataModel\BindRolesByApprCycle_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\BindStartDateByRole_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\BootcampJoinee.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\CompanyMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\ComplexType1.cs" />
+    <Compile Include="EntityDataModel\DUwiseHRMapping.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmailTemplateMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeAward.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeDesignationMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeDetails_MangerwiseFeedbackStatusReport_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeFeedBack.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeFeedBack_Partial.cs" />
+    <Compile Include="EntityDataModel\EmployeeFeedBackAsDraft_Partial.cs" />
+    <Compile Include="EntityDataModel\EmployeeFeedBackAsDraft.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeFeedBack_Log.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeGradeMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeKRA.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeKRA_Partial.cs" />
+    <Compile Include="EntityDataModel\EmployeeKRA_Log.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeLoginDetail.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeLoginDetailsLog.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeManagerMapping.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeManagerMapping_Log.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeePEPLoginLog.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeRatingNormailizationDetail.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeRatingNormailizationDetails_Log.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeRatingNormailizationTrackDetail.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeRatingNormailizationTrackDetails_Log.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeRoleMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeTraining.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeWiseHRBPMapping.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmployeeWiseHRBPMapping20240228.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmpRatingNormPromotionAtReviewerStage.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmpRMRatingList.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\EmpRMRatingListForAdmin.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\FeedbackLimitsMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetAccountGroupList_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetActiveCycle_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetAllAppraisalCycleDetails_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetAllAppraisalCycles_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetAllDeliveryUnitFromAspire_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetAllEmployeeIDsByManagerIdL1NEW_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetAllEmployeeIDsByManagerIdL1_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetAllEmployeeIDsByManagerId_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetAllEmployeeTeamofMgr_PBI_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetAllSubordinatesByManagerId_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetAppraisalCycleRoleMapping_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetAspireDirectReportees_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetBCForFeedback_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetBreakDownOfWeightedScoreCalculationReport_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetConfirmationRatingGiventoEmployees_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetDataForChartForGDL_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetDelegatorFeedback_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetDelegator_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetDUWiseManagerFeedbackReport_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetDUWiseSubordinateReport_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmpDetailsByEmpId_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmpDetails_DEVTEST_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmpDetails_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmpDetails_TEST1_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmpDetails_TEST3_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeeAvgRatings_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeeAwards_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeeDUWise_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeeFeedbackbyYear_20250219_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeeFeedbackbyYear_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeeFeedbackGivenBYPeer_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeeFeedback_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeeIDsByManagerId_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeeKRAForFeedback_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeeKRAScore_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeeLocationWise_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeeRoles_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeesByDelegator_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeesByGradeIdDUIdForKRAUpload_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeesByKRAStatusId_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeesByProjectId_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetEmployeesFeedback_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetFeedbackCountForManagerGraph_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetFeedbackRport_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetFeedbackRport_TEST1_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetFeedbackRport_TEST_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetFeedback_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetFullyKRAandBC_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetGDLHeadandRMList_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetGoalModificationSummaryReport_Result.cs" />
+    <Compile Include="EntityDataModel\GetGradeAreaQuestionMapping_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetGradeList_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetKRADefaulterEmployee_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetKRADefaulterEmployee_TEST_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetKRAForManagersApproval_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetKRANotifications_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetManagerDetailsByEmployeeId_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetManagerFeedbackStatusReportForGraph_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetManagerFeedbackStatusReport_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetManagerListByDUId_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetManagerListByEmployeeId_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetMenusForRole_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetMyTeamAwards_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetNamesofpMDuWise_1_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetNamesofpMDuWise_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetNotifications_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetPreviousRMFeedback_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetPreviousRMFeedback_Result.Partial.cs" />
+    <Compile Include="EntityDataModel\GetPreviousRM_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetProjects_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetSelectedEmpFeedbackRport_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetSelectSelfAssesmentCycle_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetSideBarMenusForRole_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetStrengthWeaknessForEmployee_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetStrengthWeaknessForManager_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetSubmittedApprovedKRAForManagersFeedback_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetSubmittedOrApprovedKRAForManagersFeedback_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetSubordinateRatingCalculationReport_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetSubordinatesByManagerId_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetTeamFeedbackStatsbyManagerId_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetValidRecommendedDesignations_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GetWeightedScoreCalculationReport_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GoalModificationReasonMaster.cs" />
+    <Compile Include="EntityDataModel\GoalModificationRequest.cs" />
+    <Compile Include="EntityDataModel\GoalModificationRequestResult.cs" />
+    <Compile Include="EntityDataModel\GoalModificationEmailDetailsResult.cs" />
+    <Compile Include="EntityDataModel\UnlockGoalsResult.cs" />
+    <Compile Include="EntityDataModel\ApproveAndUnlockGoalsResult.cs" />
+    <Compile Include="EntityDataModel\GradeAreaQuestionMapping.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GradeQuestionDetail.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GradeQuestionMapping.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\GradeQuestionMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\LastPromotionData.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\LocationMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\MangerwiseFeedbackStatusReport_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\MSpeer_conflictdetectionconfigrequest.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\MSpeer_conflictdetectionconfigresponse.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\MSpeer_lsns.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\MSpeer_originatorid_history.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\MSpeer_request.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\MSpeer_response.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\MSpeer_topologyrequest.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\MSpeer_topologyresponse.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\MSpub_identity_range.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\NoOfTeamMembersFBGivenForDUWise_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\NoOfTeamMembersFBGivenNEW_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\NoOfTeamMembersFBGiven_PBI_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\NoOfTeamMembersFBGiven_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\NoOfTeamMembersFilledKRAs_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\NormalisationGradeAppraisalMapping.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\NormalisationRatingVisibilityConfig.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\NormalisationRoleMapping.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\NormalisationRoleMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEPEmployeeRating.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEPEmployeeRating_log.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEPEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PEPEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEPEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEPEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PEPEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEPLocationWiseRight.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEPOldRatingMasterEncryption.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEPRatingMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEPRatingNormalizationMasterEncryption.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEP_ADMIN_GetAppraisalCycleRoleMapping_Result.cs" />
+    <Compile Include="EntityDataModel\pep_error_log.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEP_GetpracticeList_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEP_GivenPendingCountFeedbackByManager_TEST_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEP_GivenPendingFeedbackSelfAssesmentstatus_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEP_GivenPendingSaveFeedbackstatus_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEP_NormalizedContractEmpWithGrade.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEP_RatingMasterRights.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEP_RoleAccessDetail_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEP_RPT_GetAllDU_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEP_RPT_GetAllLocations_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PEP_RPT_GetAllManagers_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PieChartParameter.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PIPEmpListDetail.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PIP_CycleFrequencyDetail.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PIP_EmailTemplateMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PIP_PeriodMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PIP_PeriodWeekEmpMappingMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PIP_StatusMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PMFeedbackCountReport_1_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PMFeedbackCountReport_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\PromotionPercentageYearGenderWise.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\QuestionairesMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\QuestionTypeMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\RMReporteeSpan.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\SelfassessmentTableDetail.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\SelfassessmentTableDetail_Partial.cs" />
+    <Compile Include="EntityDataModel\SelfassessmentTableDetailHistory.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\SkillCategoryMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\SkillItemMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\spGetMyTrainings_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\spGetTrainingsRequested_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\spGetTrainingsSuggetsted_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\SP_GetEmpDetails_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\sp_helpdiagrams_Result.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\StatusMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\sysarticle.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\sysarticlecolumn.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\sysarticleupdate.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\sysdiagram.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\syspublication.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\sysreplserver.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\sysschemaarticle.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\syssubscription.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\systranschema.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\tblExceptionLogging.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\tblMailExceptionLogging.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\tblPIPEmployeeParameterDetail.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\TrainingItemMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\UploadKRAMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\UploadKRASetMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityDataModel\VerticalHorizontalMaster.cs">
+      <DependentUpon>PEPEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GODefaultNewReport.cs" />
+    <Compile Include="GOFeedbackAssessmentTrackerReport.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitOfWorks\AppraisalCycleRepository.cs" />
+    <Compile Include="UnitOfWorks\AppraisalTypeMasterRepository.cs" />
+    <Compile Include="UnitOfWorks\AreaRepository.cs" />
+    <Compile Include="UnitOfWorks\BaseDispose.cs" />
+    <Compile Include="UnitOfWorks\CompanyMasterRepository.cs" />
+    <Compile Include="UnitOfWorks\DelegatorRepository.cs" />
+    <Compile Include="UnitOfWorks\DeliveryUnitRepository.cs" />
+    <Compile Include="UnitOfWorks\EmailTemplateRepository.cs" />
+    <Compile Include="UnitOfWorks\EmployeeAwardsRepository.cs" />
+    <Compile Include="UnitOfWorks\EmployeeFeedBackRepository.cs" />
+    <Compile Include="UnitOfWorks\EmployeeGradeMasterRepository.cs" />
+    <Compile Include="UnitOfWorks\EmployeeKRARepository.cs" />
+    <Compile Include="UnitOfWorks\EmployeeKRARepositoryADO.cs" />
+    <Compile Include="UnitOfWorks\EmployeeLoginDetailRepository.cs" />
+    <Compile Include="UnitOfWorks\EmployeeMasterRepository.cs" />
+    <Compile Include="UnitOfWorks\EmployeeRoleMasterRepository.cs" />
+    <Compile Include="UnitOfWorks\EmployeeTrainingRepository.cs" />
+    <Compile Include="UnitOfWorks\ErrorLogRepository.cs" />
+    <Compile Include="UnitOfWorks\GeneralSetupRepository.cs" />
+    <Compile Include="UnitOfWorks\GoalModificationReasonMasterRepository.cs" />
+    <Compile Include="UnitOfWorks\GoalModificationRequestRepository.cs" />
+    <Compile Include="UnitOfWorks\GlobalAppConfigRepository.cs" />
+    <Compile Include="UnitOfWorks\GradeAreaQuestionMappingRepository.cs" />
+    <Compile Include="UnitOfWorks\IBaseRepository.cs" />
+    <Compile Include="UnitOfWorks\ManagerDashboardRepository.cs" />
+    <Compile Include="UnitOfWorks\PageSideBarRepository.cs" />
+    <Compile Include="UnitOfWorks\PIPRepository.cs" />
+    <Compile Include="UnitOfWorks\QuestionariesMasterRepository.cs" />
+    <Compile Include="UnitOfWorks\RatingRepository.cs" />
+    <Compile Include="UnitOfWorks\ReportsRepository.cs" />
+    <Compile Include="UnitOfWorks\StatusMasterRepository.cs" />
+    <Compile Include="UnitOfWorks\TrainingRepository.cs" />
+    <Compile Include="UnitOfWorks\UploadKRAMasterRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="EntityDataModel\PEPEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PEPEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EntityDataModel\PEPEntities.edmx.diagram">
+      <DependentUpon>PEPEntities.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmpPEP.BusinessEntity\EmpPEP.BusinessEntity.csproj">
+      <Project>{a0d4b634-0680-4bf4-aac7-3895a8f4d008}</Project>
+      <Name>EmpPEP.BusinessEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmpPEP.Framework\EmpPEP.Framework.csproj">
+      <Project>{0452773a-81f4-46ef-bc2d-7a11b938ea6d}</Project>
+      <Name>EmpPEP.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntityDataModel\PEPEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PEPEntities.edmx</DependentUpon>
+      <LastGenOutput>PEPEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EntityDataModel\PEPEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PEPEntities.edmx</DependentUpon>
+      <LastGenOutput>PEPEntities.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+</Project>

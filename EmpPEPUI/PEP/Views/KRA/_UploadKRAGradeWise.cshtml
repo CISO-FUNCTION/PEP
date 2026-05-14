@@ -1,0 +1,46 @@
+﻿@using EmpPEP.UI.Views.KRA;
+<div class="table-responsive">
+    <form id="formUploadKRAEdit">
+        <table class="table table-striped tbl-my-kra" id="tblUploadKRAEditGW">
+            <thead>
+                <tr>
+                    <th>Employee Grade</th>
+                    <th>Employees</th>
+                    <th>G&Os Set</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <select id="ddlUploadKRA_Grade" class="input-exit form-control"></select>
+                        @*<input type="text" placeholder="Type Project Name Here" id="txtProjects" class="input-exit form-control" />*@
+                        <input type="hidden" id="hdnUploadKRA_GradeId" name="hdnUploadKRA_GradeId" />
+                    </td>
+                    <td>
+                        <div id="divUploadKRAEmployeeList">
+                            <input type="checkbox" name="UploadKRA_Allemployees" value='-1' id="UploadKRA_chkAll" ><span id="spnUploadKRA_chkAll"><b>All Employees</b></span>  <br>
+                            <fieldset class="checkboxgroup" id="UploadKRA_ChkLstEmployee"></fieldset>
+                        </div>
+                    </td>
+                   
+                    <td>
+                        <select id="ddlUploadKRA_KRASet" class="input-exit form-control"></select>
+
+                    </td>
+                    <td colspan="8" class="text-center">
+                        <input type="button" id="btnUploadKRA_GetKRAtoUpload" class="btn btn-primary" value="Load G&Os"/>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="12">
+                        <div class="alert alert-success display-hide" style="display: none;" id="divUploadKRA_UploadValidationAlert">
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>

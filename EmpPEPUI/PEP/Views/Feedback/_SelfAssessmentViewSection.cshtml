@@ -1,0 +1,70 @@
+
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+<style>
+    /* Self Assessment table - match KRAList styling */
+    #tblEmployeeSelfassessmentList thead th {
+        background-color: #f5f5f5;
+        font-weight: 600;
+        text-align: left;
+        white-space: nowrap;
+        border-bottom: 2px solid #ddd;
+        padding: 10px 8px;
+    }
+    #tblEmployeeSelfassessmentList tbody td {
+        vertical-align: top;
+        padding: 10px 8px;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+    /* Truncated content - matches KRAList .truncated-content */
+    #tblEmployeeSelfassessmentList .truncated-content {
+        display: -webkit-box !important;
+        -webkit-line-clamp: 4 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        word-wrap: break-word !important;
+        line-height: 1.6em !important;
+        max-height: 6.4em !important;
+    }
+    #tblEmployeeSelfassessmentList .read-more-link-sa,
+    #tblEmployeeSelfassessmentList .read-less-link-sa {
+        color: #337ab7;
+        text-decoration: underline;
+        cursor: pointer;
+        display: block;
+        margin-top: 4px;
+        font-size: 12px;
+    }
+    #tblEmployeeSelfassessmentList .goal-type-badge {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 3px;
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+    /* Normal body text — content is HTML from Summernote (e.g. <p>...</p>), not a quote */
+    #tblEmployeeSelfassessmentList .self-assessment-text { font-style: normal; color: inherit; }
+    #tblEmployeeSelfassessmentList .self-assessment-text p { margin: 0 0 0.5em 0; font-style: normal; }
+    #tblEmployeeSelfassessmentList .self-assessment-text p:last-child { margin-bottom: 0; }
+</style>
+
+<div class="bottom-padding">
+    <table class="table table-striped tbl-my-team-kra" width="100%" id="tblEmployeeSelfassessmentList">
+        <thead>
+            <tr>
+                <th style="text-align:left; width:105px;">Goal Type</th>
+                <th style="text-align:left;">Key Responsibility Area (KRA)</th>
+                <th style="text-align:left;">Key Performance Indicators (KPIs)</th>
+                <th id="thSelfAssessmentActionPlan" style="text-align:left;">Action Plan</th>
+                <th style="text-align:center; width:80px;">Weightage (%)</th>
+                <th style="text-align:left;">Self-Assessment</th>
+                <th style="text-align:center; width:90px;">Date</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<div class="clearfix"></div>
